@@ -1,15 +1,18 @@
 class ArticlesController < ApplicationController
 
-  def article_params
-    params.require(:article).permit(:title, :body, :user_id)
-  end
-
   def index
-    @articles = Article.all
+    @search_form = ArticleSearchForm.new(params[:search])
+    if params[:tag]
+    @articles = Article.tagged_with(params[:tag])
+    else
+      @articles = @search_form.search
+      @articles = Article.all if @articles == Article
+    end
   end
 
   def show
     @article = Article.find(params[:id])
+    @comments = @article.comments
   end
 
   def new
@@ -21,20 +24,32 @@ class ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
+    @article = Article.new(params.require(:article).permit(:title, :body, :user_id, :tag_list))
     @article.save
     redirect_to @article
   end
 
   def update
     @article = Article.find(params[:id])
-    @article.update_attributes(article_params)
+    @article.update_attributes(params.require(:article).permit(:title, :body, :user_id, :tag_list))
     redirect_to @article
   end
 
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-    redirect_to articles_path
+    redirect_to root_path
   end
+
+  class ArticleSearchForm
+    include ActiveModel::Model
+    attr_accessor  :title, :body
+    def search
+      rel = Article
+      rel = rel.where( title: title ) if title.present?
+      rel = rel.where( body: title ) if body.present?
+      rel
+    end
+  end
+
 end

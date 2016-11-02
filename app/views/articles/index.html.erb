@@ -1,8 +1,21 @@
 <h1>Articles#index</h1>
-<% @articles.each do |article| %>
-   <%= link_to article.title, article_path(article) %> <%= article.body %>
-   <%= link_to "編集", edit_article_path(article) %>
-   <%= link_to "削除", article_path(article), :method => :delete %>
-   <br>
-<% end %>
+
+  <%= link_to "tags", tags_path() %>
+
+  <%= form_for @search_form, as: 'search', url: :articles, html: {method: :get} do |f| %>
+    <%= f.label :title, "title" %>
+    <%= f.text_field :title %><br>
+    <%= f.label :body, "body" %>
+    <%= f.text_field :body %>
+
+    <%= f.submit "検索" %>
+  <% end %>
+
+  <% @articles.each do |article| %>
+     <%= link_to article.title, article_path(article) %>
+     <%= article.body %>
+     <%= link_to "編集", edit_article_path(article) %>
+     <%= link_to "削除", article_path(article), :method => :delete %>
+     <br>
+  <% end %>
 <p>Find me in app/views/articles/index.html.erb</p>

@@ -1,0 +1,10 @@
+<h1>Comments#new</h1>
+  <%= form_for [@article, @comment] do |f| %>
+     <div>
+       <%= f.text_field :body %>
+     </div>
+     <%= f.hidden_field :user_id, value: current_user.id %>
+     <%= f.hidden_field :article_id, value: @article.id %>
+     <%= f.submit "送信" %>
+  <% end %>
+<p>Find me in app/views/comments/new.html.erb</p>
