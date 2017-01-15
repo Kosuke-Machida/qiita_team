@@ -1,20 +1,21 @@
 Rails.application.routes.draw do
 
   devise_for :users
-
   root "articles#index"
-
   resources :articles do
     resources :comments, :only => [:new, :edit, :create, :update, :destroy]
+    resources :stocks, :only => [:create, :destroy]
   end
+
+  resources :groups
 
   resources :users, :only => [:show]
 
-  get 'tags/:tag', to: 'articles#index', as: :tag
-
+  match 'tags/:tag', to: 'articles#index', as: :tag, via: [:get, :post]
   get 'tags', to: 'tags#index'
 
-  # The priority is based upon order of creation: first created -> highest priority.
+
+    # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"

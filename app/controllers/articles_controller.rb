@@ -1,5 +1,7 @@
 class ArticlesController < ApplicationController
 
+  before_action :move_to_articles, except: :index
+
   def index
     @search_form = ArticleSearchForm.new(params[:search])
     if params[:tag]
@@ -13,6 +15,7 @@ class ArticlesController < ApplicationController
   def show
     @article = Article.find(params[:id])
     @comments = @article.comments
+    @stock = Stock.new
   end
 
   def new
@@ -50,6 +53,12 @@ class ArticlesController < ApplicationController
       rel = rel.where( body: title ) if body.present?
       rel
     end
+  end
+
+  private
+
+  def move_to_articles
+    redirect_to action: :index unless user_signed_in?
   end
 
 end
