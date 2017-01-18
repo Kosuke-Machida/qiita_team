@@ -5,18 +5,18 @@ class GroupsController < ApplicationController
 
   def show
     @group = Group.find(params[:id])
-    @users = @group.users.all
+    @users = @group.users
+    biniding_pry
   end
 
   def new
-    @user = current_user
-    @group = @user.groups.new
+    @group = Group.new
   end
 
   def create
     @user = current_user
-    @group = @user.groups.new(group_params)
-    @group.save
+    @group = Group.create(group_params)
+    @group.users << @user
     redirect_to @group
   end
 

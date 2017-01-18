@@ -5,7 +5,7 @@
   <%= button_to "削除", @group, :method => :delete %>
 
   <h2>メンバー一覧</h2>
-  <%= @users.each do |user| %>
-    <%= link_to "#{user.nickname}", user_path(user.id) %>
+  <% @users.each do |user| %>
+    <%= link_to user.name, user_path(user.id) %>
   <% end %>
 <p>Find me in app/views/groups/show.html.erb</p>
