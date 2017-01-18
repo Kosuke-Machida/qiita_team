@@ -6,7 +6,7 @@ class CreateStocks < ActiveRecord::Migration
 
       t.timestamps null: false
 
-    change_column :users, :name, :string, default: "guest"
+    change_column :users, :username, :string, default: "guest"
     end
   end
 end

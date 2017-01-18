@@ -9,8 +9,7 @@
   <%= button_to "削除", @article, :method => :delete %>
   <% if Stock.exists?(user_id: current_user.id, article_id: @article.id) %>
       <%= button_to "stock解除", article_stock_path(@article, Stock.where(user_id: current_user.id, article_id: @article.id)), :method => :delete %>
-  <% end %>
-  <% if Stock.exists?(user_id: current_user.id, article_id: @article.id) == false %>
+  <% else %>
     <%= form_for [@article, @stock] do |f| %>
       <%= f.hidden_field :user_id, value: current_user.id %>
       <%= f.hidden_field :article_id, value: @article.id %>

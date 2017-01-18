@@ -1,12 +1,15 @@
 class GroupsController < ApplicationController
+
+  before_action :redirect_to_index, only: [:show, :edit, :update, :destroy]
+
   def index
     @groups = Group.all
+    @belonged_groups = current_user.groups
+    @not_belonged_groups = @groups - @belonged_groups
   end
 
   def show
-    @group = Group.find(params[:id])
     @users = @group.users
-    biniding_pry
   end
 
   def new
@@ -14,30 +17,33 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @user = current_user
     @group = Group.create(group_params)
-    @group.users << @user
+    @group.users << current_user
     redirect_to @group
   end
 
   def edit
-    @group = Group.find(params[:id])
   end
 
   def update
-    @group = Group.find(params[:id])
-    @group.update_attributes(group_params)
+    @group.update(group_params)
     redirect_to @group
   end
 
   def destroy
-    @group = Group.find(params[:id])
     @group.destroy
     redirect_to groups_path
   end
 
   private
   def group_params
-    params.require(:group).permit(:name, :body)
+    params.require(:group).permit(:name, :body, :private)
+  end
+
+  def redirect_to_index
+    @group = Group.find(params[:id])
+    if current_user.groups.include?(@group) == false
+      redirect_to groups_path
+    end
   end
 end

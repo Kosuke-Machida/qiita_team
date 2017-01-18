@@ -8,6 +8,11 @@
      <%= f.label :body, "About this group" %>
      <%= f.text_field :body %>
    </div>
+   <div>
+     <%= f.check_box :private, {}, checked_value = true,unchecked_value = false %>
+     <%= f.label :private, "Make this group Private" %>
+     <p> In Private Groups, only users who are invited by some member can join them</p>
+   </div>
    <%= f.submit "送信" %>
 <% end %>
 <p>Find me in app/views/groups/edit.html.erb</p>

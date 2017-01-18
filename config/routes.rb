@@ -7,9 +7,13 @@ Rails.application.routes.draw do
     resources :stocks, :only => [:create, :destroy]
   end
 
-  resources :groups
+  resources :groups do
+    get 'users/search', to: 'users#search'
+    post 'users/join', to: 'users#join_group'
+  end
 
   resources :users, :only => [:show]
+
 
   match 'tags/:tag', to: 'articles#index', as: :tag, via: [:get, :post]
   get 'tags', to: 'tags#index'

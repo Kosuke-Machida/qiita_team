@@ -1,21 +1,14 @@
 <h1>Articles#index</h1>
 
-  <%= link_to "tags", tags_path() %>
-
-  <%= form_for @search_form, as: 'search', url: :articles, html: {method: :get} do |f| %>
-    <%= f.label :title, "title" %>
-    <%= f.text_field :title %><br>
-    <%= f.label :body, "body" %>
-    <%= f.text_field :body %>
-
-    <%= f.submit "検索" %>
-  <% end %>
+  <%= link_to "tags", tags_path() %><br>
 
   <% @articles.each do |article| %>
      <%= link_to article.title, article_path(article) %>
      <%= article.body %>
-     <%= link_to "編集", edit_article_path(article) %>
-     <%= link_to "削除", article_path(article), :method => :delete %>
+     <% if article.user == current_user %>
+       <%= link_to "編集", edit_article_path(article) %>
+       <%= link_to "削除", article_path(article), :method => :delete %>
+     <% end %>
      <br>
   <% end %>
 <p>Find me in app/views/articles/index.html.erb</p>

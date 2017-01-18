@@ -1,11 +1,22 @@
 <h1>Groups#show</h1>
-  グループ名     <%= @group.name %><br>
-  概要          <%= @group.body %><br>
-  <%= link_to "編集",edit_group_path(@group) %>
-  <%= button_to "削除", @group, :method => :delete %>
+  <p>グループ名</p>     <%= @group.name %><br>
+  <p>概要</p>          <%= @group.body %><br>
+  <!-- 管理者だけが編集と削除できる -->
+  <% if @group.manager_id == current_user.id %>
+    <%= button_to "編集",edit_group_path(@group) %>
+    <%= button_to "削除", @group, :method => :delete %>
+  <% end %>
+
 
   <h2>メンバー一覧</h2>
   <% @users.each do |user| %>
     <%= link_to user.name, user_path(user.id) %>
   <% end %>
+
+  <!-- privateがtrueならメンバーのinvite -->
+  <%if @group.private == true %>
+    <%= link_to "userを検索",  group_users_search_path(@group.id) %>
+  <% end %>
+
+
 <p>Find me in app/views/groups/show.html.erb</p>
