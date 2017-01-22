@@ -8,14 +8,14 @@ class UsersController < ApplicationController
     end
   end
 
-  def search
+  def invite
     @group = Group.find(params[:group_id])
     @users = User.where('name LIKE(?)', "%#{params[:keyword]}%").limit(5)
     @group_user = GroupUser.new
   end
 
-  def search_member
+  def change_manager
     @group = Group.find(params[:group_id])
-    @members = User.where('name LIKE(?)', "%#{params[:keyword]}%").limit(5)
+    @users = User.where('name LIKE(?)', "%#{params[:keyword]}%").limit(5)
   end
 end

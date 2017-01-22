@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   resources :groups do
     resources :group_users, :only => [:create, :destroy]
-    get 'users/search' => 'users#search'
+    get 'users/invite' => 'users#invite'
+    get 'change_manager' => 'users#change_manager'
   end
 
   resources :users, :only => [:show]
