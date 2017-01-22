@@ -10,15 +10,15 @@
 
 <div>
   <% @users.each do |user| %>
-    <%= user.name %>
-    <%= user.email %>
+    <%= user.name %><br>
+    <%= user.email %><br>
     <% if GroupUser.exists?(user_id: user.id, group_id: @group.id) %>
       <span>すでに参加しています</span>
     <% else %>
-      <%= form_for(@group_user, url: group_users_join_path, method: :post) do |f| %>
-        <%= f.hidden_field :user_id, value: user.id %>
-        <%= f.hidden_field :group_id, value: @group.id %>
-        <%= f.submit "招待する" %>s
+      <%= form_for [@group, @group_user] do |f| %>
+        <%= f.hidden_field :user_id, :value => user.id %>
+        <%= f.hidden_field :group_id, :value => @group.id %>
+        <%= f.submit "招待する" %>
       <% end %>
     <% end %>
   <% end %>

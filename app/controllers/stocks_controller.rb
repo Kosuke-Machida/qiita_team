@@ -13,7 +13,7 @@ class StocksController < ApplicationController
       @stock.destroy
       redirect_to @article
     else
-      redirect_to @article, error: "You don't have permission"
+      redirect_to @article, error: "権限がありません。"
     end
   end
 end

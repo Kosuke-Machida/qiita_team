@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-
+  
   devise_for :users
   root "articles#index"
   resources :articles do
@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   end
 
   resources :groups do
-    get 'users/search', to: 'users#search'
-    post 'users/join', to: 'users#join_group'
+    resources :group_users, :only => [:create, :destroy]
+    get 'users/search' => 'users#search'
   end
 
   resources :users, :only => [:show]

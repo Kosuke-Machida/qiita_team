@@ -14,10 +14,4 @@ class UsersController < ApplicationController
     @group_user = GroupUser.new
   end
 
-  def join_group
-    @group_user = GroupUser.new(params.permit(:user_id, :group_id))
-    @group_user.save
-    redirect_to Group.find(params[:group_id])
-  end
-
 end
