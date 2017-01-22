@@ -1,7 +1,7 @@
 <h1><%= @group.name %>にメンバーを追加</h1>
 <div>
-  <%= form_tag( group_users_search_path(@group.id), method: :get) do %>
-    <input name="keyword" placeholder="ユーザーを名前で検索" type="text">
+  <%= form_tag( group_members_search_path(@group.id), method: :get) do %>
+    <input name="keyword" placeholder="メンバーを名前で検索" type="text">
       <button title="検索" type="submit">
       </button>
     </input>
@@ -10,17 +10,13 @@
 
 <div>
   <% @users.each do |user| %>
-    <%= user.name %>
-    <%= user.email %>
-    <% @user = user %>
     <% if GroupUser.exists?(user_id: user.id, group_id: @group.id) %>
       <span>すでに参加しています</span>
     <% else %>
-      <%= form_for(@group_user, url: group_users_invite_path, method: :post) do |f| %>
-        <%= user.email %>
+      <%= form_for(@group_user, url: group_users_join_path, method: :post) do |f| %>
         <%= f.hidden_field :user_id, value: @user.id %>
         <%= f.hidden_field :group_id, value: @group.id %>
-        <%= f.submit "招待する" %>
+        <%= f.submit "招待する" %>s
       <% end %>
     <% end %>
   <% end %>

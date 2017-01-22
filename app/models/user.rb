@@ -6,7 +6,6 @@ class User < ActiveRecord::Base
 
    attr_accessor :name
 
-   validates :name, presence: true, length: { maximum: 50 }
 
 
   has_many :articles, dependent: :destroy

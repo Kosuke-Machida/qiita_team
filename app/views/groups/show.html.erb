@@ -1,10 +1,14 @@
 <h1>Groups#show</h1>
   <p>グループ名</p>     <%= @group.name %><br>
   <p>概要</p>          <%= @group.body %><br>
-  <!-- 管理者だけが編集と削除できる -->
+
   <% if @group.manager_id == current_user.id %>
+    <!-- 管理者だけが編集できる -->
     <%= button_to "編集",edit_group_path(@group) %>
+    <!-- 管理者だけが削除できる -->
     <%= button_to "削除", @group, :method => :delete %>
+    <!-- 管理者が権限を移行する権利をもつ -->
+    <%= button_to '管理者を変更', group_members_search_path(@group.id) %>
   <% end %>
 
 
@@ -13,10 +17,9 @@
     <%= link_to user.name, user_path(user.id) %>
   <% end %>
 
-  <!-- privateがtrueならメンバーのinvite -->
+  <!-- privateがtrueならメンバーのinviteぺージへのリンクを表示 -->
   <%if @group.private == true %>
     <%= link_to "userを検索",  group_users_search_path(@group.id) %>
   <% end %>
-
 
 <p>Find me in app/views/groups/show.html.erb</p>

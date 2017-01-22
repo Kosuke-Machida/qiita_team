@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   resources :groups do
     get 'users/search', to: 'users#search'
-    post 'users/join', to: 'users#join_group'
+    post 'users/invite', to: 'users#invite_group'
+    get 'members/search', to: 'users#search_member'
   end
 
   resources :users, :only => [:show]

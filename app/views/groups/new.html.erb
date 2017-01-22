@@ -11,8 +11,8 @@
     <br>
      <div>
        <%= f.check_box :private, {}, checked_value = true,unchecked_value = false %>
-       <%= f.label :private, "Make this group Private" %>
-       <p> In Private Groups, only users who are invited by some member can join them</p>
+       <%= f.label :private, "Privateグループにする" %>
+       <p> Privateグループはメンバー招待されたユーザーのみ参加できます。 </p>
      </div>
      <%= f.hidden_field :manager_id, value: current_user.id %>
      <%= f.submit "送信" %>

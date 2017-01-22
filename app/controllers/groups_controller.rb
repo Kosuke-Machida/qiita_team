@@ -1,14 +1,20 @@
 class GroupsController < ApplicationController
 
-  before_action :redirect_to_index, only: [:show, :edit, :update, :destroy]
+  before_action :redirect_to_index, only: [:edit, :update, :destroy]
 
   def index
     @groups = Group.all
     @belonged_groups = current_user.groups
     @not_belonged_groups = @groups - @belonged_groups
+    @not_belonged_public_groups = @not_belonged_groups.select{|group| group.private == false}
   end
 
   def show
+    @group = Group.find(params[:id])
+    # グループがprivateの場合、メンバーじゃない人を弾く
+    if @group.private == true && @group.users.include?(current_user) == false
+      redirect_to groups_path
+    end
     @users = @group.users
   end
 
@@ -37,7 +43,7 @@ class GroupsController < ApplicationController
 
   private
   def group_params
-    params.require(:group).permit(:name, :body, :private)
+    params.require(:group).permit(:name, :body, :private, :manager_id)
   end
 
   def redirect_to_index

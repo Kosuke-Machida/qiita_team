@@ -4,23 +4,15 @@
   <% @belonged_groups.each do |group| %>
      <%= link_to group.name, group_path(group) %>
      <%= group.body %>
-     <%= link_to "編集", edit_group_path(group) %>
-     <%= link_to "削除", group_path(group), :method => :delete %>
      <br>
   <% end %>
 
   <p>参加していないグループ</p>
-  <% if @not_belonged_groups.empty? == false %>
-    <% if @not_belonged_groups.where(private: false).empty? == false %>
-      <% @not_belonged_groups.where(private: false).each do |group| %>
-         <%= link_to group.name, group_path(group) %>
-         <%= group.body %>
-         <%= link_to "編集", edit_group_path(group) %>
-         <%= link_to "削除", group_path(group), :method => :delete %>
-         <br>
-      <% end %>
-    <% else %>
-      <p>参加できるグループはありません</p>
+  <% if @not_belonged_public_groups %>
+    <% @not_belonged_groups.each do |group| %>
+       <%= link_to group.name, group_path(group) %>
+       <%= group.body %>
+       <br>
     <% end %>
   <% else %>
    <p>参加できるグループはありません</p>
