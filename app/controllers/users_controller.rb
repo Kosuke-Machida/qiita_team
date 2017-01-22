@@ -14,14 +14,8 @@ class UsersController < ApplicationController
     @group_user = GroupUser.new
   end
 
-  def invite_group
-    @group_user = GroupUser.create(params.permit(:user_id, :group_id))
-    redirect_to Group.find(params[:group_id])
-  end
-
   def search_member
     @group = Group.find(params[:group_id])
     @members = User.where('name LIKE(?)', "%#{params[:keyword]}%").limit(5)
   end
-
 end

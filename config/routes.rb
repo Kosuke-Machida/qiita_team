@@ -8,9 +8,8 @@ Rails.application.routes.draw do
   end
 
   resources :groups do
-    get 'users/search', to: 'users#search'
-    post 'users/invite', to: 'users#invite_group'
-    get 'members/search', to: 'users#search_member'
+    resources :group_users, :only => [:create, :destroy]
+    get 'users/search' => 'users#search'
   end
 
   resources :users, :only => [:show]
