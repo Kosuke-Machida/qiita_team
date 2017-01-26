@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
 
-  before_action :find_related_article
+  before_action :find_related_article, only: [:new, :create, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def new
