@@ -5,7 +5,7 @@ class Article < ActiveRecord::Base
 
   has_many :article_likes, dependent: :destroy
   def like_user(user_id)
-    likes.find_by(user_id: user_id)
+    article_likes.find_by(user_id: user_id)
   end
 
 
