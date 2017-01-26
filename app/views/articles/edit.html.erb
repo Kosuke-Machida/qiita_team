@@ -6,6 +6,10 @@
    <div>
      <%= f.text_field :body %>
    </div>
+   <div>
+     <%= f.label :tag_list, "Tags (separated by commas)" %><br />
+     <%= f.text_field :tag_list %>
+   </div>
   <%= f.hidden_field :user_id, value: current_user.id %>
   <%= f.submit "送信" %>
 <% end %>

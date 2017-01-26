@@ -1,22 +1,24 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Qiita Team</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
-  <header>
-    <%= link_to "新規投稿", new_article_path() %>
-    <% if user_signed_in? %>
-    <%= link_to "user page", user_path(current_user) %>
-    <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
-    <% end %>
-  </header>
-  <%= yield %>
+  <head>
+    <title>Qiita Team</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <header>
+      <%= link_to "top page", articles_path() %>
+      <%= link_to "create an article", new_article_path() %>
+      <% if user_signed_in? %>
+        <%= link_to "user page", user_path(current_user) %>
+      <% end %>
+      <%= link_to "log out", destroy_user_session_path, method: :delete %>
+    </header>
 
-</body>
+    <%= yield %>
+
+  </body>
 </html>
