@@ -1,10 +1,15 @@
 Rails.application.routes.draw do
 
+  get 'likes/create'
+
+  get 'likes/destroy'
+
   devise_for :users
   root "articles#index"
   resources :articles do
     resources :comments, :only => [:new, :edit, :create, :update, :destroy]
     resources :stocks, :only => [:create, :destroy]
+    resources :article_likes, :only => [:create, :destroy]
   end
 
   resources :groups do
