@@ -66,7 +66,7 @@ ActiveRecord::Schema.define(version: 20161101121958) do
     t.string   "unconfirmed_email",      limit: 255
     t.datetime "created_at",                                           null: false
     t.datetime "updated_at",                                           null: false
-    t.string   "username",               limit: 255, default: "email", null: false
+    t.string   "username",               limit: 255, default: "guest", null: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
