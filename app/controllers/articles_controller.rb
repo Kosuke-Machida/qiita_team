@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
-    @article.update_attributes(article_params)
+    @article.update(article_params)
     redirect_to @article
   end
 
