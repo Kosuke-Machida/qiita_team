@@ -1,12 +1,10 @@
 class ArticlesController < ApplicationController
 
   def index
-    @search_form = ArticleSearchForm.new(params[:search])
     if params[:tag]
     @articles = Article.tagged_with(params[:tag])
     else
-      @articles = @search_form.search
-      @articles = Article.all if @articles == Article
+      @articles = Article.all
     end
   end
 
@@ -39,17 +37,6 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @article.destroy
     redirect_to root_path
-  end
-
-  class ArticleSearchForm
-    include ActiveModel::Model
-    attr_accessor  :title, :body
-    def search
-      rel = Article
-      rel = rel.where( title: title ) if title.present?
-      rel = rel.where( body: title ) if body.present?
-      rel
-    end
   end
 
 end
