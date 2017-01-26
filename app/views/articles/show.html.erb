@@ -1,0 +1,7 @@
+<h1>Articles#show</h1>
+
+   <%= @article.title %> <%= @article.body %>
+   <%= link_to "編集", edit_article_path(@article) %>
+   <%= link_to "削除", article_path(@article), :method => :delete %>
+   <%= link_to "一覧へ", articles_path() %>
+<p>Find me in app/views/articles/show.html.erb</p>
