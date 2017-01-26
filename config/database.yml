@@ -13,9 +13,9 @@ default: &default
   adapter: mysql2
   encoding: utf8
   pool: 5
-  username: root
-  password: "Match0327"
-  socket: /tmp/mysql.sock
+  username: <%= ENV['QIITA_TEAM_DB_USERNAME'] %>
+  password: <%= ENV['QIITA_TEAM_DB_PASSWORD'] %>
+  socket: <%= ENV['QIITA_TEAM_DB_SOCKET'] %>
 
 development:
   <<: *default
@@ -50,5 +50,5 @@ test:
 production:
   <<: *default
   database: qiita_team_production
-  username: qiita_team
+  username: <%= ENV['QIITA_TEAM_B_USERNAME'] %>
   password: <%= ENV['QIITA_TEAM_DATABASE_PASSWORD'] %>
