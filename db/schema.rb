@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170122062727) do
+ActiveRecord::Schema.define(version: 20170126061750) do
+
+  create_table "article_likes", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4, null: false
+    t.integer  "article_id", limit: 4, null: false
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
 
   create_table "articles", force: :cascade do |t|
     t.text     "title",      limit: 65535

@@ -11,7 +11,10 @@ class User < ActiveRecord::Base
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :stocks, dependent: :destroy
+
   has_many :group_users
   has_many :groups, through: :group_users
+  
+  has_many :article_likes, dependent: :destroy
 
 end
