@@ -13,5 +13,4 @@
 /tmp
 .DS_Store
 .secret
-/config/development.local.yml
 .env
