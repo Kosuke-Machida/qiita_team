@@ -1,6 +1,6 @@
 class ArticlesController < ApplicationController
 
-  before_action :move_to_articles, only: [:edit, :update, :destroy]
+  before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
     if params[:tag]
@@ -47,7 +47,7 @@ class ArticlesController < ApplicationController
 
   private
 
-  def move_to_articles
+  def confirm_permission
     @article = Article.find(params[:id])
     redirect_to '', alert: '権限がありません' if @article.user != current_user
   end
