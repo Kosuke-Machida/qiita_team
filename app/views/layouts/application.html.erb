@@ -15,10 +15,7 @@
       <% if user_signed_in? %>
         <%= link_to "user page", user_path(current_user) %>
       <% end %>
-<<<<<<< HEAD
       <%= link_to "group", groups_path() %>
-=======
->>>>>>> 68605c5048c263821c0ffbd9e4f6320e5d45d2e9
       <%= link_to "log out", destroy_user_session_path, method: :delete %>
     </header>
 

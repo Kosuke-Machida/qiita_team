@@ -2,15 +2,17 @@ class StocksController < ApplicationController
   def create
     @article = Article.find(params[:article_id])
     @stock = Stock.new(params.require(:stock).permit(:user_id, :article_id))
-    @stock.save
-    redirect_to @article
+    if @stock.save
+      redirect_to @article, notice: '記事をストックしました'
+    else
+      redirect_to @article, alert: '記事のストックに失敗しました'
   end
 
   def destroy
     @article = Article.find(params[:article_id])
     @stock = Stock.where(user_id: current_user.id, article_id: @article.id).first
     if current_user.id == @stock.user_id
-      @stock.destroy
+      @stock.destroy, notice: '記事のストックを解除しました'
       redirect_to @article
     else
       redirect_to @article, error: "You don't have permission"

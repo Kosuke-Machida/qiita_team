@@ -14,9 +14,11 @@ class GroupsController < ApplicationController
 
   def create
     @user = current_user
-    @group = Group.create(group_params)
-    @group.users << @user
-    redirect_to @group
+    if @group = Group.create(group_params)
+      redirect_to @group, notice: '新規グループを作成しました'
+    else
+      redirect_to '/groups', alart: '新規グループの作成ができませんでした'
+    end
   end
 
   def edit
@@ -25,8 +27,11 @@ class GroupsController < ApplicationController
 
   def update
     @group = Group.find(params[:id])
-    @group.update_attributes(group_params)
-    redirect_to @group
+    if @group.update(group_params)
+      redirect_to @group, notice: 'グループを更新しました'
+    else
+      redirect_to @group, alart: 'グループの更新ができませんでした'
+    end
   end
 
   def destroy
