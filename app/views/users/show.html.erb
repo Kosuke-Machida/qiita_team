@@ -5,7 +5,7 @@
     <%= button_to "user編集画面へ", edit_user_registration_path, method: :get %>
   </div>
   <div>Stocks<br>
-  <% if @articles.nil? == false %>
+  <% if @articles.present? %>
     <% @articles.each do |article| %>
       <%= link_to article.title, article_path(article) %>
       <%= button_to "stock解除", [article, article.related_stock(current_user)], method: :delete %><br>
