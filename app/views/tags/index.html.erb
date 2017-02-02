@@ -1,0 +1,7 @@
+<h1>Tags#index</h1>
+
+<% @tags.each do |tag| %>
+   <%= link_to tag.name, tag_path(tag.name) %>
+<% end %>
+
+<p>Find me in app/views/tags/index.html.erb</p>

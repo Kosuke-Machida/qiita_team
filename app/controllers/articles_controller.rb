@@ -1,11 +1,16 @@
 class ArticlesController < ApplicationController
 
   def index
-    @articles = Article.all
+    if params[:tag]
+      @articles = Article.tagged_with(params[:tag])
+    else
+      @articles = Article.all
+    end
   end
 
   def show
-    @article = Article.find(article_params[:id])
+    @article = Article.find(params[:id])
+    @comments = @article.comments
   end
 
   def new
@@ -13,7 +18,7 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(article_params[:id])
+    @article = Article.find(params[:id])
   end
 
   def create
@@ -24,19 +29,19 @@ class ArticlesController < ApplicationController
 
   def update
     @article = Article.find(params[:id])
-    @article.update_attributes(article_params)
+    @article.update(article_params)
     redirect_to @article
   end
 
   def destroy
-    @article = Article.find(article_params[:id])
+    @article = Article.find(params[:id])
     @article.destroy
-    redirect_to articles_path
+    redirect_to root_path
   end
 
   private
   def article_params
-    params.require(:article).permit(:title, :body, :user_id)
+    params.require(:article).permit(:title, :body, :user_id, :tag_list)
   end
 
 end
