@@ -1,21 +1,29 @@
 <h1>Articles#show</h1>
 
-   <%= @article.title %>
-   <%= @article.body %>
-   <div>
-     Tags:  <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
-   </div>
-   <%= link_to "編集", edit_article_path(@article) %>
-   <%= link_to "削除", @article, :method => :delete %>
-   <%= link_to "一覧へ", articles_path() %>
+  <%= @article.title %>
+  <%= @article.body %>
+  <br>
+  <div style="display:inline-flex">
+    Tags:  <%= raw @article.tag_list.map { |t| button_to t, tag_path(t) }.join('') %>
+  </div>
+  <%= button_to "削除", @article, :method => :delete %>
+  <% if @article.is_stocked?(current_user) %>
+    <%= button_to "stock解除", [@article, @article.related_stock(current_user)], method: :delete %>
+  <% else %>
+    <%= form_for [@article, @stock] do |f| %>
+      <%= f.hidden_field :user_id, value: current_user.id %>
+      <%= f.hidden_field :article_id, value: @article.id %>
+      <%= f.submit "stock" %>
+    <% end %>
+  <% end %>
 
-   <% @comments.each do |comment| %>
-      <%= comment.body %>
-      <%= link_to "編集", edit_article_comment_path(@article, comment) %>
-      <%= link_to "削除", article_comment_path(@article, comment), :method => :delete %>
-      <br>
-   <% end %>
+ <% @comments.each do |comment| %>
+    <%= comment.body %>
+    <%= link_to "編集", edit_article_comment_path(@article, comment) %>
+    <%= link_to "削除", article_comment_path(@article, comment), :method => :delete %>
+    <br>
+ <% end %>
 
-   <%= link_to "新規コメント", new_article_comment_path(@article) %>
+ <%= button_to "新規コメント", new_article_comment_path(@article), :method => :get %>
 
 <p>Find me in app/views/articles/show.html.erb</p>

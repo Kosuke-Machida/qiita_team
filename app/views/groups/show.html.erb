@@ -1,0 +1,11 @@
+<h1>Groups#show</h1>
+  グループ名     <%= @group.name %><br>
+  概要          <%= @group.body %><br>
+  <%= link_to "編集",edit_group_path(@group) %>
+  <%= button_to "削除", @group, :method => :delete %>
+
+  <h2>メンバー一覧</h2>
+  <% @users.each do |user| %>
+    <%= link_to user.name, user_path(user.id) %>
+  <% end %>
+<p>Find me in app/views/groups/show.html.erb</p>

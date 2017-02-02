@@ -15,6 +15,7 @@
       <% if user_signed_in? %>
         <%= link_to "user page", user_path(current_user) %>
       <% end %>
+      <%= link_to "group", groups_path() %>
       <%= link_to "log out", destroy_user_session_path, method: :delete %>
     </header>
 

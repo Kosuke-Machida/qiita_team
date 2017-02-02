@@ -4,7 +4,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :articles
-  has_many :comments
+   attr_accessor :name
+
+   validates :name, presence: true, length: { maximum: 50 }
+
+
+  has_many :articles, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :stocks, dependent: :destroy
+  has_many :group_users
+  has_many :groups, through: :group_users
 
 end

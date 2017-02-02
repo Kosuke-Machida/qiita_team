@@ -17,9 +17,11 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment.update(comment_params)
-    redirect_to @article
-
+    if @comment.update(comment_params)
+      redirect_to @article, notice: 'コメントを編集しました'
+    else
+      redirect_to @article, notice: 'コメントの編集に失敗しました'
+    end
   end
 
   def destroy
@@ -27,20 +29,20 @@ class CommentsController < ApplicationController
     redirect_to @article
   end
 
-private
-def find_related_article
-  @article = Article.find(params[:article_id])
-end
-
-def confirm_permission
-  @comment = Comment.find(params[:id])
-  if current_user.id != @comment.user_id
-    redirect_to @article, error: "You don't have permission"
+  private
+  def find_related_article
+    @article = Article.find(params[:article_id])
   end
-end
 
-def comment_params
-  params.require(:comment).permit(:body, :user_id, :article_id)
-end
+  def confirm_permission
+    @comment = Comment.find(params[:id])
+    if current_user.id != @comment.user_id
+      redirect_to @article, alert: '権限がありません'
+    end
+  end
+
+  def comment_params
+    params.require(:comment).permit(:body, :user_id, :article_id)
+  end
 
 end
