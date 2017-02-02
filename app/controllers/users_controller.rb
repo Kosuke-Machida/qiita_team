@@ -5,9 +5,8 @@ class UsersController < ApplicationController
   def show
     @user =  User.find(user_params[:id])
     @stocks = Stock.where(user_id: @user.id)
-    @stocks.each do |stock|
-      @articles = Article.where(id: stock.article_id)
-    end
+    stocked_articles_ids = @stocks.map{|stock| stock.article_id}
+    @articles = Article.where(id: stocked_articles_ids)
   end
 
   private

@@ -21,7 +21,6 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
   end
 
   def create
@@ -34,7 +33,6 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find(params[:id])
     if @article.update(article_params)
       redirect_to @article, notice: '投稿を編集しました'
     else
@@ -43,7 +41,6 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
     @article.destroy
     redirect_to ''
   end
@@ -51,7 +48,8 @@ class ArticlesController < ApplicationController
   private
 
   def move_to_articles
-      redirect_to '', alert: '権限がありません' if @aricle.user != current_user
+    @article = Article.find(params[:id])
+    redirect_to '', alert: '権限がありません' if @article.user != current_user
   end
 
   def article_params
