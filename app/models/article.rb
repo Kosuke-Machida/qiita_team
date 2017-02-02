@@ -5,6 +5,11 @@ class Article < ActiveRecord::Base
   acts_as_taggable
   acts_as_taggable_on :labels
 
+  validates :title, presence: true
+  validates :body, presence: true
+  validates :user_id, presence: true
+
+
   def is_stocked?(user)
     Stock.exists?(user_id: user.id, article_id: self.id)
   end
