@@ -1,6 +1,7 @@
 <h1>Groups#show</h1>
   <p>グループ名</p>     <%= @group.name %><br>
   <p>概要</p>          <%= @group.body %><br>
+  <p>管理者</p>        <%= @manager.username %>
 
   <% if @group.manager_id == current_user.id %>
     <!-- 管理者だけが編集できる -->

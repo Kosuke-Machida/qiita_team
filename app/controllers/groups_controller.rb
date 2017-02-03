@@ -16,6 +16,7 @@ class GroupsController < ApplicationController
       redirect_to groups_path
     end
     @users = @group.users
+    @manager = @users.find_by(id: @group.manager_id)
   end
 
   def new
