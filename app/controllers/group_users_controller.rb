@@ -10,6 +10,14 @@ class GroupUsersController < ApplicationController
   end
 
   def destroy
+    @group = Group.find(params[:group_id])
+    @group_user = GroupUser.find(params[:id])
+    if @group_user.user_id = current_user.id
+      @group_user.destroy
+      redirect_to '/groups', notice: "グループ「#{@group.name}」から抜けました"
+    else
+      redirect_to '/groups', alart: "権限がありません"
+    end
   end
 
   private

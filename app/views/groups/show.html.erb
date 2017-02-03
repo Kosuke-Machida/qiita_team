@@ -1,7 +1,7 @@
 <h1>Groups#show</h1>
   <p>グループ名</p>     <%= @group.name %><br>
   <p>概要</p>          <%= @group.body %><br>
-  <p>管理者</p>        <%= @manager.username %>
+  <p>管理者</p>        <%= link_to @manager.username, user_path(@manager.id) %>
 
   <% if @group.manager_id == current_user.id %>
     <!-- 管理者だけが編集できる -->
@@ -10,7 +10,11 @@
     <%= button_to "削除", @group, :method => :delete %>
     <!-- 管理者が権限を移行する権利をもつ -->
     <%= button_to '管理者を変更',  "/groups/#{@group.id}/change_manager" , method: :get %>
+  <% else %>
+    <!-- 管理者はグループを抜けられない（抜けたら終わるから） -->
+    <%= button_to 'グループから抜ける', [@group, @group.relation_with_user(current_user)] , method: :delete, data: { confirm: "本当にこのグループから抜けますか？"} %>
   <% end %>
+
 
 
   <h2>メンバー一覧</h2>

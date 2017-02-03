@@ -5,4 +5,8 @@ class Group < ActiveRecord::Base
   validates :name, presence: true
   validates :body, presence: true
 
+  def relation_with_user(user)
+    return self.group_users.find_by(user_id: user.id)
+  end
+
 end
