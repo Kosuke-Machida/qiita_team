@@ -4,7 +4,15 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-   attr_accessor :name
+  attr_accessor :name
+
+  def not_belonging_groups
+    Group.all - self.groups
+  end
+
+  def not_belonging_public_groups
+    self.not_belonging_groups.select{|group| group.private == false}
+  end
 
 
 

@@ -1,28 +1,35 @@
 Rails.application.routes.draw do
 
-  get 'likes/create'
-
-  get 'likes/destroy'
-
-  devise_for :users
+  # root_pathはArticleのindex
   root "articles#index"
+
+  # diviseでUserを管理 showだけ手書きで追加
+  devise_for :users
+  resources :users, :only => [:show]
+
+  # Articleに関するroutes
   resources :articles do
     resources :comments, :only => [:new, :edit, :create, :update, :destroy]
     resources :stocks, :only => [:create, :destroy]
     resources :article_likes, :only => [:create, :destroy]
   end
 
+  # Groupに関するroutes
   resources :groups do
     resources :group_users, :only => [:create, :destroy]
-    get 'users/invite' => 'users#invite'
-    get 'change_manager' => 'users#change_manager'
   end
+  get 'groups/:id/invite' => 'groups#invite'
+  get 'groups/:id/change_manager' => 'groups#change_manager'
 
-  resources :users, :only => [:show]
+  # いいねに関するroutes
+  get 'likes/create'
+  get 'likes/destroy'
 
-
+  # acts_as_taggable_onというGEMでtagを管理
   match 'tags/:tag', to: 'articles#index', as: :tag, via: [:get, :post]
   get 'tags', to: 'tags#index'
+
+
 
 
     # The priority is based upon order of creation: first created -> highest priority.

@@ -1,6 +1,6 @@
 <h1><%= @group.name %>の管理者を変更</h1>
 <div>
-  <%= form_tag( group_change_manager_path(@group.id), method: :get) do %>
+  <%= form_tag( "/groups/#{@group.id}/change_manager", method: :get) do %>
     <input name="keyword" placeholder="ユーザーを名前で検索" type="text">
       <button title="検索" type="submit">
       </button>
@@ -11,14 +11,14 @@
 <div>
   <% @users.each do |user| %>
     <% if @group.users.include?(user) %>
-      <%= user.name %>
+      <%= user.username %>
       <%= user.email %>
       <% if user.id == @group.manager_id %>
         <span>現管理人</span><br>
       <% else %>
         <%= form_for @group do |f| %>
           <%= f.hidden_field :manager_id, :value => user.id %>
-          <%= f.submit "管理者にする" , data: { confirm: "本当に管理者を#{user.name}に変更しますか？" }%><br>
+          <%= f.submit "管理者にする" , data: { confirm: "本当に管理者を#{user.username}に変更しますか？" }%><br>
         <% end %>
       <% end %>
     <% end %>

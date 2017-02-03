@@ -1,17 +1,18 @@
 <h1>Groups#index</h1>
 
   <p>参加しているグループ</p>
-  <% @belonged_groups.each do |group| %>
+  <% current_user.groups.each do |group| %>
      <%= link_to group.name, group_path(group) %>
      <%= group.body %>
      <br>
   <% end %>
 
   <p>参加していないグループ</p>
-  <% if @not_belonged_public_groups %>
-    <% @not_belonged_groups.each do |group| %>
+  <% if current_user.not_belonging_public_groups %>
+    <% current_user.not_belonging_public_groups.each do |group| %>
        <%= link_to group.name, group_path(group) %>
        <%= group.body %>
+       <%= button_to '参加する', "/groups/#{group.id}/group_users" %>
        <br>
     <% end %>
   <% else %>
