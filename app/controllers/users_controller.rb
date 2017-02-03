@@ -1,21 +1,17 @@
 class UsersController < ApplicationController
 
+  before_action :user_params
+
   def show
-    @user =  User.find(params[:id])
+    @user =  User.find(user_params[:id])
     @stocks = Stock.where(user_id: @user.id)
-    @stocks.each do |stock|
-      @articles = Article.where(id: stock.article_id)
-    end
+    stocked_articles_ids = @stocks.map{|stock| stock.article_id}
+    @articles = Article.where(id: stocked_articles_ids)
   end
 
-  def invite
-    @group = Group.find(params[:group_id])
-    @users = User.where('name LIKE(?)', "%#{params[:keyword]}%").limit(5)
-    @group_user = GroupUser.new
+  private
+  def user_params
+    params
   end
 
-  def change_manager
-    @group = Group.find(params[:group_id])
-    @users = User.where('name LIKE(?)', "%#{params[:keyword]}%").limit(5)
-  end
 end

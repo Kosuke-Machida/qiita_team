@@ -8,7 +8,7 @@
     <!-- 管理者だけが削除できる -->
     <%= button_to "削除", @group, :method => :delete %>
     <!-- 管理者が権限を移行する権利をもつ -->
-    <%= button_to '管理者を変更',  group_change_manager_path(@group.id), method: :get %>
+    <%= button_to '管理者を変更',  "/groups/#{@group.id}/change_manager" , method: :get %>
   <% end %>
 
 
@@ -19,7 +19,7 @@
 
   <!-- privateがtrueならメンバーのinviteぺージへのリンクを表示 -->
   <%if @group.private == true %>
-    <%= link_to "userを検索",  group_users_invite_path(@group.id) %>
+    <%= link_to "userを検索",  "/groups/#{@group.id}/invite" %>
   <% end %>
 
 <p>Find me in app/views/groups/show.html.erb</p>

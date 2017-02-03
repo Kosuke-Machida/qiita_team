@@ -23,22 +23,42 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = Group.create(group_params)
-    @group.users << current_user
-    redirect_to @group
+    @user = current_user
+    if @group = Group.create(group_params)
+      redirect_to @group, notice: '新規グループを作成しました'
+    else
+      redirect_to '/groups', alart: '新規グループの作成ができませんでした'
+    end
   end
 
   def edit
   end
 
   def update
-    @group.update(group_params)
-    redirect_to @group
+    @group = Group.find(params[:id])
+    if @group.update(group_params)
+      redirect_to @group, notice: 'グループを更新しました'
+    else
+      redirect_to @group, alart: 'グループの更新ができませんでした'
+    end
   end
 
   def destroy
     @group.destroy
     redirect_to groups_path
+  end
+
+  # privateのグループにおけるinviteのaction
+  def invite
+    @group = Group.find(params[:id])
+    @users = User.where('username LIKE(?)', "%#{params[:keyword]}%").limit(5)
+    @group_user = GroupUser.new
+  end
+
+  # groupのmanagerが権限をメンバーに与えるaction
+  def change_manager
+    @group = Group.find(params[:id])
+    @users = User.where('username LIKE(?)', "%#{params[:keyword]}%").limit(5)
   end
 
   private
@@ -48,8 +68,7 @@ class GroupsController < ApplicationController
 
   def redirect_to_index
     @group = Group.find(params[:id])
-    if current_user.groups.include?(@group) == false
-      redirect_to groups_path
-    end
+      redirect_to groups_path if current_user.groups.include?(@group) == false
   end
+
 end
