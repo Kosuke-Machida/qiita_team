@@ -4,9 +4,6 @@ class GroupsController < ApplicationController
 
   def index
     @groups = Group.all
-    @belonged_groups = current_user.groups
-    @not_belonged_groups = @groups - @belonged_groups
-    @not_belonged_public_groups = @not_belonged_groups.select{|group| group.private == false}
   end
 
   def show
