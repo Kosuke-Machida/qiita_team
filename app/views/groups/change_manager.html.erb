@@ -18,7 +18,7 @@
       <% else %>
         <%= form_for @group do |f| %>
           <%= f.hidden_field :manager_id, :value => user.id %>
-          <%= f.submit "管理者にする" , data: { confirm: "本当に管理者を#{user.name}に変更しますか？" }%><br>
+          <%= f.submit "管理者にする" , data: { confirm: "本当に管理者を#{user.username}に変更しますか？" }%><br>
         <% end %>
       <% end %>
     <% end %>

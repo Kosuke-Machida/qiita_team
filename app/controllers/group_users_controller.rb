@@ -1,7 +1,7 @@
 class GroupUsersController < ApplicationController
   def create
     @group = Group.find(params[:group_id])
-    @group_user = GroupUser.new(params.require(:group_user).permit(:user_id, :group_id))
+    @group_user = GroupUser.new(group_user_params)
     if @group_user.save
       redirect_to @group, notice: "グループ「#{@group.name}」に参加しました"
     else
@@ -13,5 +13,8 @@ class GroupUsersController < ApplicationController
   end
 
   private
+  def group_user_params
+    params.permit(:group_id).merge(:user_id => current_user.id)
+  end
 
 end

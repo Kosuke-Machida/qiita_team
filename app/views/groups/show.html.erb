@@ -14,7 +14,7 @@
 
   <h2>メンバー一覧</h2>
   <% @users.each do |user| %>
-    <%= link_to user.name, user_path(user.id) %>
+    <%= link_to user.username, user_path(user.id) %>
   <% end %>
 
   <!-- privateがtrueならメンバーのinviteぺージへのリンクを表示 -->

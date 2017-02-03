@@ -12,6 +12,7 @@
     <% @not_belonged_groups.each do |group| %>
        <%= link_to group.name, group_path(group) %>
        <%= group.body %>
+       <%= button_to '参加する', "/groups/#{group.id}/group_users" %>
        <br>
     <% end %>
   <% else %>
