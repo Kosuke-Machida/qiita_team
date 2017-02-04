@@ -8,6 +8,7 @@ class CommentLikesController < ApplicationController
 
   def destroy
     @comment_like = CommentLike.find_by(comment_like_params)
+    @comment_like.destroy
     @commnent_likes = CommentLike.where(comment_id: comment_like_params[:comment_id])
     article = Article.find(params[:article_id])
     redirect_to article

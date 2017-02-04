@@ -23,6 +23,7 @@
     <%= comment.body %>
     <%= link_to "編集", edit_article_comment_path(@article, comment) %>
     <%= link_to "削除", article_comment_path(@article, comment), :method => :delete %>
+    <%= render :partial => "comment_likes/comment_like", :locals => { article: @article, comment: comment}  %>
     <br>
  <% end %>
 
