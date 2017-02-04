@@ -1,7 +1,7 @@
 <h1>Groups#show</h1>
   <p>グループ名</p>     <%= @group.name %><br>
   <p>概要</p>          <%= @group.body %><br>
-  <p>管理者</p>        <%= link_to @manager.username, user_path(@manager.id) %>
+  <p>管理者</p>        <%= link_to User.group_manager(@group.manager_id).username, user_path(User.group_manager(@group.manager_id).id) %>
 
   <% if @group.manager_id == current_user.id %>
     <!-- 管理者だけが編集できる -->
@@ -9,22 +9,26 @@
     <!-- 管理者だけが削除できる -->
     <%= button_to "削除", @group, :method => :delete %>
     <!-- 管理者が権限を移行する権利をもつ -->
-    <%= button_to '管理者を変更',  "/groups/#{@group.id}/change_manager" , method: :get %>
+    <%= button_to '管理者を変更',  "/groups/#{@group.id}/managers/search_member", method: :get %>
   <% else %>
     <!-- 管理者はグループを抜けられない（抜けたら終わるから） -->
-    <%= button_to 'グループから抜ける', [@group, @group.relation_with_user(current_user)] , method: :delete, data: { confirm: "本当にこのグループから抜けますか？"} %>
+    <% if @group.is_joined_by_a_specific_user?(current_user) %>
+      <%= button_to 'グループから抜ける', [@group, @group.relation_with_user(current_user)] , method: :delete, data: { confirm: "本当にこのグループから抜けますか？"} %>
+    <% else %>
+      <%= button_to '参加する', group_group_users_path(user_id: current_user.id, group_id: @group.id) %>
+    <% end %>
   <% end %>
 
 
 
   <h2>メンバー一覧</h2>
-  <% @users.each do |user| %>
+  <% @group.users.each do |user| %>
     <%= link_to user.username, user_path(user.id) %>
   <% end %>
 
   <!-- privateがtrueならメンバーのinviteぺージへのリンクを表示 -->
-  <%if @group.private == true %>
-    <%= link_to "userを検索",  "/groups/#{@group.id}/invite" %>
+  <% if @group.private == true %>
+    <%= link_to "userを検索", new_group_group_user_path(@group) %>
   <% end %>
 
 <p>Find me in app/views/groups/show.html.erb</p>

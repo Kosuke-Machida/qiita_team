@@ -9,4 +9,8 @@ class Group < ActiveRecord::Base
     return self.group_users.find_by(user_id: user.id)
   end
 
+  def is_joined_by_a_specific_user?(user)
+    GroupUser.exists?(user_id: user.id, group_id: self.id)
+  end
+
 end

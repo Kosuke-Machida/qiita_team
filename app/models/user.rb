@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  attr_accessor :name
+  scope :searched_by_name, -> (keyword) {where('username LIKE(?)', "%#{keyword}%")}
+  scope :group_manager, -> (group_manager_id) {find_by("id = ?", group_manager_id )}
 
   def not_belonging_groups
     Group.all - self.groups

@@ -9,23 +9,19 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     # グループがprivateの場合、メンバーじゃない人を弾く
-    if @group.private == true && @group.users.include?(current_user) == false
-      redirect_to groups_path
-    end
-    @users = @group.users
-    @manager = @users.find_by(id: @group.manager_id)
+    redirect_to groups_path if @group.private && @group.users.include?(current_user) == false
   end
 
   def new
     @group = Group.new
+    @group_user = GroupUser.new
   end
 
   def create
-    @user = current_user
-    if @group = Group.create(group_params)
-      redirect_to @group, notice: '新規グループを作成しました'
+    if @group = current_user.groups.create(group_params)
+      redirect_to group_path(@group.id), notice: '新規グループを作成しました'
     else
-      redirect_to '/groups', alart: '新規グループの作成ができませんでした'
+      redirect_to groups_path, notice: '新規グループの作成ができませんでした'
     end
   end
 
@@ -37,26 +33,13 @@ class GroupsController < ApplicationController
     if @group.update(group_params)
       redirect_to @group, notice: 'グループを更新しました'
     else
-      redirect_to @group, alart: 'グループの更新ができませんでした'
+      redirect_to @group, notice: 'グループの更新ができませんでした'
     end
   end
 
   def destroy
     @group.destroy
     redirect_to groups_path
-  end
-
-  # privateのグループにおけるinviteのaction
-  def invite
-    @group = Group.find(params[:id])
-    @users = User.where('username LIKE(?)', "%#{params[:keyword]}%").limit(5)
-    @group_user = GroupUser.new
-  end
-
-  # groupのmanagerが権限をメンバーに与えるaction
-  def change_manager
-    @group = Group.find(params[:id])
-    @users = User.where('username LIKE(?)', "%#{params[:keyword]}%").limit(5)
   end
 
   private
