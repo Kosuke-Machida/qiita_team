@@ -9,11 +9,14 @@
 </div>
 
 <div>
+  <!-- 検索でヒットしたユーザーに対してeach回す -->
   <% User.searched_by_name(params[:keyword]).each do |user| %>
     <div>
       <%= user.username %>
+      <!-- すでに参加していたら「参加していますと表示」 -->
       <% if @group.is_joined_by_a_specific_user?(user) %>
         <span>すでに参加しています</span>
+      <!-- まだ参加していなければ招待のボタンを表示 -->
       <% else %>
         <%= button_to '招待する', group_group_users_path(user_id: user.id, group_id: @group.id) %>
       <% end %>

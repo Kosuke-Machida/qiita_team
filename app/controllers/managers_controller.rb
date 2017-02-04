@@ -1,9 +1,11 @@
 class ManagersController < ApplicationController
 
+  # メンバーをusernameで検索するページ
   def search_member
     @group = Group.find(params[:group_id])
   end
 
+  # patchでmanager_idだけをいじる
   def update
     @group = Group.find(params[:group_id])
     if @group.update(manager_params)

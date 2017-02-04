@@ -49,7 +49,7 @@ class GroupsController < ApplicationController
 
   def redirect_to_index
     @group = Group.find(params[:id])
-      redirect_to groups_path if current_user.groups.include?(@group) == false
+      redirect_to groups_path unless current_user.groups.include?(@group)
   end
 
 end

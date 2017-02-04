@@ -1,5 +1,6 @@
 class GroupUsersController < ApplicationController
 
+  # ユーザー招待の検索フォーム
   def new
     @group = Group.find(params[:group_id])
     @group_user = GroupUser.new
