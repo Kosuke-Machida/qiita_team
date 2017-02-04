@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'comment_like/create'
+
+  get 'comment_like/destroy'
+
   # root_pathはArticleのindex
   root "articles#index"
 
@@ -9,9 +13,11 @@ Rails.application.routes.draw do
 
   # Articleに関するroutes
   resources :articles do
-    resources :comments, :only => [:new, :edit, :create, :update, :destroy]
+    resources :comments, :only => [:new, :edit, :create, :update, :destroy] do
+      resources :comment_likes, only: [:create, :destroy]
+    end
     resources :stocks, :only => [:create, :destroy]
-    resources :article_likes, :only => [:create, :destroy]
+    resources :article_likes, only: [:create, :destroy]
   end
 
   # Groupに関するroutes
