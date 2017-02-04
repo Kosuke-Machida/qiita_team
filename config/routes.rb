@@ -16,10 +16,11 @@ Rails.application.routes.draw do
 
   # Groupに関するroutes
   resources :groups do
-    resources :group_users, :only => [:create, :destroy]
+    resources :group_users, :only => [:new, :create, :update, :destroy]
+    get 'managers/search_member', to: 'managers#search_member'
+    patch 'manager/update' => 'managers#update'
   end
-  get 'groups/:id/invite' => 'groups#invite'
-  get 'groups/:id/change_manager' => 'groups#change_manager'
+
 
   # いいねに関するroutes
   get 'likes/create'
