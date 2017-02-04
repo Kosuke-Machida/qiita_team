@@ -9,7 +9,7 @@
   <%= button_to article_article_likes_path(article), id: "like-button", remote: true do %>
     <%= image_tag("like.jpeg") %>
     <span>
-      <% link_to article.likes_count + "いいねされています",  %>
+      <h5><%= article.likes_count %>いいねされています</h5>
     </span>
   <% end %>
 <% end %>
