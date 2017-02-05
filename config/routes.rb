@@ -3,19 +3,22 @@ Rails.application.routes.draw do
   # diviseでUserを管理 showだけ手書きで追加
   devise_for :users
   root "articles#index"
-  resources :users, :only => [:show]
+  resources :users, only: [:show]
 
   # Articleに関するroutes
   resources :articles do
-    resources :comments, :only => [:new, :edit, :create, :update, :destroy]
-    resources :stocks, :only => [:create, :destroy]
+    resources :comments, only: [:new, :edit, :create, :update, :destroy]
+    resources :stocks, only: [:create, :destroy]
   end
 
   # Groupに関するroutes
   resources :groups do
-    resources :group_users, :only => [:new, :create, :update, :destroy]
-    get 'managers/edit', to: 'managers#edit'
-    patch 'manager/update' => 'managers#update'
+    resources :group_users, only: [:new, :create, :update, :destroy]
+    resources :managers, only: [:update] do
+      collection do
+        get :change_manager
+      end
+    end
   end
 
 
