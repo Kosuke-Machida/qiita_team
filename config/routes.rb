@@ -9,16 +9,19 @@ Rails.application.routes.draw do
 
   # Articleに関するroutes
   resources :articles do
-    resources :comments, :only => [:new, :edit, :create, :update, :destroy]
-    resources :stocks, :only => [:create, :destroy]
-    resources :article_likes, :only => [:create, :destroy]
+    resources :comments, only: [:new, :edit, :create, :update, :destroy]
+    resources :stocks, only: [:create, :destroy]
+    resources :article_likes, only: [:create, :destroy]
   end
 
   # Groupに関するroutes
   resources :groups do
-    resources :group_users, :only => [:new, :create, :update, :destroy]
-    get 'managers/search_member', to: 'managers#search_member'
-    patch 'manager/update' => 'managers#update'
+    resources :group_users, only: [:new, :create, :update, :destroy]
+    resources :managers, only: [:update] do
+      collection do
+        get :change_manager
+      end
+    end
   end
 
 
