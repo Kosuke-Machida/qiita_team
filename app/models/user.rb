@@ -4,9 +4,17 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-   attr_accessor :name
+  scope :searched_by_name, -> (keyword) {where('username LIKE(?)', "%#{keyword}%")}
+  scope :group_manager, -> (group_manager_id) {find_by("id = ?", group_manager_id )}
 
-   validates :name, presence: true, length: { maximum: 50 }
+  def not_belonging_groups
+    Group.all - self.groups
+  end
+
+  def not_belonging_public_groups
+    self.not_belonging_groups.select{|group| group.private == false}
+  end
+
 
 
   has_many :articles, dependent: :destroy

@@ -1,11 +1,22 @@
 <h1>Groups#index</h1>
 
-  <% @groups.each do |group| %>
+  <p>参加しているグループ</p>
+  <% current_user.groups.each do |group| %>
      <%= link_to group.name, group_path(group) %>
      <%= group.body %>
-     <%= link_to "編集", edit_group_path(group) %>
-     <%= link_to "削除", group_path(group), :method => :delete %>
      <br>
+  <% end %>
+
+  <p>参加していないグループ</p>
+  <% if current_user.not_belonging_public_groups %>
+    <% current_user.not_belonging_public_groups.each do |group| %>
+       <%= link_to group.name, group_path(group) %>
+       <%= group.body %>
+       <%= button_to '参加する', group_group_users_path(user_id: current_user.id, group_id: group.id) %>
+       <br>
+    <% end %>
+  <% else %>
+   <p>参加できるグループはありません</p>
   <% end %>
 
     <%= button_to "create an group", new_group_path(), :method => :get %>

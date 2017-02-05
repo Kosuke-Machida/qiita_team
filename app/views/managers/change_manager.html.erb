@@ -1,0 +1,29 @@
+<h1><%= @group.name %>の管理者を変更</h1>
+<div>
+  <%= form_tag change_manager_group_managers_path(@group), method: :get do %>
+    <input name="keyword" placeholder="ユーザーを名前で検索" type="text">
+      <button type="submit">検索</button>
+    </input>
+  <% end %>
+</div>
+
+<div>
+  <% if User.searched_by_name(params[:keyword]).present? %>
+    <% User.searched_by_name(params[:keyword]).each do |user|%>
+      <% if @group.users.include?(user) %>
+        <%= user.username %>
+        <%= user.email %>
+        <% if user.id == @group.manager_id %>
+          <span>現管理人</span><br>
+        <% else %>
+          <%= form_for @group do |f| %>
+            <%= f.hidden_field :manager_id, :value => user.id %>
+            <%= f.submit "管理者にする" , data: { confirm: "本当に管理者を#{user.username}に変更しますか？" }%><br>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% else %>
+    <p>条件に合ったメンバーはいませんでした</p>
+  <% end %>
+</div>

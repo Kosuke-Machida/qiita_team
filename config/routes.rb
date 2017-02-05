@@ -1,18 +1,34 @@
 Rails.application.routes.draw do
 
+  # diviseでUserを管理 showだけ手書きで追加
   devise_for :users
   root "articles#index"
+  resources :users, only: [:show]
+
+  # Articleに関するroutes
   resources :articles do
-    resources :comments, :only => [:new, :edit, :create, :update, :destroy]
-    resources :stocks, :only => [:create, :destroy]
+    resources :comments, only: [:new, :edit, :create, :update, :destroy]
+    resources :stocks, only: [:create, :destroy]
   end
 
-  resources :groups
+  # Groupに関するroutes
+  resources :groups do
+    resources :group_users, only: [:new, :create, :update, :destroy]
+    resources :managers, only: [:update] do
+      collection do
+        get :change_manager
+      end
+    end
+  end
 
-  resources :users, :only => [:show]
 
+
+
+  # acts_as_taggable_onというGEMでtagを管理
   match 'tags/:tag', to: 'articles#index', as: :tag, via: [:get, :post]
   get 'tags', to: 'tags#index'
+
+
 
 
     # The priority is based upon order of creation: first created -> highest priority.
