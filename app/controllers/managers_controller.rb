@@ -1,7 +1,7 @@
 class ManagersController < ApplicationController
 
   # メンバーをusernameで検索するページ
-  def search_member
+  def edit
     @group = Group.find(params[:group_id])
   end
 

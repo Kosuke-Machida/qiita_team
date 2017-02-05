@@ -1,6 +1,6 @@
 <h1><%= @group.name %>の管理者を変更</h1>
 <div>
-  <%= form_tag "/groups/#{@group.id}/managers/search_member", method: :get do %>
+  <%= form_tag "/groups/#{@group.id}/managers/edit", method: :get do %>
     <input name="keyword" placeholder="ユーザーを名前で検索" type="text">
       <button type="submit">検索</button>
     </input>

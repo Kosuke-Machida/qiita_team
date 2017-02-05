@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   # Groupに関するroutes
   resources :groups do
     resources :group_users, :only => [:new, :create, :update, :destroy]
-    get 'managers/search_member', to: 'managers#search_member'
+    get 'managers/edit', to: 'managers#edit'
     patch 'manager/update' => 'managers#update'
   end
 

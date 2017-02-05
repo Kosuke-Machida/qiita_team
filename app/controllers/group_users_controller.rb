@@ -11,7 +11,7 @@ class GroupUsersController < ApplicationController
     user = User.find(group_user_params[:user_id])
     @group_user = GroupUser.new(group_user_params)
     if @group_user.save
-      if user_id == current_user.id
+      if user.id == current_user.id
         redirect_to group_path(group.id), notice: "グループ「#{group.name}」に参加しました"
       else
         redirect_to group_path(group.id), notice: "グループ「#{group.name}」に#{user.username}を招待しました"
