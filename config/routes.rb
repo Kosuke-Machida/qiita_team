@@ -24,11 +24,6 @@ Rails.application.routes.draw do
     end
   end
 
-
-  # いいねに関するroutes
-  get 'likes/create'
-  get 'likes/destroy'
-
   # acts_as_taggable_onというGEMでtagを管理
   match 'tags/:tag', to: 'articles#index', as: :tag, via: [:get, :post]
   get 'tags', to: 'tags#index'
