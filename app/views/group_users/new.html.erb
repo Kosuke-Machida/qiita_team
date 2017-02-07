@@ -2,8 +2,7 @@
 <div>
   <%= form_tag( new_group_group_user_path(@group)) do %>
     <input name="keyword" placeholder="ユーザーを名前で検索" type="text">
-      <button title="検索" type="submit">
-      </button>
+      <button title="検索" type="submit">検索</button>
     </input>
   <% end %>
 </div>
@@ -14,7 +13,7 @@
     <div>
       <%= user.username %>
       <!-- すでに参加していたら「参加していますと表示」 -->
-      <% if @group.is_joined_by_a_specific_user?(user) %>
+      <% if @group.joined_by_this_user?(user) %>
         <span>すでに参加しています</span>
       <!-- まだ参加していなければ招待のボタンを表示 -->
       <% else %>

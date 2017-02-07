@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
-
-  before_action :redirect_to_index, only: [:edit, :update, :destroy]
+  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
     @groups = Group.all
@@ -9,7 +9,10 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     # グループがprivateの場合、メンバーじゃない人を弾く
-    redirect_to groups_path if @group.private && @group.users.include?(current_user) == false
+    if @group.private && @group.users.include?(current_user) == false
+      redirect_to groups_path
+    end
+    @group_user = GroupUser.new
   end
 
   def new
@@ -18,15 +21,15 @@ class GroupsController < ApplicationController
   end
 
   def create
-    if @group = current_user.groups.create(group_params)
+    @group = current_user.groups.create(group_params)
+    if @group.save
       redirect_to group_path(@group.id), notice: '新規グループを作成しました'
     else
       redirect_to groups_path, notice: '新規グループの作成ができませんでした'
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @group = Group.find(params[:id])
@@ -43,13 +46,16 @@ class GroupsController < ApplicationController
   end
 
   private
+
   def group_params
     params.require(:group).permit(:name, :body, :private, :manager_id)
   end
 
-  def redirect_to_index
+  def set_group
     @group = Group.find(params[:id])
-      redirect_to groups_path unless current_user.groups.include?(@group)
   end
 
+  def confirm_permission
+    redirect_to groups_path unless current_user.groups.include?(@group)
+  end
 end

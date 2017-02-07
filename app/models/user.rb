@@ -4,18 +4,16 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  scope :searched_by_name, -> (keyword) {where('username LIKE(?)', "%#{keyword}%")}
-  scope :group_manager, -> (group_manager_id) {find_by("id = ?", group_manager_id )}
+  scope :searched_by_name, ->(keyword) { where('username LIKE(?)', "%#{keyword}%") }
+  scope :group_manager, ->(group_manager_id) { find_by('id = ?', group_manager_id) }
 
   def not_belonging_groups
-    Group.all - self.groups
+    Group.all - groups
   end
 
   def not_belonging_public_groups
-    self.not_belonging_groups.select{|group| group.private == false}
+    not_belonging_groups.select { |group| group.private == false }
   end
-
-
 
   has_many :articles, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -23,7 +21,6 @@ class User < ActiveRecord::Base
 
   has_many :group_users
   has_many :groups, through: :group_users
-  
-  has_many :article_likes, dependent: :destroy
 
+  has_many :article_likes, dependent: :destroy
 end

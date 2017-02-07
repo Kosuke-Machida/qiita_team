@@ -5,14 +5,14 @@
 
   <% if @group.manager_id == current_user.id %>
     <!-- 管理者だけが編集できる -->
-    <%= button_to "編集",edit_group_path(@group) %>
+    <%= button_to "編集", edit_group_path(@group), method: :get %>
     <!-- 管理者だけが削除できる -->
-    <%= button_to "削除", @group, :method => :delete %>
+    <%= button_to "削除", @group, method: :delete %>
     <!-- 管理者が権限を移行する権利をもつ -->
     <%= button_to '管理者を変更', change_manager_group_managers_path(@group), method: :get %>
   <% else %>
     <!-- 管理者はグループを抜けられない（抜けたら終わるから） -->
-    <% if @group.is_joined_by_a_specific_user?(current_user) %>
+    <% if @group.joined_by_this_user?(current_user) %>
       <%= button_to 'グループから抜ける', [@group, @group.relation_with_user(current_user)] , method: :delete, data: { confirm: "本当にこのグループから抜けますか？"} %>
     <% else %>
       <%= button_to '参加する', group_group_users_path(user_id: current_user.id, group_id: @group.id) %>
@@ -28,7 +28,7 @@
 
   <!-- privateがtrueならメンバーのinviteぺージへのリンクを表示 -->
   <% if @group.private == true %>
-    <%= link_to "userを検索", new_group_group_user_path(@group) %>
+    <%= link_to "userを検索", new_group_group_user_path(@group, @group_user) %>
   <% end %>
 
 <p>Find me in app/views/groups/show.html.erb</p>

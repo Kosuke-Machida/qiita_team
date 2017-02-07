@@ -7,11 +7,10 @@ class Group < ActiveRecord::Base
   validates :body, presence: true
 
   def relation_with_user(user)
-    return self.group_users.find_by(user_id: user.id)
+    group_users.find_by(user_id: user.id)
   end
 
-  def is_joined_by_a_specific_user?(user)
-    GroupUser.exists?(user_id: user.id, group_id: self.id)
+  def joined_by_this_user?(user)
+    GroupUser.exists?(user_id: user.id, group_id: id)
   end
-
 end

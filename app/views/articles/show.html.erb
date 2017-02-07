@@ -6,8 +6,8 @@
   <div style="display:inline-flex">
     Tags:  <%= raw @article.tag_list.map { |t| button_to t, tag_path(t) }.join('') %>
   </div>
-  <%= button_to "削除", @article, :method => :delete %>
-  <% if @article.is_stocked?(current_user) %>
+  <%= button_to "削除", @article, method: :delete %>
+  <% if @article.stocked?(current_user) %>
     <%= button_to "stock解除", [@article, @article.related_stock(current_user)], method: :delete %>
   <% else %>
     <%= form_for [@article, @stock] do |f| %>
@@ -24,13 +24,13 @@
  <% @comments.each do |comment| %>
     <%= comment.body %>
     <%= link_to "編集", edit_article_comment_path(@article, comment) %>
-    <%= link_to "削除", article_comment_path(@article, comment), :method => :delete %>
+    <%= link_to "削除", article_comment_path(@article, comment), method: :delete %>
     <div id ='comment_like-buttons-<%= comment.id %>'>
-      <%= render :partial => "comment_like", :locals => { article: @article, comment: comment }  %>
+      <%= render partial: "comment_like", locals:  { article: @article, comment: comment }  %>
     </div>
     <br>
  <% end %>
 
- <%= button_to "新規コメント", new_article_comment_path(@article), :method => :get %>
+ <%= button_to "新規コメント", new_article_comment_path(@article), method: :get %>
 
 <p>Find me in app/views/articles/show.html.erb</p>

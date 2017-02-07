@@ -1,0 +1,34 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bundle_bin/*'
+    - 'bin/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+
+Style/Documentation:
+  Enabled: false
+
+AsciiComments:
+    Enabled: false
+
+Lint/UselessAssignment:
+  Exclude:
+    - 'app/controllers/group_users_controller.rb'
+
+Metrics/AbcSize:
+  Max: 22
+
+Metrics/MethodLength:
+  Max: 18
+
+Style/ClassAndModuleChildren:
+  Exclude:
+    - 'test/test_helper.rb'
+
+Metrics/LineLength:
+  Max: 97
