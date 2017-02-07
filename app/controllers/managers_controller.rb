@@ -1,10 +1,8 @@
 class ManagersController < ApplicationController
-
   before_action :set_group, only: [:change_manager, :update]
 
   # メンバーをusernameで検索するページ
-  def change_manager
-  end
+  def change_manager; end
 
   # patchでmanager_idだけをいじる
   def update
@@ -16,6 +14,7 @@ class ManagersController < ApplicationController
   end
 
   private
+
   def manager_params
     params.permit(:manager_id)
   end

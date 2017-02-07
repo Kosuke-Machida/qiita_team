@@ -1,14 +1,13 @@
 class ArticlesController < ApplicationController
-
-  before_action :set_article, only:[:show, :edit, :update, :destroy]
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
-    if params[:tag]
-      @articles = Article.tagged_with(params[:tag])
-    else
-      @articles = Article.all
-    end
+    @articles = if params[:tag]
+                  Article.tagged_with(params[:tag])
+                else
+                  Article.all
+                end
   end
 
   def show
@@ -21,12 +20,11 @@ class ArticlesController < ApplicationController
     @article = Article.new
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @article = Article.new(article_params)
-    if  @article.save
+    if @article.save
       redirect_to @article, notice: '新しく投稿しました'
     else
       redirect_to '', alert: '新しい投稿ができませんでした'
@@ -47,10 +45,11 @@ class ArticlesController < ApplicationController
   end
 
   private
+
   def article_params
     params.require(:article).permit(:title, :body, :user_id, :tag_list)
   end
-  
+
   def set_article
     @article = Article.find(params[:id])
   end

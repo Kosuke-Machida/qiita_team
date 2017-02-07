@@ -1,5 +1,4 @@
 class CommentLikesController < ApplicationController
-
   before_action :set_article
 
   def create
@@ -23,6 +22,7 @@ class CommentLikesController < ApplicationController
   end
 
   private
+
   def comment_like_params
     params.permit(:comment_id).merge(user_id: current_user.id)
   end

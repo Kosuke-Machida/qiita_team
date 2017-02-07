@@ -1,0 +1,17 @@
+AllCops:
+  Include:
+    - '**/Rakefile'
+    - '**/config.ru'
+  Exclude:
+    - 'db/**/*'
+    - 'config/**/*'
+    - 'script/**/*'
+    - 'bundle_bin/*'
+    - 'bin/*'
+    - !ruby/regexp /old_and_unused\.rb$/
+
+LineLength:
+    Max: 500
+
+AsciiComments:
+    Enabled: false

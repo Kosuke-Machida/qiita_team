@@ -1,5 +1,4 @@
 class StocksController < ApplicationController
-
   before_action :set_article, only: [:create, :destroy]
   before_action :set_stock, only: [:destroy]
 
@@ -22,6 +21,7 @@ class StocksController < ApplicationController
   end
 
   private
+
   def stock_params
     params.require(:stock).permit(:user_id, :article_id)
   end
@@ -31,7 +31,7 @@ class StocksController < ApplicationController
   end
 
   def set_stock
-    @stock = Stock.where(["user_id = ? and article_id = ? ", current_user.id, @article.id]).first
+    @stock = Stock.where(['user_id = ? and article_id = ? ', current_user.id, @article.id]).first
   end
 
   def confirm_permission

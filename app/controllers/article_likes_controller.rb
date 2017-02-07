@@ -7,7 +7,6 @@ class ArticleLikesController < ApplicationController
       respond_to do |format|
         format.js
       end
-    else
     end
   end
 
@@ -21,5 +20,4 @@ class ArticleLikesController < ApplicationController
       end
     end
   end
-
 end

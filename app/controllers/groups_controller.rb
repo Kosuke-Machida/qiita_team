@@ -1,5 +1,4 @@
 class GroupsController < ApplicationController
-
   bofore_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
@@ -27,8 +26,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     @group = Group.find(params[:id])
@@ -45,6 +43,7 @@ class GroupsController < ApplicationController
   end
 
   private
+
   def group_params
     params.require(:group).permit(:name, :body, :private, :manager_id)
   end
@@ -56,5 +55,4 @@ class GroupsController < ApplicationController
   def confirm_permission
     redirect_to groups_path unless current_user.groups.include?(@group)
   end
-
 end

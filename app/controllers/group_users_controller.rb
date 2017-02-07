@@ -1,5 +1,4 @@
 class GroupUsersController < ApplicationController
-
   before_action :set_group, only: [:create, :destroy]
   before_action :set_user, only: [:create]
 
@@ -31,13 +30,14 @@ class GroupUsersController < ApplicationController
       group_user.destroy
       redirect_to '/groups', notice: "グループ「#{@group.name}」から抜けました"
     else
-      redirect_to '/groups', alart: "権限がありません"
+      redirect_to '/groups', alart: '権限がありません'
     end
   end
 
   private
+
   def group_user_params
-    params.permit(:group_id,:user_id)
+    params.permit(:group_id, :user_id)
   end
 
   def set_group

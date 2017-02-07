@@ -1,18 +1,17 @@
 Rails.application.routes.draw do
-
   # root_pathはArticleのindex
-  root "articles#index"
+  root 'articles#index'
 
   # diviseでUserを管理 showだけ手書きで追加
   devise_for :users
-  resources :users, :only => [:show]
+  resources :users, only: [:show]
 
   # Articleに関するroutes
   resources :articles do
-    resources :comments, :only => [:new, :edit, :create, :update, :destroy] do
+    resources :comments, only: [:new, :edit, :create, :update, :destroy] do
       resources :comment_likes, only: [:create, :destroy]
     end
-    resources :stocks, :only => [:create, :destroy]
+    resources :stocks, only: [:create, :destroy]
     resources :article_likes, only: [:create, :destroy]
   end
 
@@ -30,10 +29,7 @@ Rails.application.routes.draw do
   match 'tags/:tag', to: 'articles#index', as: :tag, via: [:get, :post]
   get 'tags', to: 'tags#index'
 
-
-
-
-    # The priority is based upon order of creation: first created -> highest priority.
+  # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"

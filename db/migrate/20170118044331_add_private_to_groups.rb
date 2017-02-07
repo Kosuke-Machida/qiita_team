@@ -1,7 +1,6 @@
 class AddPrivateToGroups < ActiveRecord::Migration
-
   def up
-    add_column :groups, :private, :boolean, :default => false, :null => false
+    add_column :groups, :private, :boolean, default: false, null: false
   end
 
   def down

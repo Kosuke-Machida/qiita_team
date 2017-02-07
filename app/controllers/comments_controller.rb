@@ -1,5 +1,4 @@
 class CommentsController < ApplicationController
-
   before_action :set_article, only: [:new, :create, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
@@ -13,8 +12,7 @@ class CommentsController < ApplicationController
     redirect_to @article
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
     if @comment.update(comment_params)
@@ -30,13 +28,14 @@ class CommentsController < ApplicationController
   end
 
   private
+
   def set_article
     @article = Article.find(params[:article_id])
   end
 
   def confirm_permission
     @comment = Comment.find(params[:id])
-    unless current_user.id  == @comment.user_id
+    unless current_user.id == @comment.user_id
       redirect_to @article, notice: '権限がありません'
     end
   end
