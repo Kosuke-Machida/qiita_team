@@ -185,6 +185,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
   byebug
+  coderay
   coffee-rails (~> 4.1.0)
   devise
   dotenv-rails
