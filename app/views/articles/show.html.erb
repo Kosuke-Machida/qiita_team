@@ -14,7 +14,7 @@
   <% end %>
 
   <div id='article_like-buttons'>
-    <%= render partial: "article_likes/article_like", locals: { article: @article, article_like: @article_like }  %>
+    <%= render partial: "article_like", locals: { article: @article }  %>
   </div>
 
  <% @comments.each do |comment| %>
