@@ -1,9 +1,5 @@
 Rails.application.routes.draw do
 
-  get 'comment_like/create'
-
-  get 'comment_like/destroy'
-
   # root_pathはArticleのindex
   root "articles#index"
 
