@@ -1,0 +1,15 @@
+<% if article.like_by_this_user?(current_user.id) %>
+  <%= button_to article_article_like_path([article, article_like], article_id: article.id), method: :delete, id: "like-button", remote: true  do %>
+    <%= image_tag("dislike.jpeg") %>
+    <span>
+      <%= article.likes_count %>いいねされています
+    </span>
+  <% end %>
+<% else %>
+  <%= button_to article_article_likes_path(article), id: "like-button", remote: true do %>
+    <%= image_tag("like.jpeg") %>
+    <span>
+      <%= article.likes_count %>いいねされています
+    </span>
+  <% end %>
+<% end %>

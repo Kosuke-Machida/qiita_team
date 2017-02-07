@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
 
+  # root_pathはArticleのindex
+  root "articles#index"
+
   # diviseでUserを管理 showだけ手書きで追加
   devise_for :users
-  root "articles#index"
-  resources :users, only: [:show]
+  resources :users, :only => [:show]
 
   # Articleに関するroutes
   resources :articles do
     resources :comments, only: [:new, :edit, :create, :update, :destroy]
     resources :stocks, only: [:create, :destroy]
+    resources :article_likes, only: [:create, :destroy]
   end
 
   # Groupに関するroutes
@@ -20,9 +23,6 @@ Rails.application.routes.draw do
       end
     end
   end
-
-
-
 
   # acts_as_taggable_onというGEMでtagを管理
   match 'tags/:tag', to: 'articles#index', as: :tag, via: [:get, :post]
