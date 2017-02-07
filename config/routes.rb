@@ -9,8 +9,10 @@ Rails.application.routes.draw do
 
   # Articleに関するroutes
   resources :articles do
-    resources :comments, only: [:new, :edit, :create, :update, :destroy]
-    resources :stocks, only: [:create, :destroy]
+    resources :comments, :only => [:new, :edit, :create, :update, :destroy] do
+      resources :comment_likes, only: [:create, :destroy]
+    end
+    resources :stocks, :only => [:create, :destroy]
     resources :article_likes, only: [:create, :destroy]
   end
 
