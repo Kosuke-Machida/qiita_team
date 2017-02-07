@@ -1,7 +1,6 @@
 class CommentLikesController < ApplicationController
 
   before_action :set_article
-  before_action :set_comment_id_num
 
   def create
     comment_like = CommentLike.new(comment_like_params)
