@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
 
+  before_action :set_article, only:[:show, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
@@ -11,7 +12,6 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @article = Article.find(params[:id])
     @comments = @article.comments
     @stock = Stock.new
     @article_like = ArticleLike.find_by(user_id: current_user.id, article_id: params[:article_id])
@@ -47,14 +47,15 @@ class ArticlesController < ApplicationController
   end
 
   private
-
-  def confirm_permission
-    @article = Article.find(params[:id])
-    redirect_to '', alert: '権限がありません' if @article.user != current_user
-  end
-
   def article_params
     params.require(:article).permit(:title, :body, :user_id, :tag_list)
   end
+  
+  def set_article
+    @article = Article.find(params[:id])
+  end
 
+  def confirm_permission
+    redirect_to '', alert: '権限がありません' unless @article.user == current_user
+  end
 end
