@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
     self.comment_likes.find_by(user_id: user_id)
   end
 
-  def like_by_this_user(user_id)
+  def user_like(user_id)
     return self.comment_likes.find_by(user_id: user_id)
   end
 

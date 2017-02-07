@@ -1,27 +1,25 @@
 class CommentLikesController < ApplicationController
+
+  before_action :set_article
+  before_action :set_comment_id_num
+
   def create
-    @comment_like = CommentLike.new(comment_like_params)
-    @commnent_likes = CommentLike.where(comment_id: comment_like_params[:comment_id])
-    if @comment_like.save
-      @article = Article.find(params[:article_id])
-      @comments = @article.comments
+    comment_like = CommentLike.new(comment_like_params)
+    if comment_like.save
+      set_comment
       respond_to do |format|
-        format.jsi
+        format.js
       end
-    else
     end
   end
 
   def destroy
-    comment_like = CommentLike.find_by(comment_like_params[:comment_id])
-    @commnent_likes = CommentLike.where(comment_id: comment_like_params[:comment_id])
+    comment_like = CommentLike.find_by(comment_id: params[:comment_id], user_id: current_user.id)
     if comment_like.destroy
-      @article = Article.find(params[:article_id])
-      @comments = @article.comments
+      set_comment
       respond_to do |format|
         format.js
       end
-    else
     end
   end
 
@@ -30,4 +28,15 @@ class CommentLikesController < ApplicationController
     params.permit(:comment_id).merge(user_id: current_user.id)
   end
 
+  def set_article
+    @article = Article.find(params[:article_id])
+  end
+
+  def set_comment
+    @comment = Comment.find(params[:comment_id])
+  end
+
+  def set_comment_id_num
+    @comment_id_num = params[:comment_id]
+  end
 end
