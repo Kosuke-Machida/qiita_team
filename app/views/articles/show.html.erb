@@ -26,7 +26,7 @@
     <%= link_to "編集", edit_article_comment_path(@article, comment) %>
     <%= link_to "削除", article_comment_path(@article, comment), method: :delete %>
     <div id ='comment_like-buttons-<%= comment.id %>'>
-      <%= render :partial => "comment_like", :locals => { article: @article, comment: comment }  %>
+      <%= render partial: "comment_like", locals:  { article: @article, comment: comment }  %>
     </div>
     <br>
  <% end %>
