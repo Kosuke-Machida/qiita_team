@@ -23,7 +23,7 @@ class StocksController < ApplicationController
   private
 
   def stock_params
-    params.permit(:article_id).merge(user_id:current_user.id)
+    params.permit(:article_id).merge(user_id: current_user.id)
   end
 
   def set_article
