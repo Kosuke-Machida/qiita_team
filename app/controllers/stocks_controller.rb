@@ -23,7 +23,7 @@ class StocksController < ApplicationController
   private
 
   def stock_params
-    params.require(:stock).permit(:user_id, :article_id)
+    params.permit(:article_id).merge(user_id: current_user.id)
   end
 
   def set_article
@@ -31,7 +31,7 @@ class StocksController < ApplicationController
   end
 
   def set_stock
-    @stock = Stock.where(['user_id = ? and article_id = ? ', current_user.id, @article.id]).first
+    @stock = @article.stocks.find_by(user_id: current_user)
   end
 
   def confirm_permission

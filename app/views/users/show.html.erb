@@ -7,8 +7,8 @@
     </div>
     <div>
       <p>Stocks</p>
-      <% if @articles.present? %>
-        <% @articles.each do |article| %>
+      <% if @stocked_articles.present? %>
+        <% @stocked_articles.each do |article| %>
           <%= link_to article.title, article_path(article) %>
           <%= button_to "stock解除", [article, article.related_stock(current_user)], method: :delete %><br>
         <% end %>

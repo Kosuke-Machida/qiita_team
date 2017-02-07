@@ -1,5 +1,5 @@
 <% if article.user_like(current_user.id) %>
-  <%= button_to article_article_like_path([article, article_like], article_id: article.id), method: :delete, id: "article_like-button", remote: true  do %>
+  <%= button_to article_article_like_path(article, article.user_like(current_user.id)), method: :delete, id: "article_like-button", remote: true  do %>
     <%= image_tag("dislike.jpeg") %>
     <span>
       <%= article.likes_count %>いいねされています

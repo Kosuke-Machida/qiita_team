@@ -10,15 +10,11 @@
   <% if @article.stocked?(current_user) %>
     <%= button_to "stock解除", [@article, @article.related_stock(current_user)], method: :delete %>
   <% else %>
-    <%= form_for [@article, @stock] do |f| %>
-      <%= f.hidden_field :user_id, value: current_user.id %>
-      <%= f.hidden_field :article_id, value: @article.id %>
-      <%= f.submit "stock" %>
-    <% end %>
+    <%= button_to "stockする", [@article, @stock] %>
   <% end %>
 
   <div id='article_like-buttons'>
-    <%= render partial: "article_likes/article_like", locals: { article: @article, article_like: @article_like }  %>
+    <%= render partial: "article_like", locals: { article: @article }  %>
   </div>
 
  <% @comments.each do |comment| %>
