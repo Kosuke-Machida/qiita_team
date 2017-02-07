@@ -1,4 +1,4 @@
-<% if article.is_liked_by_this_user?(current_user.id) %>
+<% if article.user_like(current_user.id) %>
   <%= button_to article_article_like_path([article, article_like], article_id: article.id), method: :delete, id: "article_like-button", remote: true  do %>
     <%= image_tag("dislike.jpeg") %>
     <span>
