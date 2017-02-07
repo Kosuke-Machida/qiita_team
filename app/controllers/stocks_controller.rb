@@ -35,6 +35,8 @@ class StocksController < ApplicationController
   end
 
   def confirm_permission
-    redirect_to article_path(@article) unless current_user.stocks.include?(@stock)
+    unless current_user.stocks.include?(@stock)
+      redirect_to article_path(@article)
+    end
   end
 end

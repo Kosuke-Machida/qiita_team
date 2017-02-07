@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  bofore_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group, only: [:show, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
@@ -9,7 +9,10 @@ class GroupsController < ApplicationController
   def show
     @group = Group.find(params[:id])
     # グループがprivateの場合、メンバーじゃない人を弾く
-    redirect_to groups_path if @group.private && @group.users.include?(current_user) == false
+    if @group.private && @group.users.include?(current_user) == false
+      redirect_to groups_path
+    end
+    @group_user = GroupUser.new
   end
 
   def new

@@ -35,8 +35,9 @@ class CommentsController < ApplicationController
 
   def confirm_permission
     @comment = Comment.find(params[:id])
-    redirect_to @article, notice: '権限がありません' unless current_user.id == @comment.user_id
-  end
+    unless current_user.id == @comment.user_id
+      redirect_to @article, notice: '権限がありません' 
+    end
 
   def comment_params
     params.require(:comment).permit(:body, :user_id, :article_id)

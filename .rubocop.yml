@@ -29,3 +29,6 @@ Metrics/MethodLength:
 Style/ClassAndModuleChildren:
   Exclude:
     - 'test/test_helper.rb'
+
+Metrics/LineLength:
+  Max: 97

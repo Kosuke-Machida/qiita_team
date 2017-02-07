@@ -1,6 +1,6 @@
 class ArticleLikesController < ApplicationController
   def create
-    @article_like = ArticleLike.new(user_id: current_user.id, article_id: params[:article_id])
+    @article_like = ArticleLike.new(article_like_param)
     @article_likes = ArticleLike.where(article_id: params[:article_id])
     return unless @article_like.save
     @article = Article.find(params[:article_id])
@@ -10,12 +10,27 @@ class ArticleLikesController < ApplicationController
   end
 
   def destroy
-    article_like = ArticleLike.find_by(user_id: current_user.id, article_id: params[:article_id])
+    article_like = ArticleLike.find_by(
+      user_id: current_user.id,
+      article_id: params[:article_id]
+    )
     @article_likes = ArticleLike.where(article_id: params[:article_id])
     return unless article_like.destroy
     @article = Article.find(params[:article_id])
     respond_to do |format|
       format.js
     end
+  end
+
+  private
+
+  def article_like_param
+    params.require(
+      :artcle_like
+    ).permit(
+      :article_id
+    ).merge(
+      user_id: current_user_id
+    )
   end
 end
