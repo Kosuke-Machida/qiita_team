@@ -1,11 +1,12 @@
 <h1><%= @article.title %></h1>
 
   <div>
-    本文：<%= @article.body %>
+    本文：<%= markdown(@article.body).html_safe %>
   </div>
   <div style="display:inline-flex">
     Tags:  <%= raw @article.tag_list.map { |t| button_to t, tag_path(t) }.join('') %>
   </div>
+  <%= button_to "編集", @article, method: :get %>
   <%= button_to "削除", @article, method: :delete %>
   <% if @article.stocked?(current_user) %>
     <%= button_to "stock解除", [@article, @article.related_stock(current_user)], method: :delete %>

@@ -4,7 +4,7 @@
       タイトル：<%= f.text_field :title %>
     </div>
     <div>
-      本文：<%= f.text_field :body %>
+      本文：<%= f.text_area :body, rows: 30 %>
     </div>
     <div>
        <%= f.label :tag_list, "Tags (separated by commas)" %><br>
