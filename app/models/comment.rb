@@ -2,8 +2,8 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :article
   has_many :comment_likes, dependent: :destroy
-  def like_user(user_id)
-   comment_likes.find_by(user_id: user_id)
+  def liked_by_this_user(user_id)
+    comment_likes.find_by(user_id: user_id)
   end
 
   validates :body, presence: true

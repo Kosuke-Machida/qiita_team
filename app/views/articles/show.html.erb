@@ -1,8 +1,8 @@
-<h1>Articles#show</h1>
+<h1><%= @article.title %></h1>
 
-  <%= @article.title %>
-  <%= @article.body %>
-  <br>
+  <div>
+    本文：<%= @article.body %>
+  </div>
   <div style="display:inline-flex">
     Tags:  <%= raw @article.tag_list.map { |t| button_to t, tag_path(t) }.join('') %>
   </div>
@@ -17,7 +17,9 @@
     <% end %>
   <% end %>
 
-  <%= render :partial => "article_likes/article_like", :locals => { article: @article }  %>
+  <div id='like-buttons'>
+    <%= render partial:  "article_likes/article_like", locals: { article: @article, article_like: @article_like }  %>
+  </div>
 
  <% @comments.each do |comment| %>
     <%= comment.body %>

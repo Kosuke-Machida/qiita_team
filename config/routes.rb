@@ -22,15 +22,13 @@ Rails.application.routes.draw do
 
   # Groupに関するroutes
   resources :groups do
-    resources :group_users, :only => [:new, :create, :update, :destroy]
-    get 'managers/search_member', to: 'managers#search_member'
-    patch 'manager/update' => 'managers#update'
+    resources :group_users, only: [:new, :create, :update, :destroy]
+    resources :managers, only: [:update] do
+      collection do
+        get :change_manager
+      end
+    end
   end
-
-
-  # いいねに関するroutes
-  get 'likes/create'
-  get 'likes/destroy'
 
   # acts_as_taggable_onというGEMでtagを管理
   match 'tags/:tag', to: 'articles#index', as: :tag, via: [:get, :post]

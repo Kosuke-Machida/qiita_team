@@ -9,7 +9,7 @@
     <!-- 管理者だけが削除できる -->
     <%= button_to "削除", @group, :method => :delete %>
     <!-- 管理者が権限を移行する権利をもつ -->
-    <%= button_to '管理者を変更',  "/groups/#{@group.id}/managers/search_member", method: :get %>
+    <%= button_to '管理者を変更', change_manager_group_managers_path(@group), method: :get %>
   <% else %>
     <!-- 管理者はグループを抜けられない（抜けたら終わるから） -->
     <% if @group.is_joined_by_a_specific_user?(current_user) %>

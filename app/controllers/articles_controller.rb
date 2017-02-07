@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
     @article = Article.find(params[:id])
     @comments = @article.comments
     @stock = Stock.new
+    @article_like = ArticleLike.find_by(user_id: current_user.id, article_id: params[:article_id])
   end
 
   def new
