@@ -1,1 +1,1 @@
-$("#comment_like-buttons-<%= @comment_id_num %>").html("<%= j(render partial: 'articles/comment_like', locals: { article: @article, comment: @comment }) %>");
+$("#comment_like-buttons-<%= @comment.id %>").html("<%= j(render partial: 'articles/comment_like', locals: { article: @article, comment: @comment }) %>");

@@ -35,8 +35,4 @@ class CommentLikesController < ApplicationController
   def set_comment
     @comment = Comment.find(params[:comment_id])
   end
-
-  def set_comment_id_num
-    @comment_id_num = params[:comment_id]
-  end
 end
