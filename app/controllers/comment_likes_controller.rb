@@ -3,21 +3,19 @@ class CommentLikesController < ApplicationController
 
   def create
     comment_like = CommentLike.new(comment_like_params)
-    if comment_like.save
-      set_comment
-      respond_to do |format|
-        format.js
-      end
+    return unless comment_like.save
+    set_comment
+    respond_to do |format|
+      format.js
     end
   end
 
   def destroy
     comment_like = CommentLike.find_by(comment_id: params[:comment_id], user_id: current_user.id)
-    if comment_like.destroy
-      set_comment
-      respond_to do |format|
-        format.js
-      end
+    return unless comment_like.destroy
+    set_comment
+    respond_to do |format|
+      format.js
     end
   end
 

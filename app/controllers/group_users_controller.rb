@@ -10,17 +10,21 @@ class GroupUsersController < ApplicationController
   def create
     @group_user = GroupUser.new(group_user_params)
     if @group_user.save
-      if user.id == current_user.id
-        redirect_to group_path(@group.id), notice: "グループ「#{@group.name}」に参加しました"
-      else
-        redirect_to group_path(@group.id), notice: "グループ「#{@group.name}」に#{user.username}を招待しました"
-      end
+      message =
+        if user == current_user
+          "グループ「#{@group.name}」に参加しました"
+        else
+          "グループ「#{@group.name}」に#{user.username}を招待しました"
+        end
+      redirect_to group_path(@group.id), notice: message
     else
-      if user_id == current_user.id
-        redirect_to '/groups', notice: "グループ「#{@group.name}」への参加に失敗しました"
-      else
-        redirect_to '/groups', notice: "グループ「#{@group.name}」に#{user.username}を招待できませんでした"
-      end
+      message =
+        if user == current_user
+          "グループ「#{@group.name}」への参加に失敗しました"
+        else
+          "グループ「#{@group.name}」に#{user.username}を招待できませんでした"
+        end
+      redirect_to '/groups', notice: message
     end
   end
 

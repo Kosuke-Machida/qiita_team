@@ -15,7 +15,7 @@ class Article < ActiveRecord::Base
   validates :body, presence: true
   validates :user_id, presence: true
 
-  def is_stocked?(user)
+  def stocked?(user)
     Stock.exists?(user_id: user.id, article_id: id)
   end
 

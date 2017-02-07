@@ -10,7 +10,7 @@ class Group < ActiveRecord::Base
     group_users.find_by(user_id: user.id)
   end
 
-  def is_joined_by_a_specific_user?(user)
+  def joined_by_this_user?(user)
     GroupUser.exists?(user_id: user.id, group_id: id)
   end
 end
