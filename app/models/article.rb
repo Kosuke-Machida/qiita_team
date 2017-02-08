@@ -10,8 +10,8 @@ class Article < ActiveRecord::Base
   validates :user_id, presence: true
 
   # グループとの関連付けに関するscope
-  scope :group_articles, ->(group_ids) { where(group_id: group_ids) }
-
+  scope :available_to, ->(user) { where(group_id: user.groups.map(&:id)) }
+  
   # articleのいいね機能に関するメソッド
   def user_like(user_id)
     article_likes.find_by(user_id: user_id)
