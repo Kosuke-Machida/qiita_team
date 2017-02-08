@@ -3,11 +3,11 @@ class ArticlesController < ApplicationController
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
-    groups = current_user.groups - [ Group.find(MASTER_GROUP_ID) ]
-    group_ids = groups.map(&:id)
-    viewable_articles = Article.group_articles(group_ids) | Article.public_articles
+    belongged_groups = current_user.groups
+    belongged_group_ids = belongged_groups.map(&:id)
+    viewable_articles = Article.group_articles(belongged_group_ids)
     @articles = if params[:tag]
-                  viewable_articles.tagged_with(params[:tag]).where(group_id: nil)
+                  viewable_articles.tagged_with(params[:tag])
                 else
                   viewable_articles
                 end

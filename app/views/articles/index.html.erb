@@ -1,6 +1,6 @@
 <h1>Articles#index</h1>
 
-  <%= button_to "タグ一覧", tags_path %>
+  <%= button_to "タグ一覧", tags_path, method: :get %>
   <%= button_to "全員に公開で記事を書く", new_article_path(), method: :get %>
   <% @articles.each do |article| %>
     <div>

@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   scope :group_manager, ->(group_manager_id) { find_by('id = ?', group_manager_id) }
 
 
-  def belonging_groups
+  def belonging_groups_without_master
     groups - [ Group.find(MASTER_GROUP_ID) ]
   end
 
