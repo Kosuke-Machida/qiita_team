@@ -23,7 +23,6 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
-    @group_id = params[:group_id] if params[:group_id].present?
   end
 
   def edit; end
