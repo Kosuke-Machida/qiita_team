@@ -6,8 +6,8 @@ class ArticlesController < ApplicationController
     # ここから新規投稿する場合にはgroup_idをnilにしたいのでsessionを消す
     session[:group_id] = nil
     groups = current_user.groups
-    group_ids = groups.map{ |group| group.id }
-    viewable_articles =  Article.group_articles(group_ids) | Article.public_articles
+    group_ids = groups.map(&:id)
+    viewable_articles = Article.group_articles(group_ids) | Article.public_articles
     @articles = if params[:tag]
                   viewable_articles.tagged_with(params[:tag]).where(group_id: nil)
                 else
