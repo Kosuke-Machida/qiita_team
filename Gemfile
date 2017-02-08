@@ -56,4 +56,7 @@ group :development, :test do
   gem 'rubocop', require: false
 
   gem 'spring'
+  gem 'brakeman'
+  gem 'rubocop-rspec'
+  gem 'rubycritic'
 end
