@@ -1,4 +1,8 @@
-<h3><%= link_to @article.group.name, @article.group %>の投稿</h3>
+<% if @article.group.id == MASTER_GROUP_ID %>
+  <h3>全体公開の記事</h3>
+<% else %>
+  <h3><%= link_to @article.group.name, @article.group %>の投稿</h3>
+<% end %>
 
 <h1><%= @article.title %></h1>
 

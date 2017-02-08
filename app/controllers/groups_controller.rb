@@ -12,7 +12,6 @@ class GroupsController < ApplicationController
       redirect_to groups_path
     end
     @group_user = GroupUser.new
-    session[:group_id] = @group.id
   end
 
   def new
@@ -21,8 +20,8 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = current_user.groups.new(group_params)
-    if @group.save
+    # userに紐づいたgroupの作成がcreateじゃないとできない(newだと中間テーブルのレコードができない)
+    if @group = current_user.groups.create(group_params)
       redirect_to group_path(@group.id), notice: '新規グループを作成しました'
     else
       redirect_to groups_path, notice: '新規グループの作成ができませんでした'

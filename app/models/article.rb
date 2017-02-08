@@ -10,7 +10,7 @@ class Article < ActiveRecord::Base
   validates :user_id, presence: true
 
   # グループとの関連付けに関するscope
-  scope :group_articles, ->(group_ids) { where('group_id = ?', group_ids) }
+  scope :group_articles, ->(group_ids) { where(group_id: group_ids) }
   scope :public_articles, -> { where(group_id: nil) }
 
   # articleのいいね機能に関するメソッド

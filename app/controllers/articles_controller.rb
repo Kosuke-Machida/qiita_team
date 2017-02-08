@@ -3,9 +3,7 @@ class ArticlesController < ApplicationController
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
-    # ここから新規投稿する場合にはgroup_idをnilにしたいのでsessionを消す
-    session[:group_id] = nil
-    groups = current_user.groups
+    groups = current_user.groups - [ Group.find(MASTER_GROUP_ID) ]
     group_ids = groups.map(&:id)
     viewable_articles = Article.group_articles(group_ids) | Article.public_articles
     @articles = if params[:tag]
@@ -25,7 +23,11 @@ class ArticlesController < ApplicationController
   end
 
   def new
-    @group = Group.find(session[:group_id]) if session[:group_id]
+    @group = if params[:group_id]
+               Group.find(params[:group_id])
+             else
+               Group.find(MASTER_GROUP_ID)
+             end
     @article = Article.new
   end
 
