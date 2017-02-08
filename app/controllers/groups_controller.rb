@@ -1,9 +1,8 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy]
+  before_action :set_group_and_prevent_using_master_group, only: [:show, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
-    @groups = Group.all
   end
 
   def show
@@ -22,7 +21,7 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = current_user.groups.create(group_params)
+    @group = current_user.groups.new(group_params)
     if @group.save
       redirect_to group_path(@group.id), notice: '新規グループを作成しました'
     else
@@ -52,8 +51,10 @@ class GroupsController < ApplicationController
     params.require(:group).permit(:name, :body, :private, :manager_id)
   end
 
-  def set_group
+  def set_group_and_prevent_using_master_group
     @group = Group.find(params[:id])
+    return unless @group.id == MASTER_GROUP_ID
+    redirect_to groups_path, notice: 'お探しのグループは見つかりません'
   end
 
   def confirm_permission
