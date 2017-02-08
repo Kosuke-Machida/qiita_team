@@ -5,7 +5,12 @@
   <% @articles.each do |article| %>
     <div>
       <%= link_to article.title, article_path(article) %>
-      <%= article.user.username %>
+      投稿者：<%= article.user.username %>
+      <% if article.group_id %>
+        投稿先：<%= link_to article.group.name, article.group %>
+      <% else %>
+        全員に公開
+      <% end %>
     </div>
   <% end %>
 <p>Find me in app/views/articles/index.html.erb</p>

@@ -1,3 +1,5 @@
+<h3><%= link_to @article.group.name, @article.group %>の投稿</h3>
+
 <h1><%= @article.title %></h1>
 
   <div>
@@ -11,6 +13,10 @@
     <%= button_to "編集", edit_article_path(@article), method: :get %>
     <%= button_to "削除", @article, method: :delete %>
   <% end %>
+
+  <div>
+    書いた人：<%= link_to @article.user.username, @article.user %>
+  </div>
 
   <% if @article.stocked?(current_user) %>
     <%= button_to "stock解除", [@article, @article.related_stock(current_user)], method: :delete %>

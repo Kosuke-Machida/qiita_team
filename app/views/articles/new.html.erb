@@ -1,4 +1,9 @@
-<h1>Articles#new</h1>
+<% if @group %>
+  <h1><%= @group.name %>に投稿</h1>
+<% else %>
+  <h1>全体に投稿</h1>
+<% end %>
+
   <%= form_for @article do |f| %>
     <div>
       タイトル：<%= f.text_field :title %>
