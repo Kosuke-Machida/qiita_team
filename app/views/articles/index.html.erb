@@ -1,15 +1,11 @@
 <h1>Articles#index</h1>
 
-  <%= button_to "tags", tags_path %>
-
+  <%= button_to "タグ一覧", tags_path %>
+  <%= button_to "全員に公開で記事を書く", new_article_path(), method: :get %>
   <% @articles.each do |article| %>
     <div>
       <%= link_to article.title, article_path(article) %>
       <%= article.user.username %>
-      <% if article.user == current_user %>
-        <%= link_to "編集", edit_article_path(article) %>
-        <%= link_to "削除", article_path(article), method: :delete %>
-      <% end %>
     </div>
   <% end %>
 <p>Find me in app/views/articles/index.html.erb</p>

@@ -3,6 +3,8 @@ class ArticlesController < ApplicationController
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
+    # ここから新規投稿する場合にはgroup_idを渡したくないのでsessionを一旦消す
+    session[:group_id] = nil
     @articles = if params[:tag]
                   Article.tagged_with(params[:tag])
                 else
@@ -21,6 +23,7 @@ class ArticlesController < ApplicationController
 
   def new
     @article = Article.new
+    @group_id = params[:group_id] if params[:group_id].present?
   end
 
   def edit; end
@@ -30,7 +33,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to @article, notice: '新しく投稿しました'
     else
-      redirect_to '', alert: '新しい投稿ができませんでした'
+      redirect_to root_path, alert: '新しい投稿ができませんでした'
     end
   end
 
@@ -50,7 +53,12 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :user_id, :tag_list)
+    params.require(:article).permit(
+      :title,
+      :body,
+      :tag_list,
+      :group_id
+    ).merge(user_id: current_user.id)
   end
 
   def set_article

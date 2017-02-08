@@ -13,6 +13,7 @@ class GroupsController < ApplicationController
       redirect_to groups_path
     end
     @group_user = GroupUser.new
+    session[:group_id] = @group.id
   end
 
   def new
