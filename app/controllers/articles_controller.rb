@@ -56,8 +56,7 @@ class ArticlesController < ApplicationController
       :title,
       :body,
       :tag_list,
-      :group_id,
-
+      :group_id
     ).merge(user_id: current_user.id)
   end
 

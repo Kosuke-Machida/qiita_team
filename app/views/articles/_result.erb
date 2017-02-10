@@ -1,4 +1,8 @@
-<% if keyword %>
+<% if keyword.nil? %>
+  <h3>Timeline</h3>
+<% elsif keyword.empty? %>
+  <h3>キーワードを入力してください</h3>
+<% else %>
   <h3>"<%= keyword %>"で検索した結果</h3>
 <% end %>
 <table>

@@ -29,25 +29,23 @@ AllCops:
 Rails:
   Enabled: true
 
-# The project has a soft limit of 80 chars for line length, but up to 100 chars
-# are allowed in some cases.
-Metrics/LineLength:
-  Max: 100
-  AllowHeredoc: true
-  AllowURI: true
+Style/AsciiComments:
+  Enabled: false
 
-# Methods should be short. But sometimes it is not possible.
+Metrics/AbcSize:
+  Enabled: false
+
+Metrics/LineLength:
+  Enabled: false
+
 Metrics/MethodLength:
   Max: 20
 
-# Do not enforce documentation for all class definitions
 Documentation:
   Enabled: false
 
-# No HttpPositionalArguments in Rails 4.2
 Rails/HttpPositionalArguments:
   Enabled: false
 
 Style/FrozenStringLiteralComment:
   Enabled: false
-

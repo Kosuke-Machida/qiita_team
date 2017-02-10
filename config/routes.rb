@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :searched_articles, only: [] do
     collection do
-      get :search 
+      get :search
     end
   end
 

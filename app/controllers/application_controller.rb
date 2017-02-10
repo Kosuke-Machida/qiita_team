@@ -14,12 +14,11 @@ class ApplicationController < ActionController::Base
   end
 
   def invite_user_to_master_group
-    if user_signed_in?
-      # もしマスターチームに入ってなかったら入れる
-      return if current_user.relation_with_master_team
-      group_user = GroupUser.new(user_id: current_user.id, group_id: MASTER_GROUP_ID)
-      return if group_user.save
-      redirect_to root_path
-    end
+    return unless user_signed_in?
+    # もしマスターチームに入ってなかったら入れる
+    return if current_user.relation_with_master_team
+    group_user = GroupUser.new(user_id: current_user.id, group_id: MASTER_GROUP_ID)
+    return if group_user.save
+    redirect_to root_path
   end
 end
