@@ -44,6 +44,8 @@ gem 'dotenv-rails'
 
 gem 'seed-fu', '~> 2.3'
 
+gem 'slack-api'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
