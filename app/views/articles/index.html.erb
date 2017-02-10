@@ -1,7 +1,7 @@
 <h1>Timeline</h1>
 
   <p>記事をキーワードで検索<p>
-  <%= form_tag(search_searched_articles_path, method: :get, remote: true) do %>
+  <%= form_tag(search_articles_path, method: :get, remote: true) do %>
     <%= text_field_tag :keyword %>
     <%= submit_tag "検索", name: nil %>
   <% end %>
