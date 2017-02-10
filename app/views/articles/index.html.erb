@@ -1,16 +1,16 @@
-<h1>Articles#index</h1>
+<h1>記事一覧</h1>
+
+  <p>記事をキーワードで検索<p>
+  <%= form_tag(search_articles_path, method: :get, remote: true) do %>
+    <%= text_field_tag :keyword %>
+    <%= submit_tag "検索", name: nil %>
+  <% end %>
 
   <%= button_to "タグ一覧", tags_path, method: :get %>
   <%= button_to "全員に公開で記事を書く", new_article_path(), method: :get %>
-  <% @articles.each do |article| %>
-    <div>
-      <%= link_to article.title, article_path(article) %>
-      投稿者：<%= article.user.username %>
-      <% if article.group_id %>
-        投稿先：<%= link_to article.group.name, article.group %>
-      <% else %>
-        全員に公開
-      <% end %>
-    </div>
-  <% end %>
+
+  <div id='searched_results'>
+    <%= render partial: 'result', locals: { articles: @articles, keyword: nil } %>
+  </div>
+
 <p>Find me in app/views/articles/index.html.erb</p>

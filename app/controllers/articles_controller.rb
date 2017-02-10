@@ -4,11 +4,7 @@ class ArticlesController < ApplicationController
 
   def index
     viewable_articles = Article.available_to(current_user)
-    @articles = if params[:tag]
-                  viewable_articles.tagged_with(params[:tag])
-                else
-                  viewable_articles
-                end
+    @articles = viewable_articles
   end
 
   def show
@@ -51,6 +47,15 @@ class ArticlesController < ApplicationController
   def destroy
     @article.destroy
     redirect_to ''
+  end
+
+  def search
+    viewable_articles = Article.available_to(current_user)
+    @articles = viewable_articles.body_include(params[:keyword])
+    @keyword = params[:keyword]
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

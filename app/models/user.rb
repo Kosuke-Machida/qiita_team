@@ -7,9 +7,8 @@ class User < ActiveRecord::Base
   scope :searched_by_name, ->(keyword) { where('username LIKE(?)', "%#{keyword}%") }
   scope :group_manager, ->(group_manager_id) { find_by('id = ?', group_manager_id) }
 
-
   def belonging_groups_without_master
-    groups - [ Group.find(MASTER_GROUP_ID) ]
+    groups - [Group.find(MASTER_GROUP_ID)]
   end
 
   def not_belonging_groups

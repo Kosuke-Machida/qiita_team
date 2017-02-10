@@ -11,7 +11,8 @@ class Article < ActiveRecord::Base
 
   # グループとの関連付けに関するscope
   scope :available_to, ->(user) { where(group_id: user.groups.map(&:id)) }
-  
+  scope :body_include, ->(keyword) { where('body LIKE ?', "%#{keyword}%") }
+
   # articleのいいね機能に関するメソッド
   def user_like(user_id)
     article_likes.find_by(user_id: user_id)
