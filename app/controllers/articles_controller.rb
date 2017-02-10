@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
     if @article.save
       if @article.group.private == false
         Slack.chat_postMessage(
-          text: "@kosuke_machida #{current_user.username}が新しい記事「#{@article.title}」を投稿しました！",
+          text: "@here #{current_user.username}が新しい記事「#{@article.title}」を投稿しました！",
           username: 'きーたちーむくん',
           channel: "#qiita_team_test"
         )
@@ -47,9 +47,9 @@ class ArticlesController < ApplicationController
     if @article.update(article_params)
       if @article.group.private == false
         Slack.chat_postMessage(
-          text: "@kosuke_machida #{current_user.username}が記事「#{@article.title}」を更新しました！",
+          text: "@channel #{current_user.username}が記事「#{@article.title}」を更新しました！",
           username: 'きーたちーむくん',
-          channel: "#qiita_team_test")
+          channel: SLACK_SHARE_CHANNEL)
         redirect_to @article, notice: '投稿を編集しました'
       end
     else

@@ -3,6 +3,11 @@ class ArticleLikesController < ApplicationController
     article_like = ArticleLike.new(article_like_param)
     return unless article_like.save
     set_article
+    Slack.chat_postMessage(
+      text: "#{@article.user.slack_name} #{current_user.username}があなたの投稿にいいねしました！",
+      username: 'きーたちーむくん',
+      channel: SLACK_SHARE_CHANNEL
+    )
     respond_to do |format|
       format.js
     end
