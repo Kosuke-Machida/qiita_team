@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
       )
       redirect_to @article, notice: 'コメントを投稿しました'
     else
-        redirect_to @article, notice: 'コメントの投稿に失敗しました'
+      redirect_to @article, notice: 'コメントの投稿に失敗しました'
     end
   end
 
