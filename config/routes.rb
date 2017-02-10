@@ -8,17 +8,14 @@ Rails.application.routes.draw do
 
   # Articleに関するroutes
   resources :articles do
+    collection do
+      get :search
+    end
     resources :comments, only: [:new, :edit, :create, :update, :destroy] do
       resources :comment_likes, only: [:create, :destroy]
     end
     resources :stocks, only: [:create, :destroy]
     resources :article_likes, only: [:create, :destroy]
-  end
-
-  resources :searched_articles, only: [] do
-    collection do
-      get :search
-    end
   end
 
   # Groupに関するroutes
