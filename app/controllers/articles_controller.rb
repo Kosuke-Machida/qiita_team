@@ -4,11 +4,7 @@ class ArticlesController < ApplicationController
 
   def index
     viewable_articles = Article.available_to(current_user)
-    @articles = if params[:tag]
-                  viewable_articles.tagged_with(params[:tag])
-                else
-                  viewable_articles
-                end
+    @articles = viewable_articles
   end
 
   def show
@@ -60,7 +56,8 @@ class ArticlesController < ApplicationController
       :title,
       :body,
       :tag_list,
-      :group_id
+      :group_id,
+
     ).merge(user_id: current_user.id)
   end
 
