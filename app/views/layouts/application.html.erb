@@ -11,7 +11,6 @@
     <p class="alert"><%= alert %></p>
     <header>
       <%= link_to "top page", articles_path() %>
-      <%= link_to "create an article", new_article_path() %>
       <% if user_signed_in? %>
         <%= link_to "user page", user_path(current_user) %>
       <% end %>

@@ -3,10 +3,11 @@ class ArticlesController < ApplicationController
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
+    viewable_articles = Article.available_to(current_user)
     @articles = if params[:tag]
-                  Article.tagged_with(params[:tag])
+                  viewable_articles.tagged_with(params[:tag])
                 else
-                  Article.all
+                  viewable_articles
                 end
   end
 
@@ -20,6 +21,11 @@ class ArticlesController < ApplicationController
   end
 
   def new
+    @group = if params[:group_id]
+               Group.find(params[:group_id])
+             else
+               Group.find(MASTER_GROUP_ID)
+             end
     @article = Article.new
   end
 
@@ -30,7 +36,7 @@ class ArticlesController < ApplicationController
     if @article.save
       redirect_to @article, notice: '新しく投稿しました'
     else
-      redirect_to '', alert: '新しい投稿ができませんでした'
+      redirect_to root_path, alert: '新しい投稿ができませんでした'
     end
   end
 
@@ -50,7 +56,12 @@ class ArticlesController < ApplicationController
   private
 
   def article_params
-    params.require(:article).permit(:title, :body, :user_id, :tag_list)
+    params.require(:article).permit(
+      :title,
+      :body,
+      :tag_list,
+      :group_id
+    ).merge(user_id: current_user.id)
   end
 
   def set_article

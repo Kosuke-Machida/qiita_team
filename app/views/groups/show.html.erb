@@ -1,30 +1,55 @@
 <h1>Groups#show</h1>
-  <p>グループ名</p>     <%= @group.name %><br>
-  <p>概要</p>          <%= @group.body %><br>
-  <p>管理者</p>        <%= link_to User.group_manager(@group.manager_id).username, user_path(User.group_manager(@group.manager_id).id) %>
-
+  <div>
+    <p>グループ名</p>
+    <%= @group.name %>
+  </div>question
+  <div>
+    <p>概要</p>
+    <%= @group.body %>
+  </div>
+  <div>
+    <p>管理者</p>
+    <%= link_to User.group_manager(@group.manager_id).username, user_path(User.group_manager(@group.manager_id).id) %>
+  </div>
   <% if @group.manager_id == current_user.id %>
     <!-- 管理者だけが編集できる -->
     <%= button_to "編集", edit_group_path(@group), method: :get %>
-    <!-- 管理者だけが削除できる -->
+
+    <!-- 管理者だけが踏める削除ボタン -->
     <%= button_to "削除", @group, method: :delete %>
-    <!-- 管理者が権限を移行する権利をもつ -->
+
+    <!-- 管理者だけが踏める管理者権限の譲渡フォームへのリンク -->
     <%= button_to '管理者を変更', change_manager_group_managers_path(@group), method: :get %>
   <% else %>
     <!-- 管理者はグループを抜けられない（抜けたら終わるから） -->
     <% if @group.joined_by_this_user?(current_user) %>
-      <%= button_to 'グループから抜ける', [@group, @group.relation_with_user(current_user)] , method: :delete, data: { confirm: "本当にこのグループから抜けますか？"} %>
+      <!-- すでに参加していたらグループ抜けるボタン -->
+      <%= button_to 'グループから抜ける',
+        [@group, @group.relation_with_user(current_user)],
+        method: :delete,
+        data: { confirm: "本当にこのグループから抜けますか？"}
+      %>
     <% else %>
+      <!-- 参加していなかったら参加ボタン -->
       <%= button_to '参加する', group_group_users_path(user_id: current_user.id, group_id: @group.id) %>
     <% end %>
   <% end %>
+  <!-- グループに紐づけて記事を書く場合のボタン -->
+  <%= button_to "グループ内に記事を書く", new_article_path(), method: :get %>
 
-
-
-  <h2>メンバー一覧</h2>
-  <% @group.users.each do |user| %>
-    <%= link_to user.username, user_path(user.id) %>
+  <!-- グループに紐づけられた記事の一覧 -->
+  <h2>投稿一覧</h2>
+  <% @group.articles.each do |article| %>
+    <%= link_to article.title, article_path(article.id) %>
   <% end %>
+
+  <!-- メンバーの一覧表示 -->
+  <div>
+    <h2>メンバー一覧</h2>
+    <% @group.users.each do |user| %>
+      <%= link_to user.username, user_path(user.id) %>
+    <% end %>
+  </div>
 
   <!-- privateがtrueならメンバーのinviteぺージへのリンクを表示 -->
   <% if @group.private == true %>

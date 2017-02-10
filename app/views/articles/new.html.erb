@@ -1,4 +1,9 @@
-<h1>Articles#new</h1>
+<% if @group.id == MASTER_GROUP_ID %>
+  <h1>全体に投稿</h1>
+<% else %>
+  <h1><%= @group.name %>に投稿</h1>
+<% end %>
+
   <%= form_for @article do |f| %>
     <div>
       タイトル：<%= f.text_field :title %>
@@ -10,7 +15,7 @@
        <%= f.label :tag_list, "Tags (separated by commas)" %><br>
        <%= f.text_field :tag_list %>
     </div>
-    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :group_id, value: @group.id %>
     <%= f.submit "送信" %>
   <% end %>
 
