@@ -1,0 +1,25 @@
+<table>
+  <thead>
+    <tr>
+      <th>タイトル</th>
+      <th>投稿者</th>
+      <th>投稿先(グループ名)</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @articles.each do |article| %>
+      <tr>
+        <td><%= link_to article.title, article_path(article) %></td>
+        <td><%= article.user.username %></td>
+        <td>
+          <% unless article.group_id == MASTER_GROUP_ID %>
+            <%= link_to article.group.name, article.group %>
+          <% else %>
+            全員に公開
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

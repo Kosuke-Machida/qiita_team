@@ -2,15 +2,7 @@
 
   <%= button_to "タグ一覧", tags_path, method: :get %>
   <%= button_to "全員に公開で記事を書く", new_article_path(), method: :get %>
-  <% @articles.each do |article| %>
-    <div>
-      <%= link_to article.title, article_path(article) %>
-      投稿者：<%= article.user.username %>
-      <% if article.group_id %>
-        投稿先：<%= link_to article.group.name, article.group %>
-      <% else %>
-        全員に公開
-      <% end %>
-    </div>
-  <% end %>
+
+  <%= render partial: 'articles'  %>
+
 <p>Find me in app/views/articles/index.html.erb</p>
