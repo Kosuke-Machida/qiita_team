@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   match 'tags/:tag', to: 'articles#index', as: :tag, via: [:get, :post]
   get 'tags', to: 'tags#index'
 
+  post 'api_markdown' => 'articles#api_markdown'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,0 +1,7 @@
+$(function(){
+  $("#preview--button").on("click", function() {
+    var body = $("#article_body").val();
+    var markdowned_body = markdown(body);
+    $("#preview--container").html(`<div>${markdowned_body}</div>`);
+  });
+});
