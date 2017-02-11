@@ -4,7 +4,7 @@
   <h1><%= @group.name %>に投稿</h1>
 <% end %>
 
-  <%= form_for @article do |f| %>
+  <%= form_for @article, remote: true do |f| %>
     <div>
       タイトル：<%= f.text_field :title %>
     </div>
@@ -17,9 +17,11 @@
     </div>
     <%= f.hidden_field :group_id, value: @group.id %>
     <%= f.submit "送信" %>
-    <%= f.submit_tag 'Preview表示', :name => 'preview_button' %>
+    <%= f.submit 'Preview表示', :name => 'preview_button' %>
   <% end %>
 
-  <%= render partial: 'preview', { article: @article }%>
+  <div id='preview'>
+    <%= render partial: 'preview' %>
+  </div>
 
 <p>Find me in app/views/articles/new.html.erb</p>

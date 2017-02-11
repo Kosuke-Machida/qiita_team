@@ -29,10 +29,10 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    if @article.save
-      redirect_to @article, notice: '新しく投稿しました'
+    if params[:preview_button] || !@article.save
+      render 'preview.js.erb'
     else
-      redirect_to root_path, alert: '新しい投稿ができませんでした'
+      redirect_to @article, notice: '新しい投稿しました'
     end
   end
 
@@ -65,7 +65,8 @@ class ArticlesController < ApplicationController
       :title,
       :body,
       :tag_list,
-      :group_id
+      :group_id,
+      :preview_button
     ).merge(user_id: current_user.id)
   end
 
