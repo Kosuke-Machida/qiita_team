@@ -1,5 +1,5 @@
 <h1>Articles#edit</h1>
-<%= form_for @article do |f| %>
+<%= form_for @article, remote: true do |f| %>
    <div>
      <p><%= f.text_field :title %>
    </div>
@@ -11,5 +11,10 @@
      <%= f.text_field :tag_list %>
    </div>
   <%= f.submit "送信" %>
+  <%= f.submit 'Preview表示', :name => 'preview_button' %>
 <% end %>
+
+<div id='preview'>
+  <%= render partial: 'preview' %>
+</div>
 <p>Find me in app/views/articles/edit.html.erb</p>

@@ -1,6 +1,7 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
+  before_action :set_previewed_article, only: [:create, :update]
 
   def index
     viewable_articles = Article.available_to(current_user)
@@ -29,18 +30,18 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    if @article.save
-      redirect_to @article, notice: '新しく投稿しました'
+    if params[:preview_button] || !@article.save
+      render 'preview.js.erb'
     else
-      redirect_to root_path, alert: '新しい投稿ができませんでした'
+      redirect_to @article, notice: '新しい投稿しました'
     end
   end
 
   def update
-    if @article.update(article_params)
-      redirect_to @article, notice: '投稿を編集しました'
+    if params[:preview_button] || !@article.update(article_params)
+      render 'preview.js.erb'
     else
-      redirect_to @article, alert: '投稿の編集ができませんでした'
+      redirect_to @article, notice: '投稿を編集しました'
     end
   end
 
@@ -65,12 +66,17 @@ class ArticlesController < ApplicationController
       :title,
       :body,
       :tag_list,
-      :group_id
+      :group_id,
+      :preview_button
     ).merge(user_id: current_user.id)
   end
 
   def set_article
     @article = Article.find(params[:id])
+  end
+
+  def set_previewed_article
+    @previewed_article = Article.new(article_params)
   end
 
   def confirm_permission

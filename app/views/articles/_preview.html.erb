@@ -1,0 +1,4 @@
+<% if params[:preview_button] %>
+  <h3>Preview</h3>
+  <%= markdown(article.body).html_safe %>
+<% end %>
