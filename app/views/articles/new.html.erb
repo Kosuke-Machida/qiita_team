@@ -1,3 +1,4 @@
+<%= javascript_include_tag 'articles/preview' %>
 <% if @group.id == MASTER_GROUP_ID %>
   <h1>全体に投稿</h1>
 <% else %>
@@ -18,5 +19,9 @@
     <%= f.hidden_field :group_id, value: @group.id %>
     <%= f.submit "送信" %>
   <% end %>
+
+  <div id='preview--container'>
+    <!-- ここにjsでpreview表示する -->
+  </div>
 
 <p>Find me in app/views/articles/new.html.erb</p>
