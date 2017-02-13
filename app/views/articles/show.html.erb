@@ -40,16 +40,10 @@
     </div>
   </div>
 
- <% @comments.each do |comment| %>
-    <%= comment.body %>
-    <%= link_to "編集", edit_article_comment_path(@article, comment) %>
-    <%= link_to "削除", article_comment_path(@article, comment), method: :delete %>
-    <div id ='comment_like-buttons-<%= comment.id %>'>
-      <%= render partial: "comment_like", locals:  { article: @article, comment: comment }  %>
-    </div>
-    <br>
- <% end %>
+<div id='comments'>
+  <%= render partial: 'comments', locals: { article: @article, comments: @comments } %>
+</div>
 
- <%= button_to "新規コメント", new_article_comment_path(@article), method: :get %>
-
-<p>Find me in app/views/articles/show.html.erb</p>
+<div id='comment-form'>
+  <%= render partial: 'comment_form', locals: { article: @article, comment: @comment }  %>
+</div>

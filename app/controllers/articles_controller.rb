@@ -12,6 +12,11 @@ class ArticlesController < ApplicationController
   end
 
   def show
+    if params[:comment_id]
+      @comment = Comment.find(params[:comment_id])
+    else
+      @comment = Comment.new
+    end
     @comments = @article.comments
     @stock = Stock.new
     @article_like = ArticleLike.find_by(

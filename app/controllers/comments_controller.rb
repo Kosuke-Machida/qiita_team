@@ -1,22 +1,18 @@
 class CommentsController < ApplicationController
-  before_action :set_article, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_article, only: [:create, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
-
-  def new
-    @comment = Comment.new
-  end
 
   def create
     @comment = @article.comments.new(comment_params)
-    if @comment.save
-      Slack.chat_postMessage(
-        text: "#{@article.user.slack_name} #{current_user.username}があなたの投稿にコメントしました！",
-        username: 'きーたちーむくん',
-        channel: SLACK_SHARE_CHANNEL
-      )
-      redirect_to @article, notice: 'コメントを投稿しました'
-    else
-      redirect_to @article, notice: 'コメントの投稿に失敗しました'
+    return unless @comment.save
+    set_comments
+    Slack.chat_postMessage(
+      text: "#{@article.user.slack_name} #{current_user.username}があなたの投稿にコメントしました！",
+      username: 'きーたちーむくん',
+      channel: SLACK_SHARE_CHANNEL
+    )
+    respond_to do |format|
+      format.js
     end
   end
 
@@ -41,6 +37,10 @@ class CommentsController < ApplicationController
     @article = Article.find(params[:article_id])
   end
 
+  def set_comments
+    @comments = @article.comments
+  end
+
   def confirm_permission
     @comment = Comment.find(params[:id])
     return if current_user == @comment.user
@@ -48,6 +48,9 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.require(:comment).permit(:body, :user_id, :article_id)
+    params.require(:comment).permit(:body).merge(
+      user_id: current_user.id,
+      article_id: params[:article_id]
+    )
   end
 end

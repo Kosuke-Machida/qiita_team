@@ -1,6 +1,5 @@
-<%= form_for [article, comment] do |f| %>
-   <div>
-     <%= f.text_field :body %>
-   </div>
-   <%= f.submit "Post" %>
+<p> Post New Comment </p>
+<%= form_for [article, comment], remote: true do |f| %>
+  <%= f.text_field :body %>
+  <%= f.submit "submit" %>
 <% end %>
