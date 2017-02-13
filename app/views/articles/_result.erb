@@ -21,9 +21,9 @@
         <td><%= article.user.username %></td>
         <td>
           <% unless article.group_id == MASTER_GROUP_ID %>
-            <%= link_to article.group.name, article.group %>
+            in <%= link_to article.group.name, article.group %>
           <% else %>
-            全員に公開
+            Public
           <% end %>
         </td>
       </tr>

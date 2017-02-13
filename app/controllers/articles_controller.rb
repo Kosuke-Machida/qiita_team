@@ -46,9 +46,9 @@ class ArticlesController < ApplicationController
           channel: SLACK_SHARE_CHANNEL
         )
       end
-      redirect_to @article, notice: '新しく投稿しました'
+      redirect_to @article, notice: 'Your Article are successfuly posted'
     else
-      redirect_to root_path, alert: '新しい投稿ができませんでした'
+      redirect_to root_path
     end
   end
 
@@ -60,10 +60,10 @@ class ArticlesController < ApplicationController
           username: 'きーたちーむくん',
           channel: SLACK_SHARE_CHANNEL
         )
-        redirect_to @article, notice: '投稿を編集しました'
+        redirect_to @article, notice: 'Your Article are successfuly updated'
       end
     else
-      redirect_to @article, alert: '投稿の編集ができませんでした'
+      redirect_to @article
     end
   end
 
@@ -97,6 +97,6 @@ class ArticlesController < ApplicationController
   end
 
   def confirm_permission
-    redirect_to '', alert: '権限がありません' unless @article.user == current_user
+    redirect_to '', alert: 'You do not have a permission' unless @article.user == current_user
   end
 end

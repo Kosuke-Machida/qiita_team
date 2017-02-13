@@ -12,8 +12,8 @@
     <% end %>
     <!-- 書いた本人なら編集と削除のボタンを表示 -->
     <% if current_user == @article.user %>
-      <%= link_to "編集", edit_article_path(@article), method: :get %>
-      <%= link_to "削除", @article, method: :delete %>
+      <%= link_to "Edit", edit_article_path(@article), method: :get %>
+      <%= link_to "Delete", @article, method: :delete %>
     <% end %>
   </div>
 

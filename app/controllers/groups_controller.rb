@@ -20,11 +20,11 @@ class GroupsController < ApplicationController
   end
 
   def create
-    @group = current_user.groups.create(group_params).build
-    if @group.save
-      redirect_to group_path(@group.id), notice: '新規グループを作成しました'
+
+    if @group = current_user.groups.create(group_params)
+      redirect_to group_path(@group.id), notice: 'New Group was Successfuly created'
     else
-      redirect_to groups_path, notice: '新規グループの作成ができませんでした'
+      redirect_to groups_path
     end
   end
 
@@ -33,9 +33,9 @@ class GroupsController < ApplicationController
   def update
     @group = Group.find(params[:id])
     if @group.update(group_params)
-      redirect_to @group, notice: 'グループを更新しました'
+      redirect_to @group, notice: "Group #{@group.name} was Successfuly created"
     else
-      redirect_to @group, notice: 'グループの更新ができませんでした'
+      redirect_to @group
     end
   end
 
@@ -58,7 +58,7 @@ class GroupsController < ApplicationController
   # masterグループにURLから処理を行おうとするのを防ぐ
   def prevent_using_master_group
     return unless @group.id == MASTER_GROUP_ID
-    redirect_to groups_path, notice: 'お探しのグループは見つかりません'
+    redirect_to groups_path, notice: 'Not Found'
   end
 
   # 紐づいていないuserが編集や削除をするのを防ぐ

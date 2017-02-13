@@ -1,8 +1,8 @@
-<h1><%= @group.name %>にメンバーを追加</h1>
+<h1>Invite New Member to <%= @group.name %></h1>
 <div>
-  <%= form_tag( new_group_group_user_path(@group)) do %>
-    <input name="keyword" placeholder="ユーザーを名前で検索" type="text">
-      <button title="検索" type="submit">検索</button>
+  <%= form_tag( new_group_group_user_path(@group), method: :get) do %>
+    <input name="keyword" placeholder="Search User by Name" type="text">
+      <button title="Search" type="submit">Search</button>
     </input>
   <% end %>
 </div>
@@ -14,10 +14,10 @@
       <%= user.username %>
       <!-- すでに参加していたら「参加していますと表示」 -->
       <% if @group.joined_by_this_user?(user) %>
-        <span>すでに参加しています</span>
+        <span>already joined</span>
       <!-- まだ参加していなければ招待のボタンを表示 -->
       <% else %>
-        <%= button_to '招待する', group_group_users_path(user_id: user.id, group_id: @group.id) %>
+        <%= button_to 'Invite', group_group_users_path(user_id: user.id, group_id: @group.id) %>
       <% end %>
     </div>
   <% end %>

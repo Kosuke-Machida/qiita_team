@@ -20,9 +20,9 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to @article, notice: 'コメントを編集しました'
+      redirect_to @article
     else
-      redirect_to @article, notice: 'コメントの編集に失敗しました'
+      redirect_to @article
     end
   end
 
@@ -44,7 +44,7 @@ class CommentsController < ApplicationController
   def confirm_permission
     @comment = Comment.find(params[:id])
     return if current_user == @comment.user
-    redirect_to @article, notice: '権限がありません'
+    redirect_to @article, alert: 'You do not have a permission'
   end
 
   def comment_params

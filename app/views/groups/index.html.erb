@@ -1,23 +1,25 @@
-<h1>Groups#index</h1>
+<h1>Groups</h1>
 
-  <p>参加しているグループ</p>
+  <%= link_to "Create New Group", new_group_path(), method: :get %>
+
+  <p>Your Groups</p>
   <% current_user.belonging_groups_without_master.each do |group| %>
-     <%= link_to group.name, group_path(group) %>
-     <%= group.body %>
-     <br>
+    <div class='group'>
+      <%= link_to group.name, group_path(group) %>
+      <%= group.articles.length %>
+      <%= group.users.length %>
+    </div>
   <% end %>
 
-  <p>参加していないグループ</p>
+  <p>Groups You Can Join</p>
   <% if current_user.not_belonging_public_groups %>
     <% current_user.not_belonging_public_groups.each do |group| %>
        <%= link_to group.name, group_path(group) %>
-       <%= group.body %>
-       <%= button_to '参加する', group_group_users_path(user_id: current_user.id, group_id: group.id) %>
+       <%= group.articles.length %>
+       <%= group.users.length %>
+       <%= link_to 'Join', group_group_users_path(user_id: current_user.id, group_id: group.id) %>
        <br>
     <% end %>
   <% else %>
-   <p>参加できるグループはありません</p>
+   <p>There are no groups you can join in</p>
   <% end %>
-
-    <%= button_to "create an group", new_group_path(), method: :get %>
-<p>Find me in app/views/groups/index.html.erb</p>

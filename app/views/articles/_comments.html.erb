@@ -1,3 +1,10 @@
 <% comments.each do |comment| %>
-   <%= render partial: 'comment', locals: { article: article, comment: comment } %>
+  <div class='comment'>
+    <div class='comment__body'>
+      <%= comment.body %>
+    </div>
+    <%= link_to "Edit", edit_article_comment_path(article, comment) %>
+    <%= link_to "Delete", article_comment_path(article, comment), method: :delete %>
+    <%= render partial: "articles/comment_like", locals:  { article: article, comment: comment }  %>
+  </div>
 <% end %>
