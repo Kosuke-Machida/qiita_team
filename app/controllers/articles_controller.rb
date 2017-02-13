@@ -4,7 +4,11 @@ class ArticlesController < ApplicationController
 
   def index
     viewable_articles = Article.available_to(current_user)
-    @articles = viewable_articles
+    if params[:tag]
+      @articles = viewable_articles.tagged_with(params[:tag])
+    else
+      @articles = viewable_articles
+    end
   end
 
   def show

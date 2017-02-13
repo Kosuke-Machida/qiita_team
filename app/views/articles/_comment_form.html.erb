@@ -1,0 +1,6 @@
+<%= form_for [article, comment] do |f| %>
+   <div>
+     <%= f.text_field :body %>
+   </div>
+   <%= f.submit "Post" %>
+<% end %>
