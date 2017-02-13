@@ -32,6 +32,10 @@ gem 'redcarpet'
 
 gem 'coderay'
 
+gem 'marked-rails'
+
+gem 'highlight', require: 'simplabs/highlight'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -45,6 +49,8 @@ gem 'dotenv-rails'
 gem 'seed-fu', '~> 2.3'
 
 gem 'slack-api'
+
+gem 'jquery-turbolinks'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
