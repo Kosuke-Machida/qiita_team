@@ -34,7 +34,7 @@ gem 'coderay'
 
 gem 'marked-rails'
 
-gem 'highlight', :require => 'simplabs/highlight'
+gem 'highlight', require: 'simplabs/highlight'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
