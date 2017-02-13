@@ -7,9 +7,9 @@ class ManagersController < ApplicationController
   # patchでmanager_idだけをいじる
   def update
     if @group.update(manager_params)
-      redirect_to @group, notice: '管理者を変更しました'
+      redirect_to @group, notice: 'You successfuly gave your manager permission'
     else
-      redirect_to @group, notice: '管理者の変更ができませんでした'
+      redirect_to @group, notice: 'You failed to give your manager permission'
     end
   end
 

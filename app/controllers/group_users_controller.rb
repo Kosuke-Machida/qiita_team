@@ -11,16 +11,16 @@ class GroupUsersController < ApplicationController
     @group_user = GroupUser.new(group_user_params)
     if @group_user.save
       message = if user == current_user
-                  "グループ「#{@group.name}」に参加しました"
+                  "You successfuly joined in #{@group.name}"
                 else
-                  "グループ「#{@group.name}」に#{user.username}を招待しました"
+                  "You successfuly invited #{user.username} to #{@group.name}"
                 end
       redirect_to group_path(@group.id), notice: message
     else
       message = if user == current_user
-                  "グループ「#{@group.name}」への参加に失敗しました"
+                  "You failed to join in #{@group.name}"
                 else
-                  "グループ「#{@group.name}」に#{user.username}を招待できませんでした"
+                  "You failed to invite #{user.username} to「#{@group.name}}"
                 end
       redirect_to '/groups', notice: message
     end
@@ -30,9 +30,9 @@ class GroupUsersController < ApplicationController
     group_user = GroupUser.find(params[:id])
     if group_user.user_id == current_user.id
       group_user.destroy
-      redirect_to '/groups', notice: "グループ「#{@group.name}」から抜けました"
+      redirect_to '/groups', notice: "You successfuly left from #{@group.name}"
     else
-      redirect_to '/groups', alart: '権限がありません'
+      redirect_to '/groups'
     end
   end
 

@@ -2,14 +2,14 @@
   <%= button_to article_article_like_path(article, article.user_like(current_user.id)), method: :delete, id: "article_like-button", remote: true  do %>
     <%= image_tag("dislike.jpeg") %>
     <span>
-      <%= article.likes_count %>いいねされています
+      <%= article.likes_count %>Liked
     </span>
   <% end %>
 <% else %>
   <%= button_to article_article_likes_path(article), id: "article_like-button", remote: true do %>
     <%= image_tag("like.jpeg") %>
     <span>
-      <%= article.likes_count %>いいねされています
+      <%= article.likes_count %>Liked
     </span>
   <% end %>
 <% end %>

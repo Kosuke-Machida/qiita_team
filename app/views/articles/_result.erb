@@ -1,16 +1,16 @@
 <% if keyword.nil? %>
   <h3>Timeline</h3>
 <% elsif keyword.empty? %>
-  <h3>キーワードを入力してください</h3>
+  <h3>Searching Form is empty...</h3>
 <% else %>
-  <h3>"<%= keyword %>"で検索した結果</h3>
+  <h3>Search Result</h3>
 <% end %>
 <table>
   <thead>
     <tr>
-      <th>タイトル</th>
-      <th>投稿者</th>
-      <th>投稿先(グループ名)</th>
+      <th>Title</th>
+      <th>Contributer</th>
+      <th>Statement</th>
     </tr>
   </thead>
 
@@ -21,9 +21,9 @@
         <td><%= article.user.username %></td>
         <td>
           <% unless article.group_id == MASTER_GROUP_ID %>
-            <%= link_to article.group.name, article.group %>
+            in <%= link_to article.group.name, article.group %>
           <% else %>
-            全員に公開
+            Public
           <% end %>
         </td>
       </tr>

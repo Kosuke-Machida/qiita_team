@@ -4,10 +4,19 @@ class ArticlesController < ApplicationController
 
   def index
     viewable_articles = Article.available_to(current_user)
-    @articles = viewable_articles
+    if params[:tag]
+      @articles = viewable_articles.tagged_with(params[:tag])
+    else
+      @articles = viewable_articles
+    end
   end
 
   def show
+    if params[:comment_id]
+      @comment = Comment.find(params[:comment_id])
+    else
+      @comment = Comment.new
+    end
     @comments = @article.comments
     @stock = Stock.new
     @article_like = ArticleLike.find_by(
@@ -37,9 +46,9 @@ class ArticlesController < ApplicationController
           channel: SLACK_SHARE_CHANNEL
         )
       end
-      redirect_to @article, notice: '新しく投稿しました'
+      redirect_to @article, notice: 'Your Article are successfuly posted'
     else
-      redirect_to root_path, alert: '新しい投稿ができませんでした'
+      redirect_to root_path
     end
   end
 
@@ -51,10 +60,10 @@ class ArticlesController < ApplicationController
           username: 'きーたちーむくん',
           channel: SLACK_SHARE_CHANNEL
         )
-        redirect_to @article, notice: '投稿を編集しました'
+        redirect_to @article, notice: 'Your Article are successfuly updated'
       end
     else
-      redirect_to @article, alert: '投稿の編集ができませんでした'
+      redirect_to @article
     end
   end
 
@@ -88,6 +97,6 @@ class ArticlesController < ApplicationController
   end
 
   def confirm_permission
-    redirect_to '', alert: '権限がありません' unless @article.user == current_user
+    redirect_to '', alert: 'You do not have a permission' unless @article.user == current_user
   end
 end

@@ -1,0 +1,5 @@
+<p> Post New Comment </p>
+<%= form_for [article, comment], remote: true do |f| %>
+  <%= f.text_field :body %>
+  <%= f.submit "submit" %>
+<% end %>

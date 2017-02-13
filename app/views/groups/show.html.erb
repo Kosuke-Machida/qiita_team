@@ -1,51 +1,53 @@
-<h1>Groups#show</h1>
-  <div>
-    <p>グループ名</p>
-    <%= @group.name %>
-  </div>question
-  <div>
-    <p>概要</p>
+<div class='group'>
+  <div class='group__header'>
+    <div class='group__name'>
+      <%= @group.name %>
+    </div>
+    <% if @group.manager_id == current_user.id %>
+      <!-- 管理者だけが編集できる -->
+      <%= link_to 'Edit', edit_group_path(@group), method: :get %>
+      <!-- 管理者だけが踏める削除ボタン -->
+      <%= link_to "Delete", @group, method: :delete %>
+      <!-- 管理者だけが踏める管理者権限の譲渡フォームへのリンク -->
+      <%= link_to 'Change Manager', change_manager_group_managers_path(@group), method: :get %>
+    <% else %>
+      <!-- 管理者はグループを抜けられない（抜けたら終わるから） -->
+      <% if @group.joined_by_this_user?(current_user) %>
+        <!-- すでに参加していたらグループ抜けるボタン -->
+        <%= button_to 'Leave from this Group',
+          [@group, @group.relation_with_user(current_user)],
+          method: :delete,
+          data: { confirm: 'Are you sure to leave from this Group'}
+        %>
+      <% else %>
+        <!-- 参加していなかったら参加ボタン -->
+        <%= link_to 'Join this Group',
+          group_group_users_path(user_id: current_user.id, group_id: @group.id),
+          method: :post
+        %>
+      <% end %>
+    <% end %>
+  </div>
+  <div class='group__body'>
     <%= @group.body %>
   </div>
   <div>
-    <p>管理者</p>
+    <p>Manager</p>
     <%= link_to User.group_manager(@group.manager_id).username, user_path(User.group_manager(@group.manager_id).id) %>
   </div>
-  <% if @group.manager_id == current_user.id %>
-    <!-- 管理者だけが編集できる -->
-    <%= button_to "編集", edit_group_path(@group), method: :get %>
 
-    <!-- 管理者だけが踏める削除ボタン -->
-    <%= button_to "削除", @group, method: :delete %>
 
-    <!-- 管理者だけが踏める管理者権限の譲渡フォームへのリンク -->
-    <%= button_to '管理者を変更', change_manager_group_managers_path(@group), method: :get %>
-  <% else %>
-    <!-- 管理者はグループを抜けられない（抜けたら終わるから） -->
-    <% if @group.joined_by_this_user?(current_user) %>
-      <!-- すでに参加していたらグループ抜けるボタン -->
-      <%= button_to 'グループから抜ける',
-        [@group, @group.relation_with_user(current_user)],
-        method: :delete,
-        data: { confirm: "本当にこのグループから抜けますか？"}
-      %>
-    <% else %>
-      <!-- 参加していなかったら参加ボタン -->
-      <%= button_to '参加する', group_group_users_path(user_id: current_user.id, group_id: @group.id) %>
-    <% end %>
-  <% end %>
   <!-- グループに紐づけて記事を書く場合のボタン -->
-  <%= button_to "グループ内に記事を書く", new_article_path(), method: :get %>
+  <%= link_to 'Post New Article in Group', new_article_path(), method: :get %>
 
   <!-- グループに紐づけられた記事の一覧 -->
-  <h2>投稿一覧</h2>
   <% @group.articles.each do |article| %>
     <%= link_to article.title, article_path(article.id) %>
   <% end %>
 
   <!-- メンバーの一覧表示 -->
   <div>
-    <h2>メンバー一覧</h2>
+    <h2>Members</h2>
     <% @group.users.each do |user| %>
       <%= link_to user.username, user_path(user.id) %>
     <% end %>
@@ -53,7 +55,5 @@
 
   <!-- privateがtrueならメンバーのinviteぺージへのリンクを表示 -->
   <% if @group.private == true %>
-    <%= link_to "userを検索", new_group_group_user_path(@group, @group_user) %>
+    <%= link_to 'Search User', new_group_group_user_path(@group, @group_user) %>
   <% end %>
-
-<p>Find me in app/views/groups/show.html.erb</p>
