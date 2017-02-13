@@ -8,8 +8,16 @@ class CommentsController < ApplicationController
 
   def create
     @comment = @article.comments.new(comment_params)
-    @comment.save
-    redirect_to @article
+    if @comment.save
+      Slack.chat_postMessage(
+        text: "#{@article.user.slack_name} #{current_user.username}があなたの投稿にコメントしました！",
+        username: 'きーたちーむくん',
+        channel: SLACK_SHARE_CHANNEL
+      )
+      redirect_to @article, notice: 'コメントを投稿しました'
+    else
+      redirect_to @article, notice: 'コメントの投稿に失敗しました'
+    end
   end
 
   def edit; end

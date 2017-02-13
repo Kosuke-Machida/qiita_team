@@ -30,6 +30,13 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     if @article.save
+      if @article.group.private == false
+        Slack.chat_postMessage(
+          text: "@here #{current_user.username}が新しい記事「#{@article.title}」を投稿しました！",
+          username: 'きーたちーむくん',
+          channel: SLACK_SHARE_CHANNEL
+        )
+      end
       redirect_to @article, notice: '新しく投稿しました'
     else
       redirect_to root_path, alert: '新しい投稿ができませんでした'
@@ -38,7 +45,14 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      redirect_to @article, notice: '投稿を編集しました'
+      if @article.group.private == false
+        Slack.chat_postMessage(
+          text: "@channel #{current_user.username}が記事「#{@article.title}」を更新しました！",
+          username: 'きーたちーむくん',
+          channel: SLACK_SHARE_CHANNEL
+        )
+        redirect_to @article, notice: '投稿を編集しました'
+      end
     else
       redirect_to @article, alert: '投稿の編集ができませんでした'
     end

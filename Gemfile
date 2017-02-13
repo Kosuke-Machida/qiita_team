@@ -48,6 +48,8 @@ gem 'dotenv-rails'
 
 gem 'seed-fu', '~> 2.3'
 
+gem 'slack-api'
+
 gem 'jquery-turbolinks'
 
 group :development do

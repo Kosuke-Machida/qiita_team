@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
   # Articleに関するroutes
   resources :articles do
+    # 記事の検索機能
     collection do
       get :search
     end
