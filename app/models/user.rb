@@ -2,7 +2,8 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable
 
   scope :searched_by_name, ->(keyword) { where('username LIKE(?)', "%#{keyword}%") }
   scope :group_manager, ->(group_manager_id) { find_by('id = ?', group_manager_id) }
