@@ -20,11 +20,7 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
-    if @comment.update(comment_params)
-      redirect_to @article
-    else
-      redirect_to @article
-    end
+    redirect_to @article
   end
 
   def destroy
