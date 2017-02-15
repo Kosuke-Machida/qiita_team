@@ -7,18 +7,14 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <header>
-      <%= link_to "top page", articles_path() %>
-      <% if user_signed_in? %>
-        <%= link_to "user page", user_path(current_user) %>
-      <% end %>
-      <%= link_to "group", groups_path() %>
-      <%= link_to "log out", destroy_user_session_path, method: :delete %>
-    </header>
 
-    <%= yield %>
+    <%= render partial: 'layouts/header' %>
+
+    <div id='container'>
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </div>
 
   </body>
 </html>

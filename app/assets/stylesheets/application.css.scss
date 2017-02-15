@@ -1,0 +1,65 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+ .clearfix:after {
+   content: "";
+   display: block;
+   clear: both;
+ }
+
+ #header__container {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   #header {
+     background-color: rgb(204, 25, 106);
+     height: 60px;
+     margin: 0;
+     .header--left {
+       height: 60px;
+       float: left;
+       line-height: 60px;
+       padding: 5px 0 5px 10px;
+     }
+     .header--right {
+       height: 60px;
+       float: right;
+       line-height: 60px;
+       padding-right: 10px;
+       .header__link {
+         border: 2px solid rgb(255, 255, 255);
+         border-radius: 5px;
+         color: rgb(255, 255, 255);
+         display: inline-block;
+         height: 30px;
+         line-height: 30px;
+         text-align:center;
+         text-decoration: none;
+         vertical-align: middle;
+         width: 150px;
+       }
+       .header__link:visited {
+         color: rgb(255, 255, 255);
+         text-decoration: none;
+       }
+     }
+   }
+ }
+
+ #container {
+   padding-top: 60px;
+ }
