@@ -5,9 +5,10 @@ class Article < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :stocks, dependent: :destroy
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
   validates :body, presence: true
   validates :user_id, presence: true
+  validates :group_id, presence: true
 
   # グループとの関連付けに関するscope
   scope :available_to, ->(user) { where(group_id: user.groups.map(&:id)) }

@@ -6,6 +6,8 @@ class Group < ActiveRecord::Base
 
   validates :name, presence: true
   validates :body, presence: true
+  validates :manager_id, presence: true
+  validates :private
 
   def relation_with_user(user)
     group_users.find_by(user_id: user.id)

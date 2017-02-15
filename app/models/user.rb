@@ -2,7 +2,17 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :confirmable
+
+  validates :username, presence: true, uniqueness: true
+  validates :slack_name,
+            format: { presence: true,
+                      with: /\@/,
+                      message: 'should start with @' }
+  validates :email,
+            format: { with: /\@finc\.com/,
+                      message: 'should be from finc.com' }
 
   scope :searched_by_name, ->(keyword) { where('username LIKE(?)', "%#{keyword}%") }
   scope :group_manager, ->(group_manager_id) { find_by('id = ?', group_manager_id) }

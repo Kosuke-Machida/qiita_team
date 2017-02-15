@@ -9,13 +9,13 @@
   </div>
 
   <div class="field">
-    <%= f.label :slack_name %><br />
-    <%= f.text_field :slack_name %>
+    <span>Slack name (it has to be started with '@')</span><br>
+    <%= f.text_field :slack_name, value: '@' %>
   </div>
 
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
+    <span>Email (it has to end with '@finc.com')</span><br>
+    <%= f.email_field :email, value: '@finc.com' %>
   </div>
 
   <div class="field">
