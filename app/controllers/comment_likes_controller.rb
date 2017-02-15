@@ -5,11 +5,6 @@ class CommentLikesController < ApplicationController
     comment_like = CommentLike.new(comment_like_params)
     return unless comment_like.save
     set_comment
-    Slack.chat_postMessage(
-      text: "#{@comment.user.slack_name} #{current_user.username}があなたの投稿にいいねしました！",
-      username: 'きーたちーむくん',
-      channel: SLACK_SHARE_CHANNEL
-    )
     respond_to do |format|
       format.js
     end

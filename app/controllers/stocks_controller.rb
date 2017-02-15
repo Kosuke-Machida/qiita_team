@@ -5,11 +5,6 @@ class StocksController < ApplicationController
   def create
     @stock = Stock.new(stock_params)
     if @stock.save
-      Slack.chat_postMessage(
-        text: "#{@article.user.slack_name} #{current_user.username}があなたの投稿をストックしました！",
-        username: 'きーたちーむくん',
-        channel: SLACK_SHARE_CHANNEL
-      )
       redirect_to article_path(@article), notice: 'You successfuly stocked the article'
     else
       redirect_to article_path(@article), alert: 'You failed to stock the article'

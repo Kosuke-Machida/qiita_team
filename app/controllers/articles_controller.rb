@@ -4,19 +4,19 @@ class ArticlesController < ApplicationController
 
   def index
     viewable_articles = Article.available_to(current_user)
-    if params[:tag]
-      @articles = viewable_articles.tagged_with(params[:tag])
-    else
-      @articles = viewable_articles
-    end
+    @articles = if params[:tag]
+                  viewable_articles.tagged_with(params[:tag])
+                else
+                  viewable_articles
+                end
   end
 
   def show
-    if params[:comment_id]
-      @comment = Comment.find(params[:comment_id])
-    else
-      @comment = Comment.new
-    end
+    @comment = if params[:comment_id]
+                 Comment.find(params[:comment_id])
+               else
+                 Comment.new
+               end
     @comments = @article.comments
     @stock = Stock.new
     @article_like = ArticleLike.find_by(
@@ -41,8 +41,8 @@ class ArticlesController < ApplicationController
     if @article.save
       if @article.group.private == false
         Slack.chat_postMessage(
-          text: "@here #{current_user.username}が新しい記事「#{@article.title}」を投稿しました！",
-          username: 'きーたちーむくん',
+          text: "#{current_user.username} created #{@article.title}!",
+          username: 'Mr.Qiita Team',
           channel: SLACK_SHARE_CHANNEL
         )
       end
@@ -57,7 +57,7 @@ class ArticlesController < ApplicationController
       if @article.group.private == false
         Slack.chat_postMessage(
           text: "@channel #{current_user.username}が記事「#{@article.title}」を更新しました！",
-          username: 'きーたちーむくん',
+          username: 'Mr.Qiita Team',
           channel: SLACK_SHARE_CHANNEL
         )
         redirect_to @article, notice: 'Your Article are successfuly updated'

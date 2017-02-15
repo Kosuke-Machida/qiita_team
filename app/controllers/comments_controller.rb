@@ -7,8 +7,9 @@ class CommentsController < ApplicationController
     return unless @comment.save
     set_comments
     Slack.chat_postMessage(
-      text: "#{@article.user.slack_name} #{current_user.username}があなたの投稿にコメントしました！",
-      username: 'きーたちーむくん',
+      text: "#{@article.user.slack_name} #{current_user.username} commented on your post!\n
+              ```\n@comment.body\n```",
+      username: 'Mr.Qiita Team',
       channel: SLACK_SHARE_CHANNEL
     )
     respond_to do |format|
@@ -19,11 +20,7 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
-    if @comment.update(comment_params)
-      redirect_to @article
-    else
-      redirect_to @article
-    end
+    redirect_to @article
   end
 
   def destroy
