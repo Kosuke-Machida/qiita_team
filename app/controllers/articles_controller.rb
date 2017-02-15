@@ -32,8 +32,8 @@ class ArticlesController < ApplicationController
     if @article.save
       if @article.group.private == false
         Slack.chat_postMessage(
-          text: "@here #{current_user.username}が新しい記事「#{@article.title}」を投稿しました！",
-          username: 'きーたちーむくん',
+          text: "#{current_user.username} created #{@article.title}!",
+          username: 'Mr.Qiita Team',
           channel: SLACK_SHARE_CHANNEL
         )
       end
@@ -48,7 +48,7 @@ class ArticlesController < ApplicationController
       if @article.group.private == false
         Slack.chat_postMessage(
           text: "@channel #{current_user.username}が記事「#{@article.title}」を更新しました！",
-          username: 'きーたちーむくん',
+          username: 'Mr.Qiita Team',
           channel: SLACK_SHARE_CHANNEL
         )
         redirect_to @article, notice: '投稿を編集しました'

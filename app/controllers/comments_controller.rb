@@ -10,13 +10,14 @@ class CommentsController < ApplicationController
     @comment = @article.comments.new(comment_params)
     if @comment.save
       Slack.chat_postMessage(
-        text: "#{@article.user.slack_name} #{current_user.username}があなたの投稿にコメントしました！",
-        username: 'きーたちーむくん',
+        text: "#{@article.user.slack_name} #{current_user.username} commented on your post!\n
+                ```\n@comment.body\n```",
+        username: 'Mr.Qiita Team',
         channel: SLACK_SHARE_CHANNEL
       )
-      redirect_to @article, notice: 'コメントを投稿しました'
+      redirect_to @article
     else
-      redirect_to @article, notice: 'コメントの投稿に失敗しました'
+      redirect_to @article
     end
   end
 
@@ -24,9 +25,9 @@ class CommentsController < ApplicationController
 
   def update
     if @comment.update(comment_params)
-      redirect_to @article, notice: 'コメントを編集しました'
+      redirect_to @article
     else
-      redirect_to @article, notice: 'コメントの編集に失敗しました'
+      redirect_to @article
     end
   end
 
