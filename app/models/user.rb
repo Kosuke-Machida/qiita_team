@@ -6,13 +6,13 @@ class User < ActiveRecord::Base
          :confirmable
 
   validates :username, presence: true, uniqueness: true
-  validates_format_of :slack_name,
-                      presence: true,
+  validates :slack_name,
+            format: { presence: true,
                       with: /\@/,
-                      message: 'should start with @'
-  validates_format_of :email,
-                      with: /\@finc\.com/,
-                      message: 'should be from finc.com'
+                      message: 'should start with @' }
+  validates :email,
+            format: { with: /\@finc\.com/,
+                      message: 'should be from finc.com' }
 
   scope :searched_by_name, ->(keyword) { where('username LIKE(?)', "%#{keyword}%") }
   scope :group_manager, ->(group_manager_id) { find_by('id = ?', group_manager_id) }
