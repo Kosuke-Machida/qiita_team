@@ -1,27 +1,24 @@
 <%= javascript_include_tag 'articles/preview' %>
-<% if @group.id == MASTER_GROUP_ID %>
-  <h1>全体に投稿</h1>
-<% else %>
-  <h1><%= @group.name %>に投稿</h1>
+<%= form_for @article do |f| %>
+  <div>
+    <%= f.text_field :title %>
+  </div>
+  <div>
+    <%= f.text_area :body, rows: 30 %>
+  </div>
+  <div>
+     <%= f.label :tag_list, "Tags (separated by commas)" %><br>
+     <%= f.text_field :tag_list %>
+  </div>
+  <%= f.hidden_field :group_id, value: @group.id %>
+  <% if @group.id == MASTER_GROUP_ID %>
+    <%= f.submit "Post to everyone" %>
+  <% else %>
+    <%= f.submit "Post in #{@group.name}" %>
+  <% end %>
 <% end %>
 
-  <%= form_for @article do |f| %>
-    <div>
-      タイトル：<%= f.text_field :title %>
-    </div>
-    <div>
-      本文：<%= f.text_area :body, rows: 30 %>
-    </div>
-    <div>
-       <%= f.label :tag_list, "Tags (separated by commas)" %><br>
-       <%= f.text_field :tag_list %>
-    </div>
-    <%= f.hidden_field :group_id, value: @group.id %>
-    <%= f.submit "送信" %>
-  <% end %>
-
-  <div id='preview--container'>
-    <!-- ここにjsでpreview表示する -->
-  </div>
-
-<p>Find me in app/views/articles/new.html.erb</p>
+<p>Pereview</p>
+<div id='preview--container'>
+  <!-- ここにjsでpreview表示する -->
+</div>

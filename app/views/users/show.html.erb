@@ -1,21 +1,20 @@
 <h1>Users#show</h1>
-  <p>name:<%= @user.username %></p>
-  <p>email:<%= @user.email %></p>
+  <p><%= @user.username %></p>
+  <p>slack name:<%= @user.email %></p>
   <% if @user == current_user %>
     <div>
-      <%= button_to "user編集画面へ", edit_user_registration_path, method: :get %>
+      <%= button_to "Edit", edit_user_registration_path, method: :get %>
     </div>
     <div>
       <p>Stocks</p>
       <% if @stocked_articles.present? %>
         <% @stocked_articles.each do |article| %>
           <%= link_to article.title, article_path(article) %>
-          <%= button_to "stock解除", [article, article.related_stock(current_user)], method: :delete %><br>
+          <%= button_to "unstock", [article, article.related_stock(current_user)], method: :delete %><br>
         <% end %>
       <% else %>
-        <div>stockしている投稿はありません</div>
+        <div>There are no articles you stocked </div>
       <% end %>
   </div>
   <% end %>
 </div>
-<p>Find me in app/views/users/show.html.erb</p>

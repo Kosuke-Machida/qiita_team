@@ -5,18 +5,18 @@ class StocksController < ApplicationController
   def create
     @stock = Stock.new(stock_params)
     if @stock.save
-      redirect_to article_path(@article), notice: '記事をストックしました'
+      redirect_to article_path(@article), notice: 'You successfuly stocked the article'
     else
-      redirect_to article_path(@article), alert: '記事のストックに失敗しました'
+      redirect_to article_path(@article), alert: 'You failed to stock the article'
     end
   end
 
   def destroy
     if current_user.id == @stock.user_id
       @stock.destroy
-      redirect_to article_path(@article), notice: '記事のストックを解除しました'
+      redirect_to article_path(@article), notice: 'You successfuly unstocked the article'
     else
-      redirect_to article_path(@article), error: '権限がありません'
+      redirect_to article_path(@article), error: 'You failed to unstock the article'
     end
   end
 

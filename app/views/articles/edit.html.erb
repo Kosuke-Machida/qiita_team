@@ -1,21 +1,19 @@
 <%= javascript_include_tag 'articles/preview' %>
-<h1>Articles#edit</h1>
 <%= form_for @article do |f| %>
    <div>
-     <p><%= f.text_field :title %>
+     <%= f.label :title, "Title" %><br>
+     <%= f.text_field :title %>
+   </div>
+   <div>
+     <%= f.label :tag_list, "Tags (separated by commas)" %><br>
+     <%= f.text_field :tag_list %>
    </div>
    <div>
      <%= f.text_area :body, rows: 30 %>
    </div>
-   <div>
-     <%= f.label :tag_list, "Tags (separated by commas)" %><br />
-     <%= f.text_field :tag_list %>
-   </div>
-  <%= f.submit "送信" %>
+  <%= f.submit "Update" %>
 <% end %>
-
+<p>Pereview</p>
 <div id='preview--container'>
   <!-- ここにjsでpreview表示する -->
 </div>
-
-<p>Find me in app/views/articles/edit.html.erb</p>

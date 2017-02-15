@@ -1,47 +1,49 @@
-<% if @article.group.id == MASTER_GROUP_ID %>
-  <h3>全体公開の記事</h3>
-<% else %>
-  <h3><%= link_to @article.group.name, @article.group %>の投稿</h3>
-<% end %>
-
-<h1><%= @article.title %></h1>
-
-  <div>
-    本文：<%= markdown(@article.body).html_safe %>
-  </div>
-  <div style="display:inline-flex">
-    Tags:  <%= raw @article.tag_list.map { |t| button_to t, tag_path(t) }.join('') %>
-  </div>
-  <!-- 書いた本人なら編集と削除のボタンを表示 -->
-  <% if current_user == @article.user %>
-    <%= button_to "編集", edit_article_path(@article), method: :get %>
-    <%= button_to "削除", @article, method: :delete %>
-  <% end %>
-
-  <div>
-    書いた人：<%= link_to @article.user.username, @article.user %>
-  </div>
-
-  <% if @article.stocked?(current_user) %>
-    <%= button_to "stock解除", [@article, @article.related_stock(current_user)], method: :delete %>
-  <% else %>
-    <%= button_to "stockする", [@article, @stock] %>
-  <% end %>
-
-  <div id='article_like-buttons'>
-    <%= render partial: "article_like", locals: { article: @article }  %>
-  </div>
-
- <% @comments.each do |comment| %>
-    <%= comment.body %>
-    <%= link_to "編集", edit_article_comment_path(@article, comment) %>
-    <%= link_to "削除", article_comment_path(@article, comment), method: :delete %>
-    <div id ='comment_like-buttons-<%= comment.id %>'>
-      <%= render partial: "comment_like", locals:  { article: @article, comment: comment }  %>
+<div class='article'>
+  <div class='article--header'>
+    <!-- 投稿者のリンクを表示 -->
+    <div class='aricle__contributer'>
+      Contributer:<%= link_to @article.user.username, @article.user %>
     </div>
-    <br>
- <% end %>
+    <!-- ストックとアンストックを切り替え -->
+    <% if @article.stocked?(current_user) %>
+      <%= button_to "stock", [@article, @article.related_stock(current_user)], method: :delete %>
+    <% else %>
+      <%= button_to "unstock", [@article, @stock] %>
+    <% end %>
+    <!-- 書いた本人なら編集と削除のボタンを表示 -->
+    <% if current_user == @article.user %>
+      <%= link_to "Edit", edit_article_path(@article), method: :get %>
+      <%= link_to "Delete", @article, method: :delete %>
+    <% end %>
+  </div>
 
- <%= button_to "新規コメント", new_article_comment_path(@article), method: :get %>
+  <div class='article-body'>
+    <div class='article__title'><%= @article.title %></div>
+    <!-- もしグループ内投稿ならグループへのリンクを表示 -->
+    <% unless @article.group.id == MASTER_GROUP_ID %>
+      <%= link_to @article.group.name, @article.group, html: { class: 'article__group' } %>
+    <% end %>
 
-<p>Find me in app/views/articles/show.html.erb</p>
+    <div class='artilcle__body'>
+      <%= markdown(@article.body).html_safe %>
+    </div>
+    <!-- タグをそれぞれリンクにして表示 -->
+    <div class='article__tags', style="display:inline-flex">
+      Tags:  <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join('') %>
+    </div>
+  </div>
+
+  <div class='footer'>
+    <!-- LikeとUnlikeを切り替える -->
+    <div id='article_like-buttons'>
+      <%= render partial: "article_like", locals: { article: @article }  %>
+    </div>
+  </div>
+
+<div id='comments'>
+  <%= render partial: 'comments', locals: { article: @article, comments: @comments } %>
+</div>
+
+<div id='comment-form'>
+  <%= render partial: 'comment_form', locals: { article: @article, comment: @comment }  %>
+</div>
