@@ -6,7 +6,7 @@
    </div>
    <div>
      <%= f.label :tag_list, "Tags (separated by commas)" %><br>
-     <%= f.text_field :tag_list %>
+     <%= f.text_field :tag_list, input_html:{data:{role:'tagsinput'}} %>
    </div>
    <div>
      <%= f.text_area :body, rows: 30 %>

@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   end
 
   def relation_with_master_team
-    GroupUser.where(user_id: id, group_id: MASTER_GROUP_ID)
+    GroupUser.where(user_id: id, group_id: MASTER_GROUP_ID).present?
   end
 
   has_many :articles, dependent: :destroy
