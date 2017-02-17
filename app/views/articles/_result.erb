@@ -6,27 +6,21 @@
   <h3>Search Result</h3>
 <% end %>
 <table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Contributer</th>
-      <th>Statement</th>
-    </tr>
-  </thead>
-
-  <tbody>
+  <tbody class='contents'>
     <% articles.each do |article| %>
-      <tr>
-        <td><%= link_to article.title, article_path(article) %></td>
-        <td><%= article.user.username %></td>
-        <td>
-          <% unless article.group_id == MASTER_GROUP_ID %>
-            in <%= link_to article.group.name, article.group %>
-          <% else %>
-            Public
-          <% end %>
-        </td>
-      </tr>
+      <div class='content'>
+        <tr>
+          <td><%= link_to article.title, article_path(article) %></td>
+          <td><%= article.user.username %></td>
+          <td>
+            <% unless article.group_id == MASTER_GROUP_ID %>
+              in <%= link_to article.group.name, article.group %>
+            <% else %>
+              Public
+            <% end %>
+          </td>
+        </tr>
+      </div>
     <% end %>
   </tbody>
 </table>
