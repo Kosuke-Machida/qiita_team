@@ -1,12 +1,15 @@
-  <p>Search Articles<p>
-  <%= form_tag(search_articles_path, method: :get, remote: true) do %>
-    <%= text_field_tag :keyword %>
+<%= render partial: 'article_tabs' %>
+<div class='title-container'>
+  <p class='tab-title'>New Arrivings</p>
+</div>
+
+<div class='form-container'>
+  <%= form_tag(search_articles_path, method: :get, class: 'searching-form', remote: true) do %>
+    <%= text_field_tag :keyword, '', placeholder: 'search article' %>
     <%= submit_tag "search", name: nil %>
   <% end %>
+</div>
 
-  <%= link_to "Tags", tags_path, method: :get %>
-  <%= link_to "Post ", new_article_path(), method: :get %>
-
-  <div class='searched-results'>
-    <%= render partial: 'result', locals: { articles: @articles, keyword: nil } %>
-  </div>
+<div class='searched-results'>
+  <%= render partial: 'result', locals: { articles: @articles, keyword: nil } %>
+</div>

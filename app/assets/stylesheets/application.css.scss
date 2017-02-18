@@ -14,7 +14,7 @@
  *= require_self
  */
 
- .clearfix:after {
+.clearfix:after {
    content: "";
    display: block;
    clear: both;
@@ -24,7 +24,7 @@ a {
   text-decoration: none;
 }
 
- #header__container {
+ #header-container {
    position: fixed;
    top: 0;
    left: 0;

@@ -1,4 +1,4 @@
-<div id='header__container'>
+<div id='header-container'>
   <header id='header' class='clearfix'>
     <div class='header--left'>
       <%= link_to image_tag('finc_logo.png', size: "50x50"),
@@ -8,11 +8,6 @@
     </div>
     <div class='header--right'>
       <% if user_signed_in? %>
-        <%= link_to "group",
-          groups_path,
-          method: :get,
-          class: 'header__link'
-        %>
         <%= link_to "Post new article",
           new_article_path(),
           method: :get,
