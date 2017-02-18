@@ -20,6 +20,7 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
+    @comment.update(comment_params)
     redirect_to @article
   end
 

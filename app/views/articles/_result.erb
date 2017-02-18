@@ -2,12 +2,15 @@
   <div class='contents'>
     <% articles.each do |article| %>
       <div class='content'>
-        <div class='content__header'>
-          <span class='content__username'>
-            by <%= link_to article.user.username, user_path(article.user) %>
-          </span>
+        <div class='content__image'>
+          <!-- ここに画像入れる -->
         </div>
         <div class='content__body'>
+          <div class='content__body__header'>
+            <span class='content__username'>
+              by <%= link_to article.user.username, user_path(article.user) %>
+            </span>
+          </div>
           <span class='content__title'>
             <%= link_to article.title, article_path(article) %>
           </span>

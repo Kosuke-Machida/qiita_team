@@ -1,49 +1,59 @@
-<div class='article'>
-  <div class='article--header'>
-    <!-- 投稿者のリンクを表示 -->
-    <div class='aricle__contributer'>
-      Contributer:<%= link_to @article.user.username, @article.user %>
+<div class='article-viewer'>
+  <div class='article'>
+
+    <div class='article--header'>
+      <div class='article-user__image'>
+        <!-- ここに画像入れる -->
+      </div>
+      <div class='aricle-user__name'>
+        Contributer:<%= link_to @article.user.username, @article.user %>
+      </div>
+      <!-- ストックとアンストックを切り替え -->
+      <% if @article.stocked?(current_user) %>
+        <%= button_to "stock",
+          [@article, @article.related_stock(current_user)],
+          method: :delete,
+          class: 'edit'
+        %>
+      <% else %>
+        <%= button_to "unstock", [@article, @stock] %>
+      <% end %>
+      <!-- 書いた本人なら編集と削除のボタンを表示 -->
+      <% if current_user == @article.user %>
+        <%= link_to "Edit", edit_article_path(@article), method: :get %>
+        <%= link_to "Delete", @article, method: :delete %>
+      <% end %>
     </div>
-    <!-- ストックとアンストックを切り替え -->
-    <% if @article.stocked?(current_user) %>
-      <%= button_to "stock", [@article, @article.related_stock(current_user)], method: :delete %>
-    <% else %>
-      <%= button_to "unstock", [@article, @stock] %>
-    <% end %>
-    <!-- 書いた本人なら編集と削除のボタンを表示 -->
-    <% if current_user == @article.user %>
-      <%= link_to "Edit", edit_article_path(@article), method: :get %>
-      <%= link_to "Delete", @article, method: :delete %>
-    <% end %>
+
+    <div class='article-body'>
+      <div class='article__title'><%= @article.title %></div>
+      <!-- もしグループ内投稿ならグループへのリンクを表示 -->
+      <% unless @article.group.id == MASTER_GROUP_ID %>
+        <%= link_to @article.group.name, @article.group, html: { class: 'article__group' } %>
+      <% end %>
+
+      <div class='artilcle__body'>
+        <%= markdown(@article.body).html_safe %>
+      </div>
+      <!-- タグをそれぞれリンクにして表示 -->
+      <div class='article__tags', style="display:inline-flex">
+        Tags:  <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join('') %>
+      </div>
+    </div>
+
+    <div class='footer'>
+      <!-- LikeとUnlikeを切り替える -->
+      <div id='article_like-buttons'>
+        <%= render partial: "article_like", locals: { article: @article }  %>
+      </div>
+    </div>
   </div>
 
-  <div class='article-body'>
-    <div class='article__title'><%= @article.title %></div>
-    <!-- もしグループ内投稿ならグループへのリンクを表示 -->
-    <% unless @article.group.id == MASTER_GROUP_ID %>
-      <%= link_to @article.group.name, @article.group, html: { class: 'article__group' } %>
-    <% end %>
-
-    <div class='artilcle__body'>
-      <%= markdown(@article.body).html_safe %>
-    </div>
-    <!-- タグをそれぞれリンクにして表示 -->
-    <div class='article__tags', style="display:inline-flex">
-      Tags:  <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join('') %>
-    </div>
+  <div id='comments'>
+    <%= render partial: 'comments', locals: { article: @article, comments: @comments } %>
   </div>
 
-  <div class='footer'>
-    <!-- LikeとUnlikeを切り替える -->
-    <div id='article_like-buttons'>
-      <%= render partial: "article_like", locals: { article: @article }  %>
-    </div>
+  <div id='comment-form'>
+    <%= render partial: 'comment_form', locals: { article: @article, comment: @comment }  %>
   </div>
-
-<div id='comments'>
-  <%= render partial: 'comments', locals: { article: @article, comments: @comments } %>
-</div>
-
-<div id='comment-form'>
-  <%= render partial: 'comment_form', locals: { article: @article, comment: @comment }  %>
 </div>
