@@ -52,7 +52,7 @@ gem 'slack-api'
 
 gem 'jquery-turbolinks'
 
-gem "font-awesome-rails"
+gem 'font-awesome-rails'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
