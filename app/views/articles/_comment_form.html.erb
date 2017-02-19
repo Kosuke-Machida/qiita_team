@@ -1,4 +1,19 @@
-<%= form_for [article, comment], remote: true do |f| %>
-  <%= f.text_field :body %>
-  <%= f.submit "submit" %>
-<% end %>
+<div id='comment-form'>
+  <div class='comment'>
+    <div class='comment-user'>
+      <div class='comment-user__image'>
+      </div>
+      <div class='comment-user__name'>
+        <%= current_user.username %>
+      </div>
+    </div>
+    <div class='comment-body'>
+      <div class='comment__sentence'>
+        <%= form_for [article, comment], remote: true do |f| %>
+          <%= f.text_area :body, placeholder: 'write comment', rows: 5 %>
+          <%= f.submit "submit" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

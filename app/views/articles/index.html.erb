@@ -1,11 +1,15 @@
+<%= render partial: 'articles/top_tabs' %>
+
 <div class='title-container'>
   <p class='tab-title'>New Arrivings</p>
 </div>
 
 <div class='form-container'>
   <%= form_tag(search_articles_path, method: :get, class: 'searching-form', remote: true) do %>
-    <%= text_field_tag :keyword, '', placeholder: 'search article' %>
-    <%= submit_tag "search", name: nil %>
+    <%= text_field_tag :keyword, "", placeholder: 'search article' %>
+    <%= button_tag type="submit", name: nil do %>
+      <%= fa_icon "search" %> search
+    <% end %>
   <% end %>
 </div>
 

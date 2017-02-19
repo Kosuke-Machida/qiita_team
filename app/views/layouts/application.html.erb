@@ -11,9 +11,11 @@
     <%= render partial: 'layouts/header' %>
 
     <div id='container'>
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
-      <%= render partial: 'layouts/top_tabs' %>
+      <div id='messages'>
+        <p class="notice"><%= notice %></p>
+        <p class="alert"><%= alert %></p>
+      </div>
+
       <%= yield %>
     </div>
 
