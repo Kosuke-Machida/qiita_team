@@ -1,32 +1,32 @@
-<div class='contents-container'>
-  <div class='contents'>
+<div class='searched-articles-container'>
+  <div class='searched-articles'>
     <% articles.each do |article| %>
-      <div class='content'>
-        <div class='content__image'>
+      <div class='searched-article'>
+        <div class='searched-article__image'>
           <!-- ここに画像入れる -->
         </div>
-        <div class='content__body'>
-          <div class='content__body__header'>
-            <span class='content__username'>
+        <div class='searched-article__body'>
+          <div class='searched-article__body--header'>
+            <span class='searched-article__username'>
               by <%= link_to article.user.username, user_path(article.user) %>
             </span>
           </div>
-          <span class='content__title'>
+          <div class='searched-article__title'>
             <%= link_to article.title, article_path(article) %>
-          </span>
+          </div>
           <!-- groupの性質によってstyleを分ける -->
           <% if article.group.private == true %>
-            <span class='content__statement' style='background-color: rgb(213, 153, 69);'>
+            <div class='searched-article__statement' style='background-color: #d94;'>
               <%= link_to article.group.name, article.group %>
-            </span>
+            </div>
           <% elsif article.group_id == MASTER_GROUP_ID %>
-            <span class='content__statement' style='background-color: rgb(51, 191, 101);'>
+            <div class='searched-article__statement' style='background-color: #3b6;'>
               Public
-            </span>
+            </div>
           <% else %>
-            <span class='content__statement' style='background-color: rgb(91, 192, 222);'>
+            <span class='searched-article__statement' style='background-color: #5bd;'>
               <%= link_to article.group.name, article.group %>
-            </span>
+            </div>
           <% end %>
         </div>
       </div>

@@ -1,4 +1,4 @@
-<div id='comment-form'>
+<div class='comment-form'>
   <div class='comment'>
     <div class='comment-user'>
       <div class='comment-user__image'>
@@ -8,12 +8,14 @@
       </div>
     </div>
     <div class='comment-body'>
-      <div class='comment__sentence'>
-        <%= form_for [article, comment], remote: true do |f| %>
-          <%= f.text_area :body, placeholder: 'write comment', rows: 5 %>
-          <%= f.submit "submit" %>
-        <% end %>
-      </div>
+      <%= form_for [article, comment], remote: true do |f| %>
+        <%= f.text_area :body,
+          placeholder: 'write comment',
+          rows: 5,
+          class: 'new_comment__textarea'
+        %>
+        <%= f.submit "submit", class: 'new_comment__submit' %>
+      <% end %>
     </div>
   </div>
 </div>

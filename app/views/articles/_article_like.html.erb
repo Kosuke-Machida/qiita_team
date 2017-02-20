@@ -1,9 +1,16 @@
 <% if article.user_like(current_user.id) %>
-  <%= button_to article_article_like_path(article, article.user_like(current_user.id)), method: :delete, class: "article__like-button", remote: true  do %>
+  <%= button_to article_article_like_path(article, article.user_like(current_user.id)),
+    method: :delete,
+    class: "like-button article__like-button",
+    remote: true  do
+  %>
     <%= fa_icon "thumbs-up"%> | <%= article.likes_count %>Liked
   <% end %>
 <% else %>
-  <%= button_to article_article_likes_path(article), class: "article__like-button", remote: true do %>
+  <%= button_to article_article_likes_path(article),
+    class: "like-button article__like-button",
+    remote: true do
+  %>
     <%= fa_icon "thumbs-o-up"%> | <%= article.likes_count %>Liked
   <% end %>
 <% end %>

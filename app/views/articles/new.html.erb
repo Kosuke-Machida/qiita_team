@@ -1,19 +1,26 @@
 <%= javascript_include_tag 'articles/preview' %>
 
-<div class='article-editor'>
-  <%= form_for @article do |f| %>
+<%= form_for @article do |f| %>
+  <div class='article-editor'>
     <div class='article-editor__title'>
-      <%= f.text_field :title, placeholder: "Title"%>
+      <%= f.text_field :title,
+        placeholder: "Title",
+        class: 'article-editor__thin-form article-editor__title__form'
+      %>
     </div>
     <div class='article-editor__tags'>
       <%= f.text_field :tag_list,
         input_html:{data:{role:'tagsinput'}},
-        placeholder: "Tags (separated by commas)"
+        placeholder: "Tags (separated by commas)",
+        class: 'article-editor__thin-form article-editor__tags__form'
       %>
     </div>
     <div class='article-editor__bodies'>
       <div class='article-editor__body'>
-        <%= f.text_area :body,  placeholder: "write body with Markdown"%>
+        <%= f.text_area :body,
+          placeholder: "write body with Markdown",
+          class: 'article-editor__body__form'
+        %>
       </div>
       <div id='preview--container' class='article-editor__preview'>
         <!-- ここにjsでpreview表示する -->
@@ -27,5 +34,5 @@
         <%= f.submit "Post in #{@group.name}", class: 'article-editor__submit-button' %>
       <% end %>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>

@@ -2,35 +2,35 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-// tagのstyle
+// tabのstyle
 .top-tabs {
-  width: 100%;
   height: 60px;
-  text-align: center;
   line-height: 60px;
+  text-align: center;
+  width: 100%;
   .top-tab {
     border-radius: 20px;
-    color: rgb(0, 0, 0);
+    color: #000;
     font-weight: bold;
     margin: auto 40px;
     padding: 10px;
     vertical-align: middle;
   }
   .top-tab:hover {
-    background-color: rgb(204, 25, 106);
-    color: rgb(255, 255, 255);
+    background-color: #c16;
+    color: #fff;
   }
   .top-tab:visited {
-    color: rgb(0, 0, 0);
+    color: #000;
   }
 }
 
 // indexのstyle
 .title-container {
-  text-align: center;
-  margin: 20px auto 10px;
   height: 30px;
+  text-align: center;
   line-height: 30px;
+  margin: 20px auto 10px;
   .tab-title {
     font-size: 30px;
     font-weight: bold;
@@ -38,22 +38,22 @@
 }
 .form-container {
   margin: 10px auto;
-  .searching-form{
-    width: 100%;
+  .searching__form{
     text-align: center;
-    #keyword {
-      width: 60%;
+    width: 100%;
+    .searching__keyword {
       height: 40px;
-      border: 2px solid rgb(221, 221, 221);
+      border: 2px solid #ddd;
       border-radius: 5px;
       font-size: 20px;
       padding-left: 10px;
+      width: 60%;
     }
-    button[type='submit'] {
-      background-color: rgb(204, 25, 106);
+    .searching__submit {
+      background-color: #c16;
       border: none;
       border-radius: 5px;
-      color: rgb(255, 255, 255);
+      color: #fff;
       font-size: 15px;
       height: 30px;
       text-align: center;
@@ -62,47 +62,53 @@
   }
 }
 .searched-results {
-  .contents-container{
-    width: 80%;
-    margin: 0 auto;
-    border: 2px solid rgb(221, 221, 221);
+  .searched-articles-container{
+    border: 2px solid #ddd;
     border-radius: 5px;
+    margin: 0 auto;
     padding: 10px 20px;
-    .contents {
-      .content {
-        border-top: 2px solid rgb(221, 221, 221);
+    width: 80%;
+    .searched-articles {
+      .searched-article {
+        border-top: 2px solid #ddd;
         height: 65px;
-        width: 100%;
         margin: auto 10px;
-        .content__image {
+        width: 100%;
+        .searched-article__image {
           border-radius: 5px;
-          height: 55px;
-          width: 55px;
           background-color: purple;
+          display: inline-block;
+          height: 55px;
           margin-top: 5px;
-          display: inline-block;
-          vertical-align: top;
+          vertical-align: middle;
+          width: 55px;
         }
-        .content__body {
+        .searched-article__body {
           display: inline-block;
-          vertical-align: top;
-          margin: 8px 0 0 20px;
-          .content__title {
-            font-size: 25px;
-          }
-          .content__statement {
-            border-radius: 3px;
-            height: 25px;
+          margin: 5px 0 0 20px;
+          vertical-align: middle;
+          .searched-article__body--header {
             font-size: 15px;
-            color: rgb(255, 255, 255);
+          }
+          .searched-article__title {
+            display: inline-block;
+            font-size: 25px;
+            vertical-align: middle;
+          }
+          .searched-article__statement {
+            border-radius: 3px;
+            display: inline-block;
+            color: #fff;
+            font-size: 15px;
             padding: 5px;
-            a:visited {
-              color: rgb(255, 255, 255);
+            vertical-align: middle;
+            .searched-article__statement__link:visited {
+              color: #fff;
             }
           }
         }
       }
-      .content:first-child {
+      .searched-article:first-child {
         border: none
       }
     }
@@ -111,26 +117,25 @@
 
 // showのstyle
 .article {
-  border: 1px solid rgb(221, 221, 221);
+  border: 1px solid #ddd;
   border-radius: 5px;
-  width: calc(90% - 40px);
   margin: 0 auto;
   padding: 20px;
+  width: calc(90% - 40px);
   .article-header {
     .article-user__image {
+      background-color: purple;
       border-radius: 5px;
       height: 50px;
-      width: 50px;
-      display: inline-block;
-      background-color: purple;
       display: inline-block;
       vertical-align: top;
+      width: 50px;
     }
     .article__information {
       display: inline-block;
       height: 50px;
-      vertical-align: top;
       margin-left: 10px;
+      vertical-align: top;
       .article__user-name {
         font-size: 25px;
       }
@@ -140,19 +145,17 @@
     }
     .article__header--right {
       display: inline-block;
+      float: right;
       height: 50px;
       line-height: 50px;
-      float: right;
-      form {
+      .article__stock-button {
+        background-color: #fff;
+        border: 2px solid #ddd;
+        border-radius: 10px;
         display: inline-block;
-        .article__stock-button {
-          background-color: rgb(255, 255, 255);
-          border: 2px solid rgb(221, 221, 221);
-          border-radius: 10px;
-          font-size: 13px;
-          width: 100px;
-          height: 40px;
-        }
+        font-size: 13px;
+        height: 40px;
+        width: 100px;
       }
       .article__edit-button {
         display: inline-block;
@@ -175,303 +178,153 @@
   }
   .article-footer {
     margin-top: 20px;
-    .article__like-button {
-      background-color: rgb(255, 255, 255);
-      border: 2px solid rgb(221, 221, 221);
-      border-radius: 10px;
-      font-size: 15px;
-      width: 90px;
-      height: 30px;
-    }
   }
 }
 
 .comments-container {
   width: 80%;
   margin: 0 auto;
-  .comments {
-    .comment {
-      margin: 30px auto 10px;
-      .comment-user {
-        .comment-user__image {
-          border-radius: 5px;
-          height: 35px;
-          width: 35px;
-          background-color: purple;
-          display: inline-block;
-          margin-left: 10px;
-          vertical-align: middle;
-        }
-        .comment-user__name {
-          display: inline-block;
-          font-size: 15px;
-          font-weight: bold;
-          vertical-align: middle;
-        }
+  .comment {
+    margin: 30px auto 10px;
+    .comment-user {
+      .comment-user__image {
+        background-color: purple;
+        border-radius: 5px;
+        display: inline-block;
+        height: 35px;
+        margin-left: 10px;
+        vertical-align: middle;
+        width: 35px;
       }
-      .comment--right {
-        float: right;
-        text-align: right;
-        .comment__buttons {
-          .comment__button {
-            display: inline-block;
-            font-size: 12px;
-          }
-        }
-        .comment__updated-at {
+      .comment-user__name {
+        display: inline-block;
+        font-size: 15px;
+        font-weight: bold;
+        vertical-align: middle;
+      }
+    }
+    .comment--right {
+      float: right;
+      text-align: right;
+      .comment__buttons {
+        .comment__button {
+          display: inline-block;
           font-size: 12px;
         }
       }
-      .comment-body {
-        border: 1px solid rgb(221, 221, 221);
-        border-radius: 5px;
-        margin: 5px auto;
-        padding: 10px 20px;
-        .comment__sentence {
-          font-size: 20px;
-        }
+      .comment__updated-at {
+        font-size: 12px;
       }
-      .comment-footer {
-        .comment__like-button {
-          background-color: rgb(255, 255, 255);
-          border: 2px solid rgb(221, 221, 221);
-          border-radius: 10px;
-          font-size: 15px;
-          width: 90px;
-          height: 30px;
-        }
+    }
+    .comment-body {
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin: 5px auto;
+      padding: 10px 20px;
+      .comment__sentence {
+        font-size: 20px;
       }
     }
   }
-  #comment-form {
-    .comment {
-      margin: 30px auto 10px;
-      .comment-user {
-        .comment-user__image {
+  .comment-form {
+    .comment-body {
+      font-size: 25px;
+      .new_comment {
+        text-align: center;
+        .new_comment__textarea {
+          border: 2px solid #ddd;
           border-radius: 5px;
-          height: 35px;
-          width: 35px;
-          background-color: purple;
-          display: inline-block;
-          margin-left: 10px;
-          vertical-align: middle;
+          font-size: 15px;
+          padding: 10px;
+          width: calc(100% - 20px);
         }
-        .comment-user__name {
+        .new_comment__submit {
+          background-color: #c16;
+          border: 2px solid #fff;
+          border-radius: 5px;
+          color: #fff;
           display: inline-block;
           font-size: 15px;
           font-weight: bold;
-          vertical-align: middle;
-        }
-      }
-      .comment-body {
-        border: 1px solid rgb(221, 221, 221);
-        border-radius: 5px;
-        margin: 5px auto;
-        padding: 20px;
-        .comment__sentence {
-          font-size: 25px;
-          form {
-            text-align: center;
-            textarea {
-              border: 2px solid rgb(221, 221, 221);
-              border-radius: 5px;
-              font-size: 15px;
-              padding: 10px;
-              width: calc(100% - 20px);
-            }
-            input[type='submit'] {
-              background-color: rgb(204, 25, 106);
-              border: 2px solid rgb(255, 255, 255);
-              border-radius: 5px;
-              color: rgb(255, 255, 255);
-              display: inline-block;
-              font-size: 15px;
-              font-weight: bold;
-              height: 30px;
-              text-align:center;
-              width: 150px;
-            }
-          }
+          padding: 10px 20px;
+          text-align:center;
         }
       }
     }
   }
 }
 
-// newのstyle
+// show・editのstyle
 .article-editor {
-  position: fixed;
   height: 100%;
-  width: calc(100% - 20px);
   margin: 0 10px;
-  .new_article {
-    height: 100%;
-    .article-editor__title {
-      input {
-        font-size: 20px;
-        width: 100%;
-        height: 36px;
-        border: 2px solid rgb(200, 200, 200);
-        border-radius: 5px;
-        box-sizing: border-box;
-        padding-left: 10px
-      }
-    }
-    .article-editor__tags {
-      margin-top: 5px;
-      input{
-        border: 2px solid rgb(200, 200, 200);
-        border-radius: 5px;
-        box-sizing: border-box;
-        font-size: 20px;
-        width: 100%;
-        height: 36px;
-        padding-left: 10px
-      }
-    }
-    .article-editor__bodies {
-      height: calc(100% - 220px);
-      margin: 5px 0 0;
-      width: 100%;
-      .article-editor__body {
-        display: inline-block;
-        border: 2px solid rgb(200, 200, 200);
-        border-radius: 5px;
-        height: 100%;
-        text-align: center;
-        margin-right: 10px;
-        vertical-align: top;
-        width: calc(50% - 20px);
-        textarea {
-          border: none;
-          border-radius: 5px;
-          box-sizing: border-box;
-          font-size: 20px;
-          height: 100%;
-          width: 100%;
-          margin: 0;
-          padding: 10px;
-        }
-      }
-      .article-editor__preview {
-        display: inline-block;
-        border: 2px solid rgb(200, 200, 200);
-        border-radius: 5px;
-        font-size: 20px;
-        height: calc(100% - 20px);
-        overflow: scroll;
-        vertical-align: top;
-        padding: 10px;
-        width: calc(50% - 20px);
-        * {
-          margin: 0;
-        }
-      }
-    }
-    .article-editor__submit {
-      height: 60px;
-      line-height: 60px;
-      width: 100%;
-      text-align: right;
-      .article-editor__submit-button {
-        background-color: rgb(204, 25, 106);
+  position: fixed;
+  width: calc(100% - 20px);
+  .article-editor__thin-form {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 20px;
+    height: 36px;
+    padding-left: 10px;
+    width: 100%;
+  }
+  .article-editor__tags {
+    margin-top: 5px;
+  }
+  .article-editor__bodies {
+    height: calc(100% - 220px);
+    margin: 5px 0 0;
+    width: 100%;
+    .article-editor__body {
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      display: inline-block;
+      height: 100%;
+      text-align: center;
+      margin-right: 10px;
+      vertical-align: top;
+      width: calc(50% - 20px);
+      .article-editor__body__form {
         border: none;
-        border-radius: 10px;
-        color: rgb(255, 255, 255);
-        font-size: 15px;
-        height: 45px;
-        width: 140px;
-        margin-right: 60px;
+        border-radius: 5px;
+        box-sizing: border-box;
+        font-size: 20px;
+        height: 100%;
+        margin: 0;
+        padding: 10px;
+        width: 100%;
+      }
+    }
+    .article-editor__preview {
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      display: inline-block;
+      font-size: 20px;
+      height: calc(100% - 20px);
+      overflow: scroll;
+      padding: 10px;
+      vertical-align: top;
+      width: calc(50% - 20px);
+      * {
+        margin: 0;
       }
     }
   }
-}
-
-// editのstyle
-.article-editor {
-  position: fixed;
-  height: 100%;
-  width: calc(100% - 20px);
-  margin: 0 10px;
-  .edit_article {
-    height: 100%;
-    .article-editor__title {
-      input {
-        font-size: 20px;
-        width: 100%;
-        height: 36px;
-        border: 2px solid rgb(200, 200, 200);
-        border-radius: 5px;
-        box-sizing: border-box;
-        padding-left: 10px
-      }
-    }
-    .article-editor__tags {
-      margin-top: 5px;
-      input{
-        border: 2px solid rgb(200, 200, 200);
-        border-radius: 5px;
-        box-sizing: border-box;
-        font-size: 20px;
-        width: 100%;
-        height: 36px;
-        padding-left: 10px
-      }
-    }
-    .article-editor__bodies {
-      height: calc(100% - 220px);
-      margin: 5px 0 0;
-      width: 100%;
-      .article-editor__body {
-        display: inline-block;
-        border: 2px solid rgb(200, 200, 200);
-        border-radius: 5px;
-        height: 100%;
-        text-align: center;
-        margin-right: 10px;
-        vertical-align: top;
-        width: calc(50% - 20px);
-        textarea {
-          border: none;
-          border-radius: 5px;
-          box-sizing: border-box;
-          font-size: 20px;
-          height: 100%;
-          width: 100%;
-          margin: 0;
-          padding: 10px;
-        }
-      }
-      .article-editor__preview {
-        display: inline-block;
-        border: 2px solid rgb(200, 200, 200);
-        border-radius: 5px;
-        font-size: 20px;
-        height: calc(100% - 20px);
-        overflow: scroll;
-        vertical-align: top;
-        padding: 10px;
-        width: calc(50% - 20px);
-        * {
-          margin: 0;
-        }
-      }
-    }
-    .article-editor__submit {
-      height: 60px;
-      line-height: 60px;
-      width: 100%;
-      text-align: right;
-      .article-editor__submit-button {
-        background-color: rgb(204, 25, 106);
-        border: none;
-        border-radius: 10px;
-        color: rgb(255, 255, 255);
-        font-size: 15px;
-        height: 45px;
-        width: 140px;
-        margin-right: 60px;
-      }
+  .article-editor__submit {
+    height: 60px;
+    line-height: 60px;
+    text-align: right;
+    width: 100%;
+    .article-editor__submit-button {
+      background-color: #c16;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 15px;
+      height: 45px;
+      margin-right: 60px;
+      width: 140px;
     }
   }
 }
