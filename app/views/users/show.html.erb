@@ -2,6 +2,7 @@
   <p><%= @user.username %></p>
   <p>slack name:<%= @user.email %></p>
   <% if @user == current_user %>
+    <%= image_tag @user.image.to_s %>
     <div>
       <%= button_to "Edit", edit_user_registration_path, method: :get %>
     </div>
