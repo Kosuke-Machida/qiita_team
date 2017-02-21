@@ -1,3 +1,43 @@
 // Place all the styles related to the Tags controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.tags-container {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  margin: 20px 50px;
+  padding: 10px;
+  text-align: center;
+  .tags__sum {
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 20px;
+    margin: 10px 50px 0;
+    padding: 10px 15px;
+  }
+  .tags {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin: 20px;
+    padding: 10px;
+    .tag {
+      border-top: 1px solid #ddd;
+      font-size: 20px;
+      height: 50px;
+      margin: 0 10px;
+      .tag__name {
+        float: left;
+        height: 50px;
+        line-height: 50px;
+      }
+      .tag__count {
+        float: right;
+        height: 50px;
+        line-height: 50px;
+      }
+    }
+    .tag:first-child {
+      border: none;
+    }
+  }
+}

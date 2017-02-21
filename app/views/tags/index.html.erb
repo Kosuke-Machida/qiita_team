@@ -4,6 +4,22 @@
   <p class='tab-title'>Tags</p>
 </div>
 
-<% @tags.each do |tag| %>
-   <%= link_to tag.name, tag_path(tag.name) %>
-<% end %>
+<div class='tags-container'>
+  <div class='tags__sum'>
+    There are <%= @tags.length %> tags
+  </div>
+  <div class='tags'>
+    <% @tags.each do |tag| %>
+      <% unless tag.taggings_count == 0 %>
+        <div class='tag'>
+          <div class='tag__name'>
+            <%= link_to tag.name, tag_path(tag.name) %>
+          </div>
+          <div class='tag__count'>
+            include <%= tag.taggings_count %> articles
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
