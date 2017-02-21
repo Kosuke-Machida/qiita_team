@@ -6,14 +6,14 @@
 
 <div class='tags-container'>
   <div class='tags__sum'>
-    There are <%= @tags.length %> tags
+    <%= fa_icon 'tags' %> There are <%= @tags.length %> tags
   </div>
   <div class='tags'>
     <% @tags.each do |tag| %>
       <% unless tag.taggings_count == 0 %>
         <div class='tag'>
           <div class='tag__name'>
-            <%= link_to tag.name, tag_path(tag.name) %>
+            <%= fa_icon 'tag' %> <%= link_to tag.name, tag_path(tag.name) %>
           </div>
           <div class='tag__count'>
             include <%= tag.taggings_count %> articles

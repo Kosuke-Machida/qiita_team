@@ -2,29 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-// tabのstyle
-.top-tabs {
-  height: 60px;
-  line-height: 60px;
-  text-align: center;
-  width: 100%;
-  .top-tab {
-    border-radius: 20px;
-    color: #000;
-    font-weight: bold;
-    margin: auto 40px;
-    padding: 10px;
-    vertical-align: middle;
-  }
-  .top-tab:hover {
-    background-color: #c16;
-    color: #fff;
-  }
-  .top-tab:visited {
-    color: #000;
-  }
-}
-
 // indexのstyle
 .title-container {
   height: 30px;
