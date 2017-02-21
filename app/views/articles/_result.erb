@@ -11,22 +11,22 @@
               by <%= link_to article.user.username, user_path(article.user) %>
             </span>
           </div>
-          <span class='searched-article__title'>
+          <div class='searched-article__title'>
             <%= link_to article.title, article_path(article) %>
-          </span>
+          </div>
           <!-- groupの性質によってstyleを分ける -->
           <% if article.group.private == true %>
-            <span class='searched-article__statement' style='background-color: rgb(213, 153, 69);'>
-              <%= link_to article.group.name, article.group, class: 'searched-article__statement__link' %>
-            </span>
-          <% elsif article.group_id == MASTER_GROUP_ID %>
-            <span class='searched-article__statement' style='background-color: rgb(51, 191, 101);'>
-              Public
-            </span>
-          <% else %>
-            <span class='searched-article__statement' style='background-color: rgb(91, 192, 222);'>
+            <div class='searched-article__statement' style='background-color: #d94;'>
               <%= link_to article.group.name, article.group %>
-            </span>
+            </div>
+          <% elsif article.group_id == MASTER_GROUP_ID %>
+            <div class='searched-article__statement' style='background-color: #3b6;'>
+              Public
+            </div>
+          <% else %>
+            <div class='searched-article__statement' style='background-color: #5bd;'>
+              <%= link_to article.group.name, article.group %>
+            </div>
           <% end %>
         </div>
       </div>

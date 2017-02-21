@@ -15,11 +15,6 @@
  *= require font-awesome
  */
 
-
-* {
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Yu Gothic', sans-serif;
-}
-
 html {
   height: 100%;
 }
@@ -46,7 +41,7 @@ a {
  left: 0;
  width: 100%;
  #header {
-   background-color: rgb(204, 25, 106);
+   background-color: #c16;
    height: 60px;
    margin: 0;
    min-width: 600px;
@@ -62,9 +57,9 @@ a {
      line-height: 60px;
      padding-right: 10px;
      .header__link {
-       border: 2px solid rgb(255, 255, 255);
+       border: 2px solid #fff;
        border-radius: 5px;
-       color: rgb(255, 255, 255);
+       color: #fff;
        display: inline-block;
        height: 30px;
        line-height: 30px;
@@ -73,7 +68,7 @@ a {
        width: 150px;
      }
      .header__link:visited {
-       color: rgb(255, 255, 255);
+       color: #fff;
        text-decoration: none;
      }
    }

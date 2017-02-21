@@ -1,7 +1,7 @@
 <%= javascript_include_tag 'articles/preview' %>
 
-<div class='article-editor'>
-  <%= form_for @article do |f| %>
+<%= form_for @article do |f| %>
+  <div class='article-editor'>
     <div class='article-editor__title'>
       <%= f.text_field :title, placeholder: "Title"%>
     </div>
@@ -23,5 +23,5 @@
     <div class='article-editor__submit'>
         <%= f.submit "Update", class: 'article-editor__submit-button' %>
     </div>
-  <% end %>
-</div>
+  </div>
+<% end %>
