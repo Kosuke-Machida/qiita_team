@@ -5,9 +5,9 @@
 </div>
 
 <div class='form-container'>
-  <%= form_tag(search_articles_path, method: :get, class: 'searching-form', remote: true) do %>
-    <%= text_field_tag :keyword, "", placeholder: 'search article' %>
-    <%= button_tag type="submit", name: nil do %>
+  <%= form_tag(search_articles_path, method: :get, class: 'searching__form', remote: true) do %>
+    <%= text_field_tag :keyword, "", placeholder: 'search article', class: 'searching__keyword' %>
+    <%= button_tag type="submit", name: nil, class: 'searching__submit' do %>
       <%= fa_icon "search" %> search
     <% end %>
   <% end %>
