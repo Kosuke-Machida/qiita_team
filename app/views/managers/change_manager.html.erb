@@ -1,26 +1,37 @@
-<h1>Change the manager of <%= @group.name %></h1>
-<div>
-  <%= form_tag change_manager_group_managers_path(@group), method: :get do %>
-    <input name="keyword" placeholder="Search members by name" type="text">
-      <button type="submit">Search</button>
-    </input>
+<div class='title-container'>
+  <p class='tab-title'>Change the manager of "<%= @group.name %>"</p>
+</div>
+
+<div class='form-container'>
+  <%= form_tag change_manager_group_managers_path(@group), class: 'searching__form', method: :get do %>
+    <%= text_field_tag :keyword, "", placeholder: 'search member', class: 'searching__keyword' %>
+    <%= button_tag type="submit", name: nil, class: 'searching__submit' do %>
+      <%= fa_icon "search" %> search
+    <% end %>
   <% end %>
 </div>
 
-<div>
+<div class='group__members'>
   <% if User.searched_by_name(params[:keyword]).present? %>
     <% User.searched_by_name(params[:keyword]).each do |user|%>
       <% if @group.users.include?(user) %>
-        <%= user.username %>
-        <%= user.email %>
-        <% if user.id == @group.manager_id %>
-          <span>Current Manager</span><br>
-        <% else %>
-          <%= form_for @group do |f| %>
-            <%= f.hidden_field :manager_id, value:  user.id %>
-            <%= f.submit "Make new Manager" , data: { confirm: "Are you sure to change manager to #{user.username}？" }%>
-          <% end %>
-        <% end %>
+        <div class='group__member'>
+          <%= image_tag user.image.to_s, class: 'group__member__image' %>
+          <%= link_to user.username, user_path(user.id), class: 'group__member__name'%>
+          <div class='group__member__statement'>
+            <% if user.id == @group.manager_id %>
+              <div class='group__member__current-manager'>Current Manager</div>
+            <% else %>
+              <%= form_for @group do |f| %>
+                <%= f.hidden_field :manager_id, value:  user.id %>
+                <%= f.submit "Make new Manager",
+                  data: { confirm: "Are you sure to change manager to #{user.username}？" },
+                  class: 'group__member__change-manager-button'
+                %>
+              <% end %>
+            <% end %>
+          </div>
+        </div>
       <% end %>
     <% end %>
   <% else %>

@@ -1,3 +1,70 @@
 // Place all the styles related to the Groups controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+// indexのstyle
+.groups-container {
+  margin: 0 20px;
+  .groups__header {
+      margin-bottom: 20px;
+    .group__create-button {
+      background-color: #c16;
+      border: none;
+      border-radius: 10px;
+      color: #fff;
+      font-size: 15px;
+      padding: 10px 20px;
+    }
+  }
+  .group {
+    border-top: 2px solid #ddd;
+    font-size: 30px;
+    margin: auto 10px;
+    width: calc(100% - 20px);
+    .group__name {
+      display: inline-block;
+      height: 60px;
+      line-height: 60px;
+      width: 50%;
+    }
+    .group__statement {
+      display: inline-block;
+      height: 60px;
+      line-height: 60px;
+      width: 30%;
+    }
+  }
+  .group:first-child {
+    border-top: none
+  }
+}
+
+// showのstyle
+.group-sidebar {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  float: left;
+  margin-left: 10px;
+  padding: 10px;
+  width: 300px;
+  .group__name {
+    font-size: 30px;
+    text-align: center;
+  }
+  .group__body {
+    border: 1px solid #ddd;
+    padding: 5px;
+  }
+  .group__manager {
+      font-size: 15px;
+      margin-top: 20px;
+    }
+  .group-sidebar__footer {
+    margin-top: 20px;
+  }
+}
+.group-body {
+  float: right;
+  margin: 0 5px;
+  width: calc(100% - 320px);
+}

@@ -31,24 +31,49 @@
   }
 }
 
+// 検索フォームのstyle
+.form-container {
+  margin: 10px auto;
+  .searching__form{
+    text-align: center;
+    width: 100%;
+    .searching__keyword {
+      height: 40px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 20px;
+      padding-left: 10px;
+      width: 60%;
+    }
+    .searching__submit {
+      background-color: #c16;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 15px;
+      height: 30px;
+      text-align: center;
+      width: 100px;
+    }
+  }
+}
+
 // indexされたarticlesのstyle
 .searched-article {
+  height: 75px;
   border-top: 2px solid #ddd;
-  height: 65px;
-  margin: auto 10px;
-  width: 100%;
   .searched-article__image {
     border-radius: 5px;
     background-color: purple;
-    display: inline-block;
+    float: left;
     height: 55px;
-    vertical-align: middle;
+    margin: 10px 0;
     width: 55px;
   }
   .searched-article__body {
-    display: inline-block;
-    margin-left: 20px;
-    vertical-align: middle;
+    float: left;
+    height: 55px;
+    margin: 10px 0 10px 20px;
     .searched-article__body--header {
       font-size: 15px;
     }
@@ -72,4 +97,40 @@
 }
 .searched-article:first-child {
   border: none
+}
+
+// indexされたuserのstyle
+.group__member {
+  height: 75px;
+  line-height: 75px;
+  border-top: 2px solid #ddd;
+  .group__member__image {
+    border-radius: 5px;
+    display: inline-block;
+    float: left;
+    height: 55px;
+    margin: 10px 0;
+    width: 55px;
+  }
+  .group__member__name {
+    float: left;
+    font-size: 30px;
+    margin-left: 20px;
+  }
+}
+.group__member:first-child {
+  border-top: none;
+}
+
+
+// tabのstyle
+.nav-tabs {
+  margin-bottom: 0;
+}
+.tab-content {
+  border: 2px solid #ddd;
+  border-top: 0;
+  border-radius: 0 0 5px 5px;
+  margin: 0 auto;
+  padding: 10px 20px;
 }
