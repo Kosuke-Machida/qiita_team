@@ -3,7 +3,8 @@ class GroupsController < ApplicationController
   before_action :prevent_using_master_group, only: [:show, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
-  def index; end
+  def index;
+  end
 
   def show
     @group = Group.find(params[:id])

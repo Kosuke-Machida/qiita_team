@@ -168,3 +168,10 @@
     }
   }
 }
+
+.pagination-container {
+  text-align: center;
+  .pagination {
+    display: inline-block;
+  }
+}
