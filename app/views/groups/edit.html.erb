@@ -1,17 +1,23 @@
-<h1>Edit Group</h1>
-<%= form_for @group do |f| %>
-   <div>
-     <%= f.label :name, "Group Name" %>
-     <%= f.text_field :name %>
-   </div>
-   <div>
-     <%= f.label :body, "About this Group" %>
-     <%= f.text_field :body %>
-   </div>
-   <div>
-     <%= f.check_box :private, {}, checked_value = true,unchecked_value = false %>
-     <%= f.label :private, "Make this group Private?" %>
-     <p>In 'Private' groups, only members can read articles</p>
-   </div>
-   <%= f.submit "Update" %>
-<% end %>
+<div class='group-editor__container'>
+  <div class='group-editor'>
+    <%= form_for @group do |f| %>
+      <div class='group-editor__title'>Edit Group</div>
+      <div class='forms'>
+        <%= f.label :name, "Group Name" %>
+        <%= f.text_field :name %>
+      </div>
+      <div class='forms'>
+        <%= f.label :body, "About this Group" %>
+        <%= f.text_field :body %>
+      </div>
+      <div class='forms_checkbox'>
+        <%= f.check_box :private, {}, checked_value = true,unchecked_value = false %>
+        <%= f.label :private, "Make this group Private?" %>
+        <p>In 'Private' groups, only members can read articles</p>
+      </div>
+      <div class='actions'>
+        <%= f.submit "Update" %>
+      </div>
+    <% end %>
+  </div>
+</div>
