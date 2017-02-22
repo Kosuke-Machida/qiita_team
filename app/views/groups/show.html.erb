@@ -25,7 +25,7 @@
       <% end %>
       <!-- グループに紐づけられた記事の一覧 -->
       <% if @group.articles.present? %>
-        <%= render partial: 'articles/result', locals: { articles: @group.articles.page(params[:page]).per(1) } %>
+        <%= render partial: 'articles/result', locals: { articles: @group.articles.page(params[:page]).per(10) } %>
       <% else %>
         <p>There are no articles in this group</p>
       <% end %>
