@@ -1,24 +1,37 @@
-<h1>Invite New Member to <%= @group.name %></h1>
-<div>
-  <%= form_tag( new_group_group_user_path(@group), method: :get) do %>
-    <input name="keyword" placeholder="Search User by Name" type="text">
-      <button title="Search" type="submit">Search</button>
-    </input>
+<div class='title-container'>
+  <p class='tab-title'>Invite New Member to "<%= @group.name %>"</p>
+</div>
+
+<div class='form-container'>
+  <%= form_tag new_group_group_user_path(@group), class: 'searching__form', method: :get do %>
+    <%= text_field_tag :keyword, "", placeholder: 'search user', class: 'searching__keyword' %>
+    <%= button_tag type="submit", name: nil, class: 'searching__submit' do %>
+      <%= fa_icon "search" %> search
+    <% end %>
   <% end %>
 </div>
 
-<div>
-  <!-- 検索でヒットしたユーザーに対してeach回す -->
-  <% User.searched_by_name(params[:keyword]).each do |user| %>
-    <div>
-      <%= user.username %>
-      <!-- すでに参加していたら「参加していますと表示」 -->
-      <% if @group.joined_by_this_user?(user) %>
-        <span>already joined</span>
-      <!-- まだ参加していなければ招待のボタンを表示 -->
-      <% else %>
-        <%= button_to 'Invite', group_group_users_path(user_id: user.id, group_id: @group.id) %>
-      <% end %>
-    </div>
+<div class='group__members'>
+  <% if User.searched_by_name(params[:keyword]).present? %>
+    <% User.searched_by_name(params[:keyword]).each do |user|%>
+      <div class='group__member'>
+        <%= image_tag user.image.to_s, class: 'group__member__image' %>
+        <%= link_to user.username, user_path(user.id), class: 'group__member__name'%>
+        <div class='group__member__statement'>
+          <% if @group.joined_by_this_user?(user) %>
+            <div class='group__member__current-manager'>already joined</div>
+          <% else %>
+            <%= form_for @group do |f| %>
+              <%= link_to 'Invite',
+                group_group_users_path(user_id: user.id, group_id: @group.id),
+                method: :post
+              %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p>No members hit</p>
   <% end %>
 </div>
