@@ -60,6 +60,8 @@ gem 'rmagick'
 
 gem 'bootstrap-sass'
 
+gem 'kaminari'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'

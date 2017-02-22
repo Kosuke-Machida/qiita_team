@@ -127,6 +127,9 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.6)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     loofah (2.0.3)
@@ -288,6 +291,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  kaminari
   marked-rails
   mysql2 (~> 0.3.20)
   pry
