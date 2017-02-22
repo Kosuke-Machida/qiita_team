@@ -1,3 +1,74 @@
 // Place all the styles related to the Users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.user-sidebar {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  float: left;
+  margin-left: 10px;
+  padding: 10px;
+  width: 300px;
+  .user-sidebar__header {
+    padding: 20px 0;
+    .user__image {
+      border-radius: 10px;
+      display: inline-block;
+      height: 100px;
+      margin-right: 15px;
+      vertical-align: middle;
+      width: 100px;
+    }
+    .user__name {
+      display: inline-block;
+      font-size: 30px;
+      vertical-align: middle;
+    }
+  }
+  .user__contributions {
+    border-top: 2px solid #ddd;
+    text-align: center;
+    padding: 20px 0;
+    .user__contribution {
+      display: inline-block;
+      text-align: center;
+      .user__contribution__label {
+        font-weight: bold;
+        margin: 0 5px;
+      }
+    }
+  }
+  .user-sidebar__footer {
+    border-top: 2px solid #ddd;
+    text-align: center;
+    padding: 20px 0;
+    .user__edit-button {
+      background-color: #c16;
+      border-radius: 5px;
+      color: #fff;
+      height: 30px;
+      line-height: 30px;
+      padding: 10px 20px;
+      vertical-align: middle;
+    }
+  }
+}
+.user-page__body {
+  float: right;
+  margin: 0 5px;
+  width: calc(100% - 320px);
+  .nav-tabs {
+    margin-bottom: 0;
+    padding-left: 20px;
+    .nav-link {
+      margin-bottom: -2px;
+    }
+  }
+  .tab-content {
+    border: 2px solid #ddd;
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
+    margin: 0 auto;
+    padding: 10px 20px;
+  }
+}

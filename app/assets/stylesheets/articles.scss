@@ -45,49 +45,6 @@
     margin: 0 auto;
     padding: 10px 20px;
     width: 80%;
-    .searched-articles {
-      .searched-article {
-        border-top: 2px solid #ddd;
-        height: 65px;
-        margin: auto 10px;
-        width: 100%;
-        .searched-article__image {
-          border-radius: 5px;
-          background-color: purple;
-          display: inline-block;
-          height: 55px;
-          vertical-align: middle;
-          width: 55px;
-        }
-        .searched-article__body {
-          display: inline-block;
-          margin-left: 20px;
-          vertical-align: middle;
-          .searched-article__body--header {
-            font-size: 15px;
-          }
-          .searched-article__title {
-            display: inline-block;
-            font-size: 25px;
-            vertical-align: middle;
-          }
-          .searched-article__statement {
-            border-radius: 3px;
-            display: inline-block;
-            color: #fff;
-            font-size: 15px;
-            padding: 5px;
-            vertical-align: middle;
-            .searched-article__statement__link:visited {
-              color: #fff;
-            }
-          }
-        }
-      }
-      .searched-article:first-child {
-        border: none
-      }
-    }
   }
 }
 
@@ -232,7 +189,7 @@
 
 // show・editのstyle
 .article-editor {
-  height: 100%;
+  height: calc(100% - 50px);
   margin: 0 10px;
   position: fixed;
   width: calc(100% - 20px);
@@ -298,9 +255,8 @@
       border-radius: 10px;
       color: #fff;
       font-size: 15px;
-      height: 45px;
       margin-right: 60px;
-      width: 140px;
+      padding: 10px 20px;
     }
   }
 }

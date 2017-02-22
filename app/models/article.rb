@@ -14,6 +14,9 @@ class Article < ActiveRecord::Base
   scope :available_to, ->(user) { where(group_id: user.groups.map(&:id)) }
   scope :body_include, ->(keyword) { where('body LIKE ?', "%#{keyword}%") }
 
+  # userを引数にして、そのuserがcommentしたarticleを持ってくる
+  scope :commented_by, ->(user) { where(id: user.comments.map(&:article_id)) }
+
   # articleのいいね機能に関するメソッド
   def user_like(user_id)
     article_likes.find_by(user_id: user_id)
