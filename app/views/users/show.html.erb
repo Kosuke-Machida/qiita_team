@@ -50,21 +50,21 @@
   <div class="tab-content">
     <div id="tab1" class="tab-pane active">
       <% if @user.articles.present? %>
-          <%= render partial: 'articles/result', locals: { articles: @user.articles.page(params[:page]).per(10) } %>
+          <%= render partial: 'articles/result', locals: { articles: @user.articles.page(params[:page]).per(1) } %>
       <% else %>
         <div>There are no articles stocked </div>
       <% end %>
     </div>
     <div id="tab2" class="tab-pane">
       <% if @stocked_articles.present? %>
-        <%= render partial: 'articles/result', locals: { articles: @stocked_articles.page(params[:page]).per(10) } %>
+        <%= render partial: 'articles/result', locals: { articles: @stocked_articles.page(params[:page]).per(1) } %>
       <% else %>
         <div>There are no articles stocked </div>
       <% end %>
     </div>
     <div id="tab3" class="tab-pane">
       <% if Article.commented_by(current_user).present? %>
-        <%= render partial: 'articles/result', locals: { articles: Article.commented_by(current_user).page(params[:page]).per(10) } %>
+        <%= render partial: 'articles/result', locals: { articles: Article.commented_by(current_user).page(params[:page]).per(1) } %>
       <% else %>
         <div>There are no articles commented </div>
       <% end %>

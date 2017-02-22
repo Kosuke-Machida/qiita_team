@@ -169,9 +169,22 @@
   }
 }
 
+// paginatonに関するstyle
 .pagination-container {
   text-align: center;
   .pagination {
     display: inline-block;
+    .active {
+      a {
+        background-color: #c16;
+        border-color: #c16;
+      }
+    }
+    a {
+      color: #000;
+    }
+    a:hover {
+      color: #c16;
+    }
   }
 }

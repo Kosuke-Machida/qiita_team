@@ -9,12 +9,12 @@ class ArticlesController < ApplicationController
                     .tagged_with(params[:tag])
                     .order(:updated_at)
                     .page(params[:page])
-                    .per(10)
+                    .per(1)
                 else
                   viewable_articles
                     .order(:updated_at)
                     .page(params[:page])
-                    .per(10)
+                    .per(1)
                 end
   end
 
@@ -24,7 +24,7 @@ class ArticlesController < ApplicationController
                else
                  Comment.new
                end
-    @comments = @article.comments.page(params[:page]).per(10)
+    @comments = @article.comments.page(params[:page]).per(1)
     @stock = Stock.new
     @article_like = ArticleLike.find_by(
       user_id: current_user.id,
