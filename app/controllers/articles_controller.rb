@@ -5,9 +5,16 @@ class ArticlesController < ApplicationController
   def index
     viewable_articles = Article.available_to(current_user)
     @articles = if params[:tag]
-                  viewable_articles.tagged_with(params[:tag])
+                  viewable_articles
+                    .tagged_with(params[:tag])
+                    .order(:updated_at)
+                    .page(params[:page])
+                    .per(10)
                 else
                   viewable_articles
+                    .order(:updated_at)
+                    .page(params[:page])
+                    .per(10)
                 end
   end
 
