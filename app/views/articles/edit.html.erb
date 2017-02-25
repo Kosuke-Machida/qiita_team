@@ -1,27 +1,43 @@
 <%= javascript_include_tag 'articles/preview' %>
 
+<% if @article.errors.any? %>
+  <div id="error_explanation">
+    <ul>
+      <% @article.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <%= form_for @article do |f| %>
   <div class='article-editor'>
     <div class='article-editor__title'>
-      <%= f.text_field :title, placeholder: "Title"%>
+      <%= f.text_field :title,
+        placeholder: "Title",
+        class: 'article-editor__thin-form article-editor__title__form'
+      %>
     </div>
     <div class='article-editor__tags'>
       <%= f.text_field :tag_list,
         input_html:{data:{role:'tagsinput'}},
-        placeholder: "Tags (separated by commas)"
+        placeholder: "Tags separated by commas (Ex. rails, ruby, gem)",
+        class: 'article-editor__thin-form article-editor__tags__form'
       %>
     </div>
     <div class='article-editor__bodies'>
       <div class='article-editor__body'>
-        <%= f.text_area :body,  placeholder: "write body with Markdown"%>
+        <%= f.text_area :body,
+          placeholder: "write body with Markdown",
+          class: 'article-editor__body__form'
+        %>
       </div>
       <div id='preview--container' class='article-editor__preview'>
         <!-- ここにjsでpreview表示する -->
       </div>
     </div>
-    <%= f.hidden_field :group_id %>
     <div class='article-editor__submit'>
-        <%= f.submit "Update", class: 'article-editor__submit-button' %>
+      <%= f.submit "Update", class: 'article-editor__submit-button' %>
     </div>
   </div>
 <% end %>

@@ -51,7 +51,13 @@ class ArticlesController < ApplicationController
       end
       redirect_to @article, notice: 'Your Article are successfuly posted'
     else
-      redirect_to root_path
+      @group = if params[:group_id]
+                 Group.find(params[:group_id])
+               else
+                 Group.find(MASTER_GROUP_ID)
+               end
+      flash.now[:alert] = "Some errors occured"
+      render 'new'
     end
   end
 
@@ -66,7 +72,8 @@ class ArticlesController < ApplicationController
         redirect_to @article, notice: 'Your Article are successfuly updated'
       end
     else
-      redirect_to @article
+      flash.now[:alert] = "Some errors occured"
+      render 'edit'
     end
   end
 
@@ -77,9 +84,9 @@ class ArticlesController < ApplicationController
   end
 
   def search
-    viewable_articles = Article.available_to(current_user)
-    @articles = viewable_articles.body_include(params[:keyword])
     @keyword = params[:keyword]
+    viewable_articles = Article.available_to(current_user)
+    @articles = viewable_articles.body_include(params[:keyword]).page(params[:page]).per(10)
     respond_to do |format|
       format.js
     end

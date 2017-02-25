@@ -166,11 +166,16 @@
   }
 }
 
-// show・editのstyle
+// new・editのstyle
+.new_article {
+  height: 100%;
+}
+.edit_article {
+  height: 100%;
+}
 .article-editor {
   height: calc(100% - 50px);
   margin: 0 10px;
-  position: fixed;
   width: calc(100% - 20px);
   .article-editor__thin-form {
     border: 2px solid #ccc;

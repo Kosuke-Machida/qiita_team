@@ -1,18 +1,18 @@
 <%= render partial: 'articles/top_tabs' %>
 
 <div class='title-container'>
-  <p class='tab-title'>New Arrivings</p>
+    <p class='tab-title'>Timeline</p>
 </div>
 
 <div class='form-container'>
-  <%= form_tag(search_articles_path, method: :get, class: 'searching__form', remote: true) do %>
-    <%= text_field_tag :keyword, "", placeholder: 'search article', class: 'searching__keyword' %>
-    <%= button_tag type="submit", name: nil, class: 'searching__submit' do %>
-      <%= fa_icon "search" %> search
+    <%= form_tag(search_articles_path, method: :get, class: 'searching__form', remote: true) do %>
+      <%= text_field_tag :keyword, "", placeholder: 'search article', class: 'searching__keyword' %>
+      <%= button_tag type="submit", name: nil, class: 'searching__submit' do %>
+        <%= fa_icon "search" %> search
+      <% end %>
     <% end %>
-  <% end %>
 </div>
 
 <div class='searched-results'>
-  <%= render partial: 'result', locals: { articles: @articles, keyword: nil } %>
+    <%= render partial: 'result', locals: { articles: @articles, keyword: nil } %>
 </div>
