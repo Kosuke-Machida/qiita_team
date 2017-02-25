@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class ImageUploader < CarrierWave::Uploader::Base
-
   # Include RMagick or MiniMagick support:
   include CarrierWave::RMagick
   # include CarrierWave::MiniMagick
@@ -17,14 +16,14 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   # Create different versions of your uploaded files:
-   version :thumb do
-     process :resize_to_fit => [50, 50, gravity = ::Magick::CenterGravity]
-   end
+  version :thumb do
+    process resize_to_fit: [50, 50, gravity = ::Magick::CenterGravity]
+  end
 
   # 画像の上限を指定する
-  process :resize_to_limit => [200, 200]
+  process resize_to_limit: [200, 200]
 
-  # 受け付けるのはjpg, jpeg, pngのみ 
+  # 受け付けるのはjpg, jpeg, pngのみ
   def extension_white_list
     %w(jpg jpeg png)
   end
@@ -33,5 +32,4 @@ class ImageUploader < CarrierWave::Uploader::Base
   def filename
     super.chomp(File.extname(super)) + '.jpg' if original_filename.present?
   end
-
 end
