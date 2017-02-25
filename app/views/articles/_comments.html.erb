@@ -1,41 +1,36 @@
-<div class='comments'>
-  <% comments.each do |comment| %>
-    <div class='comment'>
-      <div class='comment-user'>
-        <%= image_tag comment.user.image.to_s, class: 'comment-user__image' %>
-        <div class='comment-user__name'>
-          <%= comment.user.username %>
-        </div>
-        <div class='comment--right  clearfix'>
-          <div class='comment__buttons'>
-            <%= link_to "Edit",
-              article_path(article, comment_id: comment.id),
-              class: 'comment__button comment__edit-button'
-            %>
-            <%= link_to "Delete",
-              article_comment_path(article, comment),
-              method: :delete,
-              class: 'comment__button comment__delete-button'
-            %>
-          </div>
-          <div class='comment__updated-at'>
-            <%= comment.updated_at %>
-          </div>
-        </div>
+<% comments.each do |comment| %>
+  <div class='comment'>
+    <div class='comment-user'>
+      <%= image_tag comment.user.image.to_s, class: 'comment-user__image' %>
+      <div class='comment-user__name'>
+        <%= comment.user.username %>
       </div>
-      <div class='comment-body'>
-        <div class='comment__sentence'>
-          <%= comment.body %>
-        </div>
-        <div class='comment-footer'>
-          <%= render partial: "articles/comment_like",
-            locals:  { article: article, comment: comment }
+      <div class='comment--right  clearfix'>
+        <div class='comment__buttons'>
+          <%= link_to "Edit",
+            article_path(article, comment_id: comment.id),
+            class: 'comment__button comment__edit-button'
           %>
+          <%= link_to "Delete",
+            article_comment_path(article, comment),
+            method: :delete,
+            class: 'comment__button comment__delete-button'
+          %>
+        </div>
+        <div class='comment__updated-at'>
+          <%= comment.updated_at %>
         </div>
       </div>
     </div>
-  <% end %>
-  <div class='pagination'>
-    <%= paginate @comments %>
+    <div class='comment-body'>
+      <div class='comment__sentence'>
+        <%= comment.body %>
+      </div>
+      <div class='comment-footer'>
+        <%= render partial: "articles/comment_like",
+          locals:  { article: article, comment: comment }
+        %>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>

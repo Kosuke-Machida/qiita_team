@@ -24,7 +24,7 @@ class ArticlesController < ApplicationController
                else
                  Comment.new
                end
-    @comments = @article.comments.page(params[:page]).per(10)
+    @comments = @article.comments
     @stock = Stock.new
     @article_like = ArticleLike.find_by(
       user_id: current_user.id,

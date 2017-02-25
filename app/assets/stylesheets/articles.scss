@@ -58,15 +58,14 @@
       display: inline-block;
       float: right;
       height: 50px;
-      line-height: 50px;
       .article__stock-button {
         background-color: #fff;
         border: 2px solid #ddd;
         border-radius: 10px;
+        color: #000;
         display: inline-block;
         font-size: 13px;
-        height: 40px;
-        width: 100px;
+        padding: 5px 10px;
       }
       .article__edit-button {
         display: inline-block;
@@ -140,26 +139,24 @@
   .comment-form {
     .comment-body {
       font-size: 25px;
-      .new_comment {
-        text-align: center;
-        .new_comment__textarea {
-          border: 2px solid #ddd;
-          border-radius: 5px;
-          font-size: 15px;
-          padding: 10px;
-          width: calc(100% - 20px);
-        }
-        .new_comment__submit {
-          background-color: #c16;
-          border: 2px solid #fff;
-          border-radius: 5px;
-          color: #fff;
-          display: inline-block;
-          font-size: 15px;
-          font-weight: bold;
-          padding: 10px 20px;
-          text-align:center;
-        }
+      text-align: center;
+      .new_comment__textarea {
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 15px;
+        padding: 10px;
+        width: calc(100% - 20px);
+      }
+      .new_comment__submit {
+        background-color: #c16;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        color: #fff;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 10px 20px;
+        text-align:center;
       }
     }
   }
@@ -216,7 +213,7 @@
       border-radius: 5px;
       display: inline-block;
       font-size: 20px;
-      height: calc(100% - 20px);
+      height: 100%;
       overflow: scroll;
       padding: 10px;
       vertical-align: top;
@@ -228,17 +225,16 @@
   }
   .article-editor__submit {
     height: 60px;
-    line-height: 60px;
     text-align: right;
     width: 100%;
     .article-editor__submit-button {
       background-color: #c16;
       border: none;
-      border-radius: 10px;
+      border-radius: 5px;
       color: #fff;
       font-size: 15px;
-      margin-right: 60px;
-      padding: 10px 20px;
+      margin: 20px 60px;
+      padding: 5px 10px;
     }
   }
 }

@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class='comment-body'>
-      <%= form_for [article, comment], remote: true do |f| %>
+      <%= form_for [article, comment], method: :post, remote: true do |f| %>
         <%= f.text_area :body,
           placeholder: 'write comment',
           rows: 5,

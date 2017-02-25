@@ -3,7 +3,7 @@ class CommentsController < ApplicationController
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def create
-    @comment = @article.comments.new(comment_params)
+    @comment = @article.comments.build(comment_params)
     return unless @comment.save
     set_comments
     Slack.chat_postMessage(

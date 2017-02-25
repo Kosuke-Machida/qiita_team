@@ -78,7 +78,16 @@ body {
   padding-top: 60px;
   height: calc(100% - 60px);
   #messages {
-    width: 100%;
     text-align: center;
+    height: 30px;
+    width: 100%;
+    .notice {
+      margin: 0;
+      padding: 0;
+    }
+    .alert {
+      margin: 0;
+      padding: 0;
+    }
   }
 }
