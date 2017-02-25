@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def has_already_joined_in_master_team?
-    GroupUser.where(user_id: id, group_id: MASTER_GROUP_ID).exist?
+    GroupUser.where(user_id: id, group_id: MASTER_GROUP_ID).present?
   end
 
   has_many :articles, dependent: :destroy
