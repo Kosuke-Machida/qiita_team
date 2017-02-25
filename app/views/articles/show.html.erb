@@ -8,7 +8,7 @@
           <%= link_to @article.user.username, @article.user %>
         </div>
         <div class='article__updated-at'>
-          <%= @article.created_at %>
+          <%= @article.created_at.in_time_zone('Tokyo').to_s(:usual_format) %>
         </div>
       </div>
       <div class='article__header--right'>
