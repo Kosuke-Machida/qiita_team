@@ -1,4 +1,13 @@
 <div class='group-editor__container'>
+  <% if @group.errors.any? %>
+    <div id="error_explanation">
+      <ul>
+        <% @group.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <div class='group-editor'>
     <%= form_for @group do |f| %>
       <div class='group-editor__title'>New Group</div>
