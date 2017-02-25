@@ -24,6 +24,8 @@
         <%= f.email_field :email, value: '@finc.com' %>
       </div>
 
+      <%= f.file_field :image %>
+
       <div class="forms">
         <%= f.label :password %>
         <% if @minimum_password_length %>

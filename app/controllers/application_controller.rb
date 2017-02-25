@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :slack_name])
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :slack_name])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :slack_name, :image])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :slack_name, :image])
   end
 
   def invite_user_to_master_group

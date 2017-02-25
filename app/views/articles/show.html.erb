@@ -2,9 +2,7 @@
   <div class='article'>
 
     <div class='article-header'>
-      <div class='article-user__image'>
-        <!-- ここに画像入れる -->
-      </div>
+      <%= image_tag @article.user.image.to_s, class: 'article-user__image' %>
       <div class='article__information'>
         <div class='article__user-name'>
           <%= link_to @article.user.username, @article.user %>
@@ -15,14 +13,14 @@
       </div>
       <div class='article__header--right'>
         <% if @article.stocked?(current_user) %>
-          <%= button_tag article_stock_path(@article, @article.related_stock(current_user)),
+          <%= button_to article_stock_path(@article, @article.related_stock(current_user)),
             method: :delete,
             class: 'article__stock-button' do
           %>
             <%= fa_icon "folder-open" %> | unstock
           <% end %>
         <% else %>
-          <%= button_tag article_stocks_path([@article, @stock]),
+          <%= button_to article_stocks_path([@article, @stock]),
             class: 'article__stock-button' do
           %>
             <%= fa_icon "folder-open-o" %> | stock

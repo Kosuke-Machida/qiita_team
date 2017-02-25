@@ -1,8 +1,7 @@
 <div class='comment-form'>
   <div class='comment'>
     <div class='comment-user'>
-      <div class='comment-user__image'>
-      </div>
+    <%= image_tag current_user.image.to_s, class: 'comment-user__image' %>
       <div class='comment-user__name'>
         <%= current_user.username %>
       </div>

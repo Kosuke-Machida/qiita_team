@@ -2,11 +2,9 @@
   <div class='searched-articles'>
     <% articles.each do |article| %>
       <div class='searched-article'>
-        <div class='searched-article__image'>
-          <!-- ここに画像入れる -->
-        </div>
+        <%= image_tag article.user.image.to_s, class: 'searched-article__image' %>
         <div class='searched-article__body'>
-          <div class='searched-article__body--header'>
+          <div class='searched-article__body__header'>
             <span class='searched-article__username'>
               by <%= link_to article.user.username, user_path(article.user) %>
             </span>
@@ -24,7 +22,7 @@
               Public
             </div>
           <% else %>
-            <span class='searched-article__statement' style='background-color: #5bd;'>
+            <div class='searched-article__statement' style='background-color: #5bd;'>
               <%= link_to article.group.name, article.group %>
             </div>
           <% end %>
