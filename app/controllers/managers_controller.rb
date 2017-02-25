@@ -7,6 +7,12 @@ class ManagersController < ApplicationController
   # patchでmanager_idだけをいじる
   def update
     if @group.update(manager_params)
+      Slack.chat_postMessage(
+        text:
+        "#{user.slack_name} #{current_user.username} gave you the manager permission of group #{@group.name}",
+        username: 'Mr.Qiita Team',
+        channel: user.slack_name
+      )
       redirect_to @group, notice: 'You successfuly gave your manager permission'
     else
       redirect_to @group, notice: 'You failed to give your manager permission'

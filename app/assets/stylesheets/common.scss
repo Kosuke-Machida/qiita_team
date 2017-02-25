@@ -137,32 +137,38 @@
 }
 
 // userを検索した結果のstyle
-.group__members {
-  margin: 20px 25% 0;
-  width: 50%;
-  .group__member {
-    .group__member__statement {
-      float: right;
-      margin-right: 20px;
-      .edit_group {
-        height: 75px;
-        .group__member__change-manager-button {
-          background-color: #c16;
-          border: none;
-          border-radius: 5px;
-          color: #fff;
-          font-size: 15px;
-          height: 30px;
-          line-height: 20px;
-          padding: 5px 10px;
-          text-align: center;
-          vertical-align: middle;
+.group__members-container {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  float: right  ;
+  margin-right: 20px;
+  width: calc(100% - 350px);
+  .group__members {
+    margin: 20px 20px 0;
+    .group__member {
+      .group__member__statement {
+        float: right;
+        margin-right: 20px;
+        .edit_group {
+          height: 75px;
+          .group__member__change-manager-button {
+            background-color: #c16;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 15px;
+            height: 30px;
+            line-height: 20px;
+            padding: 5px 10px;
+            text-align: center;
+            vertical-align: middle;
+          }
         }
       }
-    }
-    .group__member__current-manager {
-      font-size: 15px;
-      font-weight: bold;
+      .group__member__current-manager {
+        font-size: 15px;
+        font-weight: bold;
+      }
     }
   }
 }
