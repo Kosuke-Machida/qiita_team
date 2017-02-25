@@ -1,9 +1,7 @@
 require 'rails_helper'
 
 describe Contact do
-  # 姓と名とメールがあれば有効な状態であること
-  it "is valid with a firstname, lastname and email"
-  # 名がなければ無効な状態であること
+  it "is valid with a username, slack_name, email and password"
   it "is invalid without a firstname"
   # 姓がなければ無効な状態であること
   it "is invalid without a lastname"
