@@ -15,7 +15,8 @@
           <%= link_to "Delete",
             article_comment_path(article, comment),
             method: :delete,
-            class: 'comment__button comment__delete-button'
+            class: 'comment__button comment__delete-button',
+            remote: true
           %>
         </div>
         <div class='comment__updated-at'>

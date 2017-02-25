@@ -35,7 +35,10 @@ class CommentsController < ApplicationController
 
   def destroy
     @comment.destroy
-    redirect_to @article
+    set_comments
+    respond_to do |format|
+      format.js
+    end
   end
 
   private
