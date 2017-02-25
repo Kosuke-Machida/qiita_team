@@ -30,3 +30,61 @@
     color: #000;
   }
 }
+
+// indexされたarticlesのstyle
+.searched-article {
+  border-top: 2px solid #ddd;
+  height: 65px;
+  margin: auto 10px;
+  width: 100%;
+  .searched-article__image {
+    border-radius: 5px;
+    background-color: purple;
+    display: inline-block;
+    height: 55px;
+    vertical-align: middle;
+    width: 55px;
+  }
+  .searched-article__body {
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: middle;
+    .searched-article__body--header {
+      font-size: 15px;
+    }
+    .searched-article__title {
+      display: inline-block;
+      font-size: 25px;
+      vertical-align: middle;
+    }
+    .searched-article__statement {
+      border-radius: 3px;
+      display: inline-block;
+      color: #fff;
+      font-size: 15px;
+      padding: 5px;
+      vertical-align: middle;
+      .searched-article__statement__link:visited {
+        color: #fff;
+      }
+    }
+  }
+}
+.searched-article:first-child {
+  border: none
+}
+
+.nav-tabs {
+    margin-bottom: 0;
+    padding-left: 20px;
+    .nav-link {
+      margin-bottom: -2px;
+    }
+  }
+  .tab-content {
+    border: 2px solid #ddd;
+    border-top: 0;
+    border-radius: 0 0 5px 5px;
+    margin: 0 auto;
+    padding: 10px 20px;
+  }

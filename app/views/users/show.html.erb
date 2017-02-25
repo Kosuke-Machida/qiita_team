@@ -1,21 +1,73 @@
-<h1>Users#show</h1>
-  <p><%= @user.username %></p>
-  <p>slack name:<%= @user.email %></p>
-  <% if @user == current_user %>
-    <%= image_tag @user.image.to_s %>
-    <div>
-      <%= button_to "Edit", edit_user_registration_path, method: :get %>
+<div class='user-sidebar'>
+  <div class='user-sidebar__header'>
+    <%= image_tag @user.image.to_s, class: 'user__image' %>
+    <div class='user__name'>
+      <%= @user.username %>
     </div>
-    <div>
-      <p>Stocks</p>
-      <% if @stocked_articles.present? %>
-        <% @stocked_articles.each do |article| %>
-          <%= link_to article.title, article_path(article) %>
-          <%= button_to "unstock", [article, article.related_stock(current_user)], method: :delete %><br>
-        <% end %>
-      <% else %>
-        <div>There are no articles you stocked </div>
-      <% end %>
   </div>
-  <% end %>
+  <div class='user__contributions'>
+    <div class='user__article-count user__contribution'>
+      <div class='user__contribution__label'>Articles</div>
+      <div class='user__contribution__count'><%= @user.articles.length %></div>
+    </div>
+    <div class='user__stock-count user__contribution'>
+      <div class='user__contribution__label'>Stocks</div>
+      <div class='user__contribution__count'><%= @stocked_articles.length %></div>
+    </div>
+    <div class='user__comment-count user__contribution'>
+      <div class='user__contribution__label'>Comments</div>
+      <div class='user__contribution__count'><%= @user.comments.length %></div>
+    </div>
+  </div>
+  <div class='user-sidebar__footer'>
+    <% if @user == current_user %>
+      <%= link_to "Edit",
+        edit_user_registration_path,
+        method: :get,
+        class: 'user__edit-button'
+      %>
+    <% end %>
+  </div>
+</div>
+<div class='user-page__body'>
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#article-tab" class="nav-link" data-toggle="tab">
+        Articles
+      </a>
+    </li>
+    <li>
+      <a href="#stock-tab" class="nav-link" data-toggle="tab">
+        Stocks
+      </a>
+    </li>
+    <li>
+      <a href="#comment-tab" class="nav-link" data-toggle="tab">
+        Comments
+      </a>
+    </li>
+  </ul>
+  <div class="tab-content">
+    <div id="article-tab" class="tab-pane active">
+      <% if @user.articles.present? %>
+          <%= render partial: 'articles/result', locals: { articles: @user.articles } %>
+      <% else %>
+        <div>There are no articles stocked </div>
+      <% end %>
+    </div>
+    <div id="stock-tab" class="tab-pane">
+      <% if @stocked_articles.present? %>
+        <%= render partial: 'articles/result', locals: { articles: @stocked_articles } %>
+      <% else %>
+        <div>There are no articles stocked </div>
+      <% end %>
+    </div>
+    <div id="comment-tab" class="tab-pane">
+      <% if Article.commented_by(current_user).present? %>
+        <%= render partial: 'articles/result', locals: { articles: Article.commented_by(current_user) } %>
+      <% else %>
+        <div>There are no articles commented </div>
+      <% end %>
+    </div>
+  </div>
 </div>
