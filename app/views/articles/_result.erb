@@ -1,32 +1,35 @@
-<% if keyword.nil? %>
-  <h3>Timeline</h3>
-<% elsif keyword.empty? %>
-  <h3>Searching Form is empty...</h3>
-<% else %>
-  <h3>Search Result</h3>
-<% end %>
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Contributer</th>
-      <th>Statement</th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class='searched-articles-container'>
+  <div class='searched-articles'>
     <% articles.each do |article| %>
-      <tr>
-        <td><%= link_to article.title, article_path(article) %></td>
-        <td><%= article.user.username %></td>
-        <td>
-          <% unless article.group_id == MASTER_GROUP_ID %>
-            in <%= link_to article.group.name, article.group %>
+      <div class='searched-article'>
+        <div class='searched-article__image'>
+          <!-- ここに画像入れる -->
+        </div>
+        <div class='searched-article__body'>
+          <div class='searched-article__body--header'>
+            <span class='searched-article__username'>
+              by <%= link_to article.user.username, user_path(article.user) %>
+            </span>
+          </div>
+          <div class='searched-article__title'>
+            <%= link_to article.title, article_path(article) %>
+          </div>
+          <!-- groupの性質によってstyleを分ける -->
+          <% if article.group.private == true %>
+            <div class='searched-article__statement' style='background-color: #d94;'>
+              <%= link_to article.group.name, article.group %>
+            </div>
+          <% elsif article.group_id == MASTER_GROUP_ID %>
+            <div class='searched-article__statement' style='background-color: #3b6;'>
+              Public
+            </div>
           <% else %>
-            Public
+            <span class='searched-article__statement' style='background-color: #5bd;'>
+              <%= link_to article.group.name, article.group %>
+            </div>
           <% end %>
-        </td>
-      </tr>
+        </div>
+      </div>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>

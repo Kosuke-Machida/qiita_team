@@ -1,24 +1,38 @@
 <%= javascript_include_tag 'articles/preview' %>
-<%= form_for @article do |f| %>
-  <div>
-    <%= f.text_field :title %>
-  </div>
-  <div>
-    <%= f.text_area :body, rows: 30 %>
-  </div>
-  <div>
-     <%= f.label :tag_list, "Tags (separated by commas)" %><br>
-     <%= f.text_field :tag_list %>
-  </div>
-  <%= f.hidden_field :group_id, value: @group.id %>
-  <% if @group.id == MASTER_GROUP_ID %>
-    <%= f.submit "Post to everyone" %>
-  <% else %>
-    <%= f.submit "Post in #{@group.name}" %>
-  <% end %>
-<% end %>
 
-<p>Pereview</p>
-<div id='preview--container'>
-  <!-- ここにjsでpreview表示する -->
-</div>
+<%= form_for @article do |f| %>
+  <div class='article-editor'>
+    <div class='article-editor__title'>
+      <%= f.text_field :title,
+        placeholder: "Title",
+        class: 'article-editor__thin-form article-editor__title__form'
+      %>
+    </div>
+    <div class='article-editor__tags'>
+      <%= f.text_field :tag_list,
+        input_html:{data:{role:'tagsinput'}},
+        placeholder: "Tags (separated by commas)",
+        class: 'article-editor__thin-form article-editor__tags__form'
+      %>
+    </div>
+    <div class='article-editor__bodies'>
+      <div class='article-editor__body'>
+        <%= f.text_area :body,
+          placeholder: "write body with Markdown",
+          class: 'article-editor__body__form'
+        %>
+      </div>
+      <div id='preview--container' class='article-editor__preview'>
+        <!-- ここにjsでpreview表示する -->
+      </div>
+    </div>
+    <%= f.hidden_field :group_id, value: @group.id %>
+    <div class='article-editor__submit'>
+      <% if @group.id == MASTER_GROUP_ID %>
+        <%= f.submit "Post to everyone", class: 'article-editor__submit-button' %>
+      <% else %>
+        <%= f.submit "Post in #{@group.name}", class: 'article-editor__submit-button' %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

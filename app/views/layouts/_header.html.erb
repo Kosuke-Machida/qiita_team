@@ -1,0 +1,29 @@
+<div id='header-container'>
+  <header id='header' class='clearfix'>
+    <div class='header--left'>
+      <%= link_to image_tag('finc_logo.png', size: "50x50"),
+        articles_path,
+        method: :get
+      %>
+    </div>
+    <div class='header--right'>
+      <% if user_signed_in? %>
+        <%= link_to "Post new article",
+          new_article_path(),
+          method: :get,
+          class: 'header__link'
+        %>
+        <%= link_to "my page",
+          user_path(current_user),
+          method: :get,
+          class: 'header__link'
+        %>
+        <%= link_to "log out",
+          destroy_user_session_path,
+          method: :delete,
+          class: 'header__link'
+        %>
+      <% end %>
+    </div>
+  </header>
+</div>

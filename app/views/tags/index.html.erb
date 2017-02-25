@@ -1,4 +1,8 @@
-<h1>Tags</h1>
+<%= render partial: 'articles/top_tabs' %>
+
+<div class='title-container'>
+  <p class='tab-title'>Tags</p>
+</div>
 
 <% @tags.each do |tag| %>
    <%= link_to tag.name, tag_path(tag.name) %>

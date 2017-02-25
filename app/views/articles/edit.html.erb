@@ -1,19 +1,27 @@
 <%= javascript_include_tag 'articles/preview' %>
+
 <%= form_for @article do |f| %>
-   <div>
-     <%= f.label :title, "Title" %><br>
-     <%= f.text_field :title %>
-   </div>
-   <div>
-     <%= f.label :tag_list, "Tags (separated by commas)" %><br>
-     <%= f.text_field :tag_list %>
-   </div>
-   <div>
-     <%= f.text_area :body, rows: 30 %>
-   </div>
-  <%= f.submit "Update" %>
+  <div class='article-editor'>
+    <div class='article-editor__title'>
+      <%= f.text_field :title, placeholder: "Title"%>
+    </div>
+    <div class='article-editor__tags'>
+      <%= f.text_field :tag_list,
+        input_html:{data:{role:'tagsinput'}},
+        placeholder: "Tags (separated by commas)"
+      %>
+    </div>
+    <div class='article-editor__bodies'>
+      <div class='article-editor__body'>
+        <%= f.text_area :body,  placeholder: "write body with Markdown"%>
+      </div>
+      <div id='preview--container' class='article-editor__preview'>
+        <!-- ここにjsでpreview表示する -->
+      </div>
+    </div>
+    <%= f.hidden_field :group_id %>
+    <div class='article-editor__submit'>
+        <%= f.submit "Update", class: 'article-editor__submit-button' %>
+    </div>
+  </div>
 <% end %>
-<p>Pereview</p>
-<div id='preview--container'>
-  <!-- ここにjsでpreview表示する -->
-</div>

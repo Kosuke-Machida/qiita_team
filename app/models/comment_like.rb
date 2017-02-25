@@ -3,5 +3,5 @@ class CommentLike < ActiveRecord::Base
   belongs_to :user
 
   validates :user_id, presence: true
-  validates :group_id, presence: true, uniqueness: { scope: [:user_id] }
+  validates :comment_id, presence: true, uniqueness: { scope: [:user_id] }
 end

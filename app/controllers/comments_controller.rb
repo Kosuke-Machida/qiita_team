@@ -7,8 +7,8 @@ class CommentsController < ApplicationController
     return unless @comment.save
     set_comments
     Slack.chat_postMessage(
-      text: "#{@article.user.slack_name} #{current_user.username} commented on your post!\n
-              ```\n@comment.body\n```",
+      text:
+      "#{@article.user.slack_name} #{current_user.username} commented on your post!```#{@comment.body}```",
       username: 'Mr.Qiita Team',
       channel: SLACK_SHARE_CHANNEL
     )
@@ -20,6 +20,7 @@ class CommentsController < ApplicationController
   def edit; end
 
   def update
+    @comment.update(comment_params)
     redirect_to @article
   end
 
