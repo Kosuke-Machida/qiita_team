@@ -6,6 +6,7 @@ class ManagersController < ApplicationController
 
   # patchでmanager_idだけをいじる
   def update
+    user = User.find(manager_params[:manager_id])
     if @group.update(manager_params)
       Slack.chat_postMessage(
         text:

@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :protect_private_article, only: [:show, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
@@ -105,6 +106,12 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
+  end
+
+  def protect_private_article
+    if @article.group.private && @article.group.users.include?(current_user) == false
+      redirect_to root_path, alert: "You don't have a permission to refer this group"
+    end
   end
 
   def confirm_permission

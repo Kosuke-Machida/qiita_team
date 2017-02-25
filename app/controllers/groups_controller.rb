@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     # グループがprivateの場合、メンバーじゃない人を弾く
     if @group.private && @group.users.include?(current_user) == false
-      redirect_to groups_path
+      redirect_to groups_path, alert: "You don't have a permission to refer this group"
     end
     @group_user = GroupUser.new
   end
