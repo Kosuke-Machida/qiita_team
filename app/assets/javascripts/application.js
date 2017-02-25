@@ -16,3 +16,7 @@
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require marked
+//= require highlight_js/highlight
+//= require highlight_js/languages/ruby
+
+hljs.initHighlightingOnLoad();

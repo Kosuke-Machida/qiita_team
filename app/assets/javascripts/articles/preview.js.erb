@@ -1,14 +1,16 @@
 $(function(){
+  // コードをハイライトするためにオリジナルのrendererを作る
+
+  // markdownの設定
   marked.setOptions({
     langPrefix: '',
-    sanitize: true,
+    breaks: true,
+    sanitize: true
   });
+
   $("#article_body").keyup(function() {
     var src = $(this).val();
     var preview = marked(src);
     $("#preview--container").html(`<div>${preview}</div>`);
-    $('pre code').each(function(i, e) {
-      hljs.highlightBlock(e, e.className);
-    });
   });
 });
