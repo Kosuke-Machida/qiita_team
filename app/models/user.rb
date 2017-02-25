@@ -7,10 +7,12 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :slack_name,
-            format: { presence: true,
-                      with: /\@/,
+            presence: true,
+            uniqueness: true,
+            format: { with: /\@/,
                       message: 'should start with @' }
   validates :email,
+            uniqueness: true,
             format: { with: /\@finc\.com/,
                       message: 'should be from finc.com' }
 
