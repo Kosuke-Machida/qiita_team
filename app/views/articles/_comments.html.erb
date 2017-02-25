@@ -8,8 +8,9 @@
       <div class='comment--right  clearfix'>
         <div class='comment__buttons'>
           <%= link_to "Edit",
-            article_path(article, comment_id: comment.id),
-            class: "comment__button comment__edit-button>"
+            edit_article_comment_path(article, comment),
+            class: "comment__button comment__edit-button>",
+            remote: true
           %>
           <%= link_to "Delete",
             article_comment_path(article, comment),

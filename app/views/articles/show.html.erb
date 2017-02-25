@@ -72,6 +72,8 @@
     <div class="comments">
       <%= render partial: 'comments', locals: { article: @article, comments: @comments } %>
     </div>
-    <%= render partial: 'comment_form', locals: { article: @article, comment: @comment } %>
+    <div class='comment-form'>
+      <%= render partial: 'comment_form', locals: { article: @article, comment: @comment } %>
+    </div>
   </div>
 </div>

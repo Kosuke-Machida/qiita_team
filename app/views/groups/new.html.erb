@@ -11,12 +11,12 @@
         <%= f.text_field :body %>
       </div>
       <div class='forms_checkbox'>
-        <%= f.check_box :private, {}, checked_value = true,unchecked_value = false %>
+        <%= f.check_box :private, {}, checked_value = true, unchecked_value = false %>
         <%= f.label :private, "Make this group Private?" %>
         <p>In 'Private' groups, only members can read articles</p>
       </div>
       <div class='actions'>
-        <%= f.submit "Update" %>
+        <%= f.submit "Create" %>
       </div>
     <% end %>
   </div>

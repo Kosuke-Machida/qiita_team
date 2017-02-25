@@ -17,11 +17,20 @@ class CommentsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    @comment = Comment.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def update
     @comment.update(comment_params)
-    redirect_to @article
+    set_comments
+    @comment = Comment.new
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy

@@ -19,11 +19,7 @@ class ArticlesController < ApplicationController
   end
 
   def show
-    @comment = if params[:comment_id]
-                 Comment.find(params[:comment_id])
-               else
-                 Comment.new
-               end
+    @comment = Comment.new
     @comments = @article.comments
     @stock = Stock.new
     @article_like = ArticleLike.find_by(

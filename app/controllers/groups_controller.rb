@@ -20,7 +20,9 @@ class GroupsController < ApplicationController
   end
 
   def create
-    if @group = current_user.groups.create(group_params)
+    @group = Group.new(group_params)
+    if @group.save
+      @group.users << current_user
       redirect_to @group, notice: 'New Group was Successfuly created'
     else
       redirect_to groups_path
@@ -46,7 +48,7 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:name, :body, :private, :manager_id)
+    params.require(:group).permit(:name, :body, :private).merge(manager_id: current_user.id)
   end
 
   # Groupクラスのインスタンス変数を定義

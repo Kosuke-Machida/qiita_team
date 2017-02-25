@@ -1,9 +1,0 @@
-<h1>Comments#edit</h1>
-  <%= form_for [@article, @comment] do |f| %>
-     <div>
-       <%= f.text_field :body %>
-     </div>
-     <%= f.hidden_field :user_id, value: current_user.id %>
-     <%= f.hidden_field :article_id, value: @article.id %>
-     <%= f.submit "update" %>
-  <% end %>
