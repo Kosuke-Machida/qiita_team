@@ -14,12 +14,12 @@
               </span>
             </div>
             <div class='searched-article__title'>
-              <%= link_to article.title, article_path(article) %>
+              <%= link_to article.title, article_path(article), class: 'cut_string' %>
             </div>
             <!-- groupの性質によってstyleを分ける -->
             <% if article.group.private == true %>
               <div class='searched-article__statement' style='background-color: #d94;'>
-                <%= link_to article.group.name, article.group %>
+                <%= fa_icon 'key' %> <%= link_to article.group.name, article.group %>
               </div>
             <% elsif article.group_id == MASTER_GROUP_ID %>
               <div class='searched-article__statement' style='background-color: #3b6;'>
@@ -27,7 +27,7 @@
               </div>
             <% else %>
               <div class='searched-article__statement' style='background-color: #5bd;'>
-                <%= link_to article.group.name, article.group %>
+                <%= fa_icon 'group' %><%= link_to article.group.name, article.group %>
               </div>
             <% end %>
           </div>

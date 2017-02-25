@@ -85,12 +85,15 @@
     }
     .searched-article__statement {
       border-radius: 3px;
-      display: inline-block;
       color: #fff;
+      display: inline-block;
       font-size: 15px;
       padding: 5px;
       vertical-align: middle;
-      .searched-article__statement__link:visited {
+      a {
+        color: #fff;
+      }
+      a:visited {
         color: #fff;
       }
     }
