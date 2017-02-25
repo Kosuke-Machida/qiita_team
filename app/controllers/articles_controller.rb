@@ -75,8 +75,9 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    @article.tag_list = {}
     @article.destroy
-    redirect_to ''
+    redirect_to root_path
   end
 
   def search
