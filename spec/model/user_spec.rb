@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 describe User do
-  describe validation do
+  describe 'validation' do
     # username, slack_name, email, passwordが存在すればuserが作成できること
     it "is valid with a username, slack_name, email and password" do
       expect(build(:user)).to be_valid
@@ -81,16 +81,21 @@ describe User do
     end
   end
 
-  describe belonging_groups_without_master do
-    it "returns groups which user joined" do
+  describe 'belonging_groups_without_master' do
+    # 入っているグループが渡されること
+    it "includes groups which user joined" do
       user = create(:user)
-      create(:group_user, user: user, group: create(:group))
+      group = create(:group)
+      create(:group_user, user: user, group: group)
       groups = user.belonging_groups_without_master
-      expect(groups).to include()
+      expect(groups).to include(group)
     end
 
+    # masterグループは含まれていないこと
     it "doesn't include master group" do
-
+      user = create(:user)
+      groups = user.belonging_groups_without_master
+      expect(groups).to_not include(Group.find(Group::MASTER_GROUP_ID))
     end
-
+  end
 end
