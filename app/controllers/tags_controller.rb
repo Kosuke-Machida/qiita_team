@@ -1,5 +1,8 @@
 class TagsController < ApplicationController
   def index
-    @tags = ActsAsTaggableOn::Tag.page(params[:page]).per(10)
+    @tags = ActsAsTaggableOn::Tag
+              .order("updated_at DESC")
+              .page(params[:page])
+              .per(10)
   end
 end

@@ -26,7 +26,7 @@
       <!-- グループに紐づけられた記事の一覧 -->
       <% if @group.articles.present? %>
         <%= render partial: 'articles/result',
-          locals: { articles: @group.articles.page(params[:page]).per(10), keyword: nil } %>
+          locals: { articles: @group.articles.order("updated_at DESC").page(params[:page]).per(10), keyword: nil } %>
       <% else %>
         <p>There are no articles in this group</p>
       <% end %>

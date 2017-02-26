@@ -20,8 +20,8 @@
     </div>
     <div class='article-editor__tags'>
       <%= f.text_field :tag_list,
-        input_html:{data:{role:'tagsinput'}},
-        placeholder: "Tags separated by commas(Ex. rails, ruby, gem)",
+        'data-role'=>'tagsinput',
+        placeholder: "Write Tag Name and Push Enter",
         class: 'article-editor__thin-form article-editor__tags__form'
       %>
     </div>

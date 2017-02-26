@@ -8,12 +8,12 @@ class ArticlesController < ApplicationController
     @articles = if params[:tag]
                   viewable_articles
                     .tagged_with(params[:tag])
-                    .order(:updated_at)
+                    .order("updated_at DESC")
                     .page(params[:page])
                     .per(10)
                 else
                   viewable_articles
-                    .order(:updated_at)
+                    .order("updated_at DESC")
                     .page(params[:page])
                     .per(10)
                 end
@@ -70,8 +70,8 @@ class ArticlesController < ApplicationController
           username: 'Mr.Qiita Team',
           channel: SLACK_SHARE_CHANNEL
         )
-        redirect_to @article, notice: 'Your Article are successfuly updated'
       end
+      redirect_to @article, notice: 'Your Article are successfuly updated'
     else
       flash.now[:alert] = "Some errors occured"
       render 'edit'
@@ -87,7 +87,11 @@ class ArticlesController < ApplicationController
   def search
     @keyword = params[:keyword]
     viewable_articles = Article.available_to(current_user)
-    @articles = viewable_articles.body_include(params[:keyword]).page(params[:page]).per(10)
+    @articles = viewable_articles
+                  .body_include(params[:keyword])
+                  .order("updated_at DESC")
+                  .page(params[:page])
+                  .per(10)
     respond_to do |format|
       format.js
     end
