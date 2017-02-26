@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
   def belonging_groups_without_master
-    groups - [Group.find(MASTER_GROUP_ID)]
+   Group.without_master_joined_by(self)
   end
 
   def not_belonging_groups
