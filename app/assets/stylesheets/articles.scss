@@ -198,6 +198,10 @@
     margin-top: 10px;
     padding-left: 10px;
     width: 100%;
+    .tag {
+      background-color: #c16;
+      color: #fff;
+    }
   }
   .article-editor__bodies {
     height: calc(100% - 100px);
