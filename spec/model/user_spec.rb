@@ -80,22 +80,101 @@ describe User do
       expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
     end
   end
+  describe 'instance methods' do
+    describe 'belonging_groups_without_master' do
+      # 入っているグループが渡されること
+      it "includes group which user joinde in" do
+        user = create(:user)
+        group = create(:group)
+        create(:group_user, user: user, group: group)
+        groups = user.belonging_groups_without_master
+        expect(groups).to include(group)
+      end
 
-  describe 'belonging_groups_without_master' do
-    # 入っているグループが渡されること
-    it "includes groups which user joined" do
-      user = create(:user)
-      group = create(:group)
-      create(:group_user, user: user, group: group)
-      groups = user.belonging_groups_without_master
-      expect(groups).to include(group)
+      # masterグループは含まれていないこと
+      it "doesn't include master group" do
+        user = create(:user)
+        groups = user.belonging_groups_without_master
+        expect(groups).to_not include(Group.find(Group::MASTER_GROUP_ID))
+      end
     end
 
-    # masterグループは含まれていないこと
-    it "doesn't include master group" do
-      user = create(:user)
-      groups = user.belonging_groups_without_master
-      expect(groups).to_not include(Group.find(Group::MASTER_GROUP_ID))
+    describe 'not_belonging_groups' do
+      # ユーザーがまだ入っていないグループを含むこと
+      it "incliudes group which user hasn't joined" do
+        user = create(:user)
+        group = create(:group)
+        groups = user.not_belonging_groups
+        expect(groups).to include(group)
+      end
+
+      # ユーザーがすでに参加しているグループを含まないこと
+      it "doesn't include group which user joined" do
+        user = create(:user)
+        group = create(:group)
+        create(:group_user, user: user, group: group)
+        groups = user.not_belonging_groups
+        expect(groups).not_to include(group)
+      end
+    end
+
+    describe "not_belinging_public_groups" do
+      # ユーザーがまだ入っていないpublicグループを含むこと
+      it "incliudes public group which user hasn't joined" do
+        user = create(:user)
+        group = create(:group, private: false)
+        groups = user.not_belonging_public_groups
+        expect(groups).to include(group)
+      end
+
+      # ユーザーがすでに参加しているグループを含まないこと
+      it "doesn't include group which user joined" do
+        user = create(:user)
+        group = create(:group)
+        create(:group_user, user: user, group: group)
+        groups = user.not_belonging_public_groups
+        expect(groups).not_to include(group)
+      end
+
+      # privateグループを含まないこと
+      it "doesn't include private group which user hasn't joined" do
+        user = create(:user)
+        group = create(:group, private: true)
+        groups = user.not_belonging_public_groups
+        expect(groups).not_to include(group)
+      end
+    end
+
+    describe "has_alredy_joined_in_this_group?" do
+      it "returns true when user joined master group" do
+        user = create(:user)
+        expect(user.has_alredy_joined_in_this_group?).to eq(true)
+      end
+
+      it "returns false when user hasn't joined master group" do
+        user = create(:user)
+        GroupUser.find_by(user_id: user.id, group_id: Group::MASTER_GROUP_ID).destroy
+        expect(user.has_alredy_joined_in_this_group?).to eq(false)
+      end
+    end
+  end
+
+  describe 'scope' do
+    describe 'serched_by_name' do
+      it "returns user whose name is same as keyword" do
+        user = create(:user, username: 'Qiitateam Test')
+        searched_user = User.searched_by_name('Qiitateam Test')
+        expect(searched_user).to include(user)
+      end
+    end
+
+    describe 'group_manger' do
+      it "returns manager when given the group" do
+        user = create(:user)
+        group = create(:group, manager_id: user.id)
+        manager = User.group_manager(group.id)
+        expect(manager).to include(user)
+      end
     end
   end
 end

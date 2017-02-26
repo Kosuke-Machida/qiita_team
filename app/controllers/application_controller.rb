@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
   def invite_user_to_master_group
     return unless user_signed_in?
     # もしマスターチームに入ってなかったら入れる
-    return if current_user.relation_with_master_team
+    return if current_user.has_alredy_joined_in_this_group?
     group_user = GroupUser.new(user_id: current_user.id, group_id: MASTER_GROUP_ID)
     return if group_user.save
     redirect_to root_path

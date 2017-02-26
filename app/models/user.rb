@@ -33,8 +33,8 @@ class User < ActiveRecord::Base
     not_belonging_groups.select { |group| group.private == false }
   end
 
-  def relation_with_master_team
-    GroupUser.where(user_id: id, group_id: MASTER_GROUP_ID).present?
+  def has_alredy_joined_in_this_group?
+    GroupUser.find_by(user_id: id, group_id: Group::MASTER_GROUP_ID).present?
   end
 
   has_many :articles, dependent: :destroy
