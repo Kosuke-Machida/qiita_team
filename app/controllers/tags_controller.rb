@@ -1,7 +1,7 @@
 class TagsController < ApplicationController
   def index
     @tags = ActsAsTaggableOn::Tag
-              .order("updated_at DESC")
+              .order("taggings_count DESC")
               .page(params[:page])
               .per(10)
   end

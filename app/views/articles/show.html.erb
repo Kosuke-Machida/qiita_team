@@ -47,9 +47,6 @@
       <div class='article__title'>
         <%= @article.title %>
       </div>
-      <% unless @article.group.id == MASTER_GROUP_ID %>
-        <%= link_to @article.group.name, @article.group, html: { class: 'article__group' } %>
-      <% end %>
 
       <div class='article__body'>
         <%= markdown(@article.body).html_safe %>

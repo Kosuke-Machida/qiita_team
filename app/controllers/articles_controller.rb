@@ -64,13 +64,6 @@ class ArticlesController < ApplicationController
 
   def update
     if @article.update(article_params)
-      if @article.group.private == false
-        Slack.chat_postMessage(
-          text: "@channel #{current_user.username}が記事「#{@article.title}」を更新しました！",
-          username: 'Mr.Qiita Team',
-          channel: SLACK_SHARE_CHANNEL
-        )
-      end
       redirect_to @article, notice: 'Your Article are successfuly updated'
     else
       flash.now[:alert] = "Some errors occured"
