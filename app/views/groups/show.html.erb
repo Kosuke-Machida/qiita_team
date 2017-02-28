@@ -1,59 +1,50 @@
-<div class='group'>
-  <div class='group__header'>
-    <div class='group__name'>
-      <%= @group.name %>
-    </div>
-    <% if @group.manager_id == current_user.id %>
-      <!-- 管理者だけが編集できる -->
-      <%= link_to 'Edit', edit_group_path(@group), method: :get %>
-      <!-- 管理者だけが踏める削除ボタン -->
-      <%= link_to "Delete", @group, method: :delete %>
-      <!-- 管理者だけが踏める管理者権限の譲渡フォームへのリンク -->
-      <%= link_to 'Change Manager', change_manager_group_managers_path(@group), method: :get %>
-    <% else %>
-      <!-- 管理者はグループを抜けられない（抜けたら終わるから） -->
-      <% if @group.joined_by_this_user?(current_user) %>
-        <!-- すでに参加していたらグループ抜けるボタン -->
-        <%= button_to 'Leave from this Group',
-          [@group, @group.relation_with_user(current_user)],
-          method: :delete,
-          data: { confirm: 'Are you sure to leave from this Group'}
-        %>
-      <% else %>
-        <!-- 参加していなかったら参加ボタン -->
-        <%= link_to 'Join this Group',
-          group_group_users_path(user_id: current_user.id, group_id: @group.id),
-          method: :post
-        %>
+<%= render partial: 'groups/sidebar' %>
+
+<div class='group-body'>
+  <ul class="nav nav-tabs">
+    <li class="active">
+      <a href="#tab1" class="nav-link" data-toggle="tab">
+        <%= fa_icon 'file-text' %> Articles
+      </a>
+    </li>
+    <li>
+      <a href="#tab2" class="nav-link" data-toggle="tab">
+        <%= fa_icon 'users' %> Members
+      </a>
+    </li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="tab1" class="tab-pane active">
+      <!-- グループに紐づけて記事を書く場合のボタン -->
+      <%= link_to  new_article_path(group_id: @group.id),
+        method: :get,
+        class: 'post-article-button' do
+      %>
+         <%= fa_icon 'pencil-square-o' %> Post New Article in Group
       <% end %>
-    <% end %>
+      <!-- グループに紐づけられた記事の一覧 -->
+      <% if @group.articles.present? %>
+        <%= render partial: 'articles/result', locals: { articles: @group.articles } %>
+      <% else %>
+        <p>There are no articles in this group</p>
+      <% end %>
+    </div>
+    <div id="tab2" class="tab-pane">
+      <!-- privateがtrueならメンバーのinviteぺージへのリンクを表示 -->
+      <% if @group.private == true %>
+        <%= link_to new_group_group_user_path(@group, @group_user) do %>
+          <%= fa_icon 'plus-square' %> Invite New Member
+        <% end %>
+      <% end %>
+      <!-- メンバーの一覧表示 -->
+      <div>
+        <% @group.users.each do |user| %>
+          <div class='group__member'>
+            <%= image_tag user.image.to_s, class: 'group__member__image' %>
+            <%= link_to user.username, user_path(user.id), class: 'group__member__name'%>
+          </div>
+        <% end %>
+      </div>
+    </div>
   </div>
-  <div class='group__body'>
-    <%= @group.body %>
-  </div>
-  <div>
-    <p>Manager</p>
-    <%= link_to User.group_manager(@group.manager_id).username, user_path(User.group_manager(@group.manager_id).id) %>
-  </div>
-
-
-  <!-- グループに紐づけて記事を書く場合のボタン -->
-  <%= link_to 'Post New Article in Group', new_article_path(group_id: @group.id), method: :get %>
-
-  <!-- グループに紐づけられた記事の一覧 -->
-  <% @group.articles.each do |article| %>
-    <%= link_to article.title, article_path(article.id) %>
-  <% end %>
-
-  <!-- メンバーの一覧表示 -->
-  <div>
-    <h2>Members</h2>
-    <% @group.users.each do |user| %>
-      <%= link_to user.username, user_path(user.id) %>
-    <% end %>
-  </div>
-
-  <!-- privateがtrueならメンバーのinviteぺージへのリンクを表示 -->
-  <% if @group.private == true %>
-    <%= link_to 'Search User', new_group_group_user_path(@group, @group_user) %>
-  <% end %>

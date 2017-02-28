@@ -1,0 +1,45 @@
+<div class='group-sidebar'>
+  <div class='group-sidebar__header'>
+    <div class='group__name'>
+      <% if @group.private == true %>
+        <%= fa_icon 'key' %> <%= @group.name %>
+      <% else %>
+        <%= fa_icon 'group' %> <%= @group.name %>
+      <% end %>
+    </div>
+    <div class='group-sidebar__body'>
+      <div class='group__body'>
+        <%= @group.body %>
+      </div>
+      <p class='group__manager'>
+        Manager：<%= link_to User.group_manager(@group.manager_id).username, user_path(User.group_manager(@group.manager_id).id) %>
+      </p>
+    </div>
+    <div class='group-sidebar__footer'>
+      <% if @group.manager_id == current_user.id %>
+        <!-- 管理者だけが編集できる -->
+        <%= link_to 'Edit', edit_group_path(@group), method: :get %>
+        <!-- 管理者だけが踏める削除ボタン -->
+        <%= link_to "Delete", @group, method: :delete %>
+        <!-- 管理者だけが踏める管理者権限の譲渡フォームへのリンク -->
+        <%= link_to 'Change Manager', change_manager_group_managers_path(@group), method: :get %>
+      <% else %>
+        <!-- 管理者はグループを抜けられない（抜けたら終わるから） -->
+        <% if @group.joined_by_this_user?(current_user) %>
+          <!-- すでに参加していたらグループ抜けるボタン -->
+          <%= link_to 'Leave from this Group',
+            [@group, @group.relation_with_user(current_user)],
+            method: :delete,
+            data: { confirm: 'Are you sure to leave from this Group'}
+          %>
+        <% else %>
+          <!-- 参加していなかったら参加ボタン -->
+          <%= link_to 'Join this Group',
+            group_group_users_path(user_id: current_user.id, group_id: @group.id),
+            method: :post
+          %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

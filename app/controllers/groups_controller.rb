@@ -21,7 +21,7 @@ class GroupsController < ApplicationController
 
   def create
     if @group = current_user.groups.create(group_params)
-      redirect_to group_path(@group.id), notice: 'New Group was Successfuly created'
+      redirect_to @group, notice: 'New Group was Successfuly created'
     else
       redirect_to groups_path
     end
