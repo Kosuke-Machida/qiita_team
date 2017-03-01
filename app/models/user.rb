@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
   def belonging_groups_without_master
-    groups - [Group.find(MASTER_GROUP_ID)]
+    groups - [Group.find(Group::MASTER_GROUP_ID)]
   end
 
   def not_belonging_groups
@@ -31,8 +31,8 @@ class User < ActiveRecord::Base
     not_belonging_groups.select { |group| group.private == false }
   end
 
-  def has_already_joined_in_master_team?
-    GroupUser.where(user_id: id, group_id: MASTER_GROUP_ID).present?
+  def already_joined_in_master_team?
+    GroupUser.where(user_id: id, group_id: Group::MASTER_GROUP_ID).present?
   end
 
   has_many :articles, dependent: :destroy

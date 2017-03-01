@@ -49,11 +49,17 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     bcrypt (3.1.11)
+    better_errors (2.1.1)
+      coderay (>= 1.0.0)
+      erubis (>= 2.6.6)
+      rack (>= 0.9.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
+    bootstrap-tagsinput-rails (0.4.2.1)
+      railties (>= 3.1)
     brakeman (3.5.0)
     builder (3.2.3)
     byebug (9.0.6)
@@ -113,7 +119,8 @@ GEM
       railties (>= 3.2, < 5.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
-    highlight (2.0.0)
+    highlight_js-rails (7.1.0)
+      rails (>= 3.1.1)
     i18n (0.8.0)
     ice_nine (0.11.2)
     jbuilder (2.6.1)
@@ -127,6 +134,9 @@ GEM
       railties (>= 3.1.0)
       turbolinks
     json (1.8.6)
+    kaminari (0.17.0)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     launchy (2.4.3)
       addressable (~> 2.3)
     loofah (2.0.3)
@@ -275,7 +285,10 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on (~> 3.4)
+  better_errors
+  binding_of_caller
   bootstrap-sass
+  bootstrap-tagsinput-rails
   brakeman
   byebug
   carrierwave
@@ -284,10 +297,11 @@ DEPENDENCIES
   devise
   dotenv-rails
   font-awesome-rails
-  highlight
+  highlight_js-rails
   jbuilder (~> 2.0)
   jquery-rails
   jquery-turbolinks
+  kaminari
   marked-rails
   mysql2 (~> 0.3.20)
   pry

@@ -1,22 +1,27 @@
 class ArticlesController < ApplicationController
   before_action :set_article, only: [:show, :edit, :update, :destroy]
+  before_action :protect_private_article, only: [:show, :edit, :update, :destroy]
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def index
     viewable_articles = Article.available_to(current_user)
+    @tag = params[:tag] if params[:tag]
     @articles = if params[:tag]
-                  viewable_articles.tagged_with(params[:tag])
+                  viewable_articles
+                    .tagged_with(params[:tag])
+                    .order('updated_at DESC')
+                    .page(params[:page])
+                    .per(10)
                 else
                   viewable_articles
+                    .order('updated_at DESC')
+                    .page(params[:page])
+                    .per(10)
                 end
   end
 
   def show
-    @comment = if params[:comment_id]
-                 Comment.find(params[:comment_id])
-               else
-                 Comment.new
-               end
+    @comment = Comment.new
     @comments = @article.comments
     @stock = Stock.new
     @article_like = ArticleLike.find_by(
@@ -29,7 +34,7 @@ class ArticlesController < ApplicationController
     @group = if params[:group_id]
                Group.find(params[:group_id])
              else
-               Group.find(MASTER_GROUP_ID)
+               Group.find(Group::MASTER_GROUP_ID)
              end
     @article = Article.new
   end
@@ -48,34 +53,39 @@ class ArticlesController < ApplicationController
       end
       redirect_to @article, notice: 'Your Article are successfuly posted'
     else
-      redirect_to root_path
+      @group = if params[:group_id]
+                 Group.find(params[:group_id])
+               else
+                 Group.find(Group::MASTER_GROUP_ID)
+               end
+      flash.now[:alert] = 'Some errors occured'
+      render 'new'
     end
   end
 
   def update
     if @article.update(article_params)
-      if @article.group.private == false
-        Slack.chat_postMessage(
-          text: "@channel #{current_user.username}が記事「#{@article.title}」を更新しました！",
-          username: 'Mr.Qiita Team',
-          channel: SLACK_SHARE_CHANNEL
-        )
-        redirect_to @article, notice: 'Your Article are successfuly updated'
-      end
+      redirect_to @article, notice: 'Your Article are successfuly updated'
     else
-      redirect_to @article
+      flash.now[:alert] = 'Some errors occured'
+      render 'edit'
     end
   end
 
   def destroy
+    @article.tag_list = {}
     @article.destroy
-    redirect_to ''
+    redirect_to root_path
   end
 
   def search
-    viewable_articles = Article.available_to(current_user)
-    @articles = viewable_articles.body_include(params[:keyword])
     @keyword = params[:keyword]
+    viewable_articles = Article.available_to(current_user)
+    @articles = viewable_articles
+                .body_include(params[:keyword])
+                .order('updated_at DESC')
+                .page(params[:page])
+                .per(10)
     respond_to do |format|
       format.js
     end
@@ -94,6 +104,12 @@ class ArticlesController < ApplicationController
 
   def set_article
     @article = Article.find(params[:id])
+  end
+
+  def protect_private_article
+    unless @article.group.private && @article.group.users.include?(current_user)
+      redirect_to root_path, alert: "You don't have a permission to refer this group"
+    end
   end
 
   def confirm_permission

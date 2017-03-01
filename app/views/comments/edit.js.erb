@@ -1,0 +1,2 @@
+$(".comment-form").html("<%= j(render partial: 'articles/comment_form', locals: { article: @article, comment: @comment }) %>")
+$(".comment__textarea").focus();

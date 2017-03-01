@@ -12,7 +12,9 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap-tagsinput
  *= require font-awesome
+ *= require highlight_js/github
  */
 
 @import "bootstrap-sprockets";
@@ -77,8 +79,23 @@ body {
 #container {
   padding-top: 60px;
   height: calc(100% - 60px);
-  #messages {
-    width: 100%;
-    text-align: center;
+  .messages-container {
+      height: 30px;
+      position: relative;
+      width: 100%;
+    #messages {
+      text-align: center;
+      top: 0;
+	    bottom: 0;
+	    margin: auto;
+      .notice {
+        margin: 0;
+        padding: 0;
+      }
+      .alert {
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 }

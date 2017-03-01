@@ -3,30 +3,42 @@ class CommentsController < ApplicationController
   before_action :confirm_permission, only: [:edit, :update, :destroy]
 
   def create
-    @comment = @article.comments.new(comment_params)
+    @comment = @article.comments.build(comment_params)
     return unless @comment.save
     set_comments
     Slack.chat_postMessage(
       text:
-      "#{@article.user.slack_name} #{current_user.username} commented on your post!```#{@comment.body}```",
+      "#{current_user.username} commented on your post!```#{@comment.body}```",
       username: 'Mr.Qiita Team',
-      channel: SLACK_SHARE_CHANNEL
+      channel: @comment.user.slack_name
     )
     respond_to do |format|
       format.js
     end
   end
 
-  def edit; end
+  def edit
+    @comment = Comment.find(params[:id])
+    respond_to do |format|
+      format.js
+    end
+  end
 
   def update
     @comment.update(comment_params)
-    redirect_to @article
+    set_comments
+    @comment = Comment.new
+    respond_to do |format|
+      format.js
+    end
   end
 
   def destroy
     @comment.destroy
-    redirect_to @article
+    set_comments
+    respond_to do |format|
+      format.js
+    end
   end
 
   private

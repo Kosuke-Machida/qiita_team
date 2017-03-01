@@ -4,8 +4,7 @@ module MarkdownHelper
 
   class HTMLwithCoderay < Redcarpet::Render::HTML
     def block_code(code, language)
-      language = language.split(':')[0]
-
+      language = language.split(':')[0] if language
       lang = case language.to_s
              when 'rb'
                'ruby'
@@ -20,7 +19,6 @@ module MarkdownHelper
              else
                language
              end
-
       CodeRay.scan(code, lang).div
     end
   end

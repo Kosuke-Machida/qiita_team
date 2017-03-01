@@ -6,7 +6,7 @@
 
 <div class='tags-container'>
   <div class='tags__sum'>
-    <%= fa_icon 'tags' %> There are <%= @tags.length %> tags
+    <%= fa_icon 'tags' %> There are <%= Tag.count %> tags
   </div>
   <div class='tags'>
     <% @tags.each do |tag| %>
@@ -21,5 +21,8 @@
         </div>
       <% end %>
     <% end %>
+    <div class='pagination'>
+      <%= paginate @tags %>
+    </div>
   </div>
 </div>

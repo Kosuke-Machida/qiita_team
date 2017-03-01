@@ -23,5 +23,7 @@ module QiitaTeam
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += Dir[Rails.root.join('app', 'uploaders')]
+    # <div class="field_with_errors">でstyleが崩れるのを防ぐ
+    config.action_view.field_error_proc = proc { |html_tag, _instance| html_tag.to_s.html_safe }
   end
 end

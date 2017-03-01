@@ -4,9 +4,7 @@
 
 // indexのstyle
 .title-container {
-  height: 30px;
   text-align: center;
-  line-height: 30px;
   margin: 20px auto 10px;
   .tab-title {
     font-size: 30px;
@@ -55,15 +53,14 @@
       display: inline-block;
       float: right;
       height: 50px;
-      line-height: 50px;
       .article__stock-button {
         background-color: #fff;
         border: 2px solid #ddd;
         border-radius: 10px;
+        color: #000;
         display: inline-block;
         font-size: 13px;
-        height: 40px;
-        width: 100px;
+        padding: 5px 10px;
       }
       .article__edit-button {
         display: inline-block;
@@ -82,6 +79,33 @@
     .article__body {
       font-size: 25px;
       margin-top: 30px;
+      overflow: scroll;
+      width: calc(50% - 7.5px);
+      * {
+        margin: 5px;
+      }
+      table, td, th{
+        border-collapse: collapse;
+        border:1px solid #000;
+        padding: 5px;
+      }
+    }
+    .article__tags {
+      margin-top: 30px;
+      .article__tags__label {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .article__tag {
+        background-color: #c16;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 10px;
+        font-weight: bold;
+        margin-left: 10px;
+        padding: 5px 10px;
+        text-align:center;
+      }
     }
   }
   .article-footer {
@@ -133,40 +157,50 @@
         font-size: 20px;
       }
     }
+    .comment-footer {
+      margin-top: 10px;
+    }
   }
   .comment-form {
     .comment-body {
       font-size: 25px;
-      .new_comment {
-        text-align: center;
-        .new_comment__textarea {
-          border: 2px solid #ddd;
-          border-radius: 5px;
-          font-size: 15px;
-          padding: 10px;
-          width: calc(100% - 20px);
-        }
-        .new_comment__submit {
-          background-color: #c16;
-          border: 2px solid #fff;
-          border-radius: 5px;
-          color: #fff;
-          display: inline-block;
-          font-size: 15px;
-          font-weight: bold;
-          padding: 10px 20px;
-          text-align:center;
-        }
+      text-align: center;
+      .comment__textarea {
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 15px;
+        padding: 10px;
+        width: calc(100% - 20px);
+      }
+      .comment__submit {
+        background-color: #c16;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        color: #fff;
+        display: inline-block;
+        font-size: 15px;
+        font-weight: bold;
+        padding: 10px 20px;
+        text-align:center;
       }
     }
   }
+  .pagination {
+    margin: 0 auto;
+    text-align: center;
+  }
 }
 
-// show・editのstyle
+// new・editのstyle
+.new_article {
+  height: 100%;
+}
+.edit_article {
+  height: 100%;
+}
 .article-editor {
   height: calc(100% - 50px);
   margin: 0 10px;
-  position: fixed;
   width: calc(100% - 20px);
   .article-editor__thin-form {
     border: 2px solid #ccc;
@@ -177,11 +211,22 @@
     padding-left: 10px;
     width: 100%;
   }
-  .article-editor__tags {
-    margin-top: 5px;
+  .bootstrap-tagsinput {
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 20px;
+    height: 36px;
+    margin-top: 10px;
+    padding-left: 10px;
+    width: 100%;
+    .tag {
+      background-color: #c16;
+      color: #fff;
+    }
   }
   .article-editor__bodies {
-    height: calc(100% - 220px);
+    height: calc(100% - 100px);
     margin: 5px 0 0;
     width: 100%;
     .article-editor__body {
@@ -192,7 +237,7 @@
       text-align: center;
       margin-right: 10px;
       vertical-align: top;
-      width: calc(50% - 20px);
+      width: calc(50% - 7.5px);
       .article-editor__body__form {
         border: none;
         border-radius: 5px;
@@ -209,29 +254,33 @@
       border-radius: 5px;
       display: inline-block;
       font-size: 20px;
-      height: calc(100% - 20px);
+      height: 100%;
       overflow: scroll;
       padding: 10px;
       vertical-align: top;
-      width: calc(50% - 20px);
+      width: calc(50% - 7.5px);
       * {
-        margin: 0;
+        margin: 5px;
+      }
+      table, td, th{
+        border-collapse: collapse;
+        border:1px solid #000;
+        padding: 5px;
       }
     }
   }
   .article-editor__submit {
     height: 60px;
-    line-height: 60px;
     text-align: right;
     width: 100%;
     .article-editor__submit-button {
       background-color: #c16;
       border: none;
-      border-radius: 10px;
+      border-radius: 5px;
       color: #fff;
       font-size: 15px;
-      margin-right: 60px;
-      padding: 10px 20px;
+      margin: 20px 60px;
+      padding: 5px 10px;
     }
   }
 }

@@ -9,7 +9,7 @@ class GroupsController < ApplicationController
     @group = Group.find(params[:id])
     # グループがprivateの場合、メンバーじゃない人を弾く
     if @group.private && @group.users.include?(current_user) == false
-      redirect_to groups_path
+      redirect_to groups_path, alert: "You don't have a permission to refer this group"
     end
     @group_user = GroupUser.new
   end
@@ -20,10 +20,13 @@ class GroupsController < ApplicationController
   end
 
   def create
-    if @group = current_user.groups.create(group_params)
+    @group = Group.new(group_params)
+    if @group.save
+      @group.users << current_user
       redirect_to @group, notice: 'New Group was Successfuly created'
     else
-      redirect_to groups_path
+      flash.now[:alert] = 'Some errors occured'
+      render 'new'
     end
   end
 
@@ -34,7 +37,8 @@ class GroupsController < ApplicationController
     if @group.update(group_params)
       redirect_to @group, notice: "Group #{@group.name} was Successfuly created"
     else
-      redirect_to @group
+      flash.now[:alert] = 'Some errors occured'
+      render 'edit'
     end
   end
 
@@ -46,7 +50,7 @@ class GroupsController < ApplicationController
   private
 
   def group_params
-    params.require(:group).permit(:name, :body, :private, :manager_id)
+    params.require(:group).permit(:name, :body, :private).merge(manager_id: current_user.id)
   end
 
   # Groupクラスのインスタンス変数を定義
@@ -56,7 +60,7 @@ class GroupsController < ApplicationController
 
   # masterグループにURLから処理を行おうとするのを防ぐ
   def prevent_using_master_group
-    return unless @group.id == MASTER_GROUP_ID
+    return unless @group.id == Group::MASTER_GROUP_ID
     redirect_to groups_path, notice: 'Not Found'
   end
 

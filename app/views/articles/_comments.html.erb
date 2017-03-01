@@ -1,38 +1,41 @@
-<div class='comments'>
-  <% comments.each do |comment| %>
-    <div class='comment'>
-      <div class='comment-user'>
-        <%= image_tag comment.user.image.to_s, class: 'comment-user__image' %>
-        <div class='comment-user__name'>
-          <%= comment.user.username %>
-        </div>
-        <div class='comment--right  clearfix'>
-          <div class='comment__buttons'>
+<% comments.each do |comment| %>
+  <div class='comment'>
+    <div class='comment-user'>
+      <%= image_tag comment.user.image.to_s, class: 'comment-user__image' %>
+      <div class='comment-user__name'>
+        <%= comment.user.username %>
+      </div>
+      <div class='comment--right  clearfix'>
+        <div class='comment__buttons'>
+          <% if current_user == comment.user %>
             <%= link_to "Edit",
-              article_path(article, comment_id: comment.id),
-              class: 'comment__button comment__edit-button'
+              edit_article_comment_path(article, comment),
+              class: "comment__button comment__edit-button>",
+              remote: true
             %>
             <%= link_to "Delete",
               article_comment_path(article, comment),
               method: :delete,
-              class: 'comment__button comment__delete-button'
+              class: 'comment__button comment__delete-button',
+              remote: true,
+              data: { confirm: 'Are you sure to delete this comment?'}
             %>
-          </div>
-          <div class='comment__updated-at'>
-            <%= comment.updated_at %>
-          </div>
+          <% end %>
         </div>
-      </div>
-      <div class='comment-body'>
-        <div class='comment__sentence'>
-          <%= comment.body %>
-        </div>
-        <div class='comment-footer'>
-          <%= render partial: "articles/comment_like",
-            locals:  { article: article, comment: comment }
-          %>
+        <div class='comment__updated-at'>
+          <%= comment.updated_at.in_time_zone('Tokyo').to_s(:usual_format) %>
         </div>
       </div>
     </div>
-  <% end %>
-</div>
+    <div class='comment-body'>
+      <div class='comment__sentence'>
+        <%= comment.body %>
+      </div>
+      <div class='comment-footer'>
+        <%= render partial: "articles/comment_like",
+          locals:  { article: article, comment: comment }
+        %>
+      </div>
+    </div>
+  </div>
+<% end %>

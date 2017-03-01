@@ -20,14 +20,12 @@
     font-weight: bold;
     margin: auto 40px;
     padding: 10px;
+    text-decoration: none;
     vertical-align: middle;
   }
   .top-tab:hover {
     background-color: #c16;
     color: #fff;
-  }
-  .top-tab:visited {
-    color: #000;
   }
 }
 
@@ -60,37 +58,42 @@
 
 // indexされたarticlesのstyle
 .searched-article {
-  height: 75px;
   border-top: 2px solid #ddd;
   .searched-article__image {
     border-radius: 5px;
     background-color: purple;
-    float: left;
+    display: inline-block;
     height: 55px;
-    margin: 10px 0;
+    margin: auto;
+    vertical-align: middle;
     width: 55px;
   }
   .searched-article__body {
-    float: left;
-    height: 55px;
-    margin: 10px 0 10px 20px;
+    display: inline-block;
+    margin: 8px 20px;
+    vertical-align: middle;
     .searched-article__body--header {
       font-size: 15px;
     }
-    .searched-article__title {
-      display: inline-block;
-      font-size: 25px;
-      vertical-align: middle;
-    }
-    .searched-article__statement {
-      border-radius: 3px;
-      display: inline-block;
-      color: #fff;
-      font-size: 15px;
-      padding: 5px;
-      vertical-align: middle;
-      .searched-article__statement__link:visited {
+    .searched-article__body__footer {
+      .searched-article__title {
+        display: inline-block;
+        font-size: 28px;
+        vertical-align: middle;
+      }
+      .searched-article__statement {
+        border-radius: 3px;
         color: #fff;
+        display: inline-block;
+        font-size: 15px;
+        padding: 5px;
+        vertical-align: middle;
+        a {
+          color: #fff;
+        }
+        a:visited {
+          color: #fff;
+        }
       }
     }
   }
@@ -136,32 +139,58 @@
 }
 
 // userを検索した結果のstyle
-.group__members {
-  margin: 20px 25% 0;
-  width: 50%;
-  .group__member {
-    .group__member__statement {
-      float: right;
-      margin-right: 20px;
-      .edit_group {
-        height: 75px;
-        .group__member__change-manager-button {
-          background-color: #c16;
-          border: none;
-          border-radius: 5px;
-          color: #fff;
-          font-size: 15px;
-          height: 30px;
-          line-height: 20px;
-          padding: 5px 10px;
-          text-align: center;
-          vertical-align: middle;
+.group__members-container {
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  float: right  ;
+  margin-right: 20px;
+  width: calc(100% - 350px);
+  .group__members {
+    margin: 20px 20px 0;
+    .group__member {
+      .group__member__statement {
+        float: right;
+        margin-right: 20px;
+        .edit_group {
+          height: 75px;
+          .group__member__change-manager-button {
+            background-color: #c16;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 15px;
+            height: 30px;
+            line-height: 20px;
+            padding: 5px 10px;
+            text-align: center;
+            vertical-align: middle;
+          }
         }
       }
+      .group__member__current-manager {
+        font-size: 15px;
+        font-weight: bold;
+      }
     }
-    .group__member__current-manager {
-      font-size: 15px;
-      font-weight: bold;
+  }
+}
+
+// paginatonに関するstyle
+.pagination-container {
+  text-align: center;
+  .pagination {
+    display: inline-block;
+    .active {
+      a {
+        background-color: #c16;
+        border-color: #c16;
+      }
+    }
+    a {
+      color: #000;
+    }
+    a:hover {
+      color: #c16;
     }
   }
 }
