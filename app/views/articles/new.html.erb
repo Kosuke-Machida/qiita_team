@@ -19,7 +19,8 @@
       %>
     </div>
     <div class='article-editor__tags'>
-      <%= f.text_field :tag_list,
+      <%= text_field_tag 'article[tag_list]',
+        @article.tag_list.join(','),
         'data-role'=>'tagsinput',
         placeholder: "Write Tag Name and Push Enters",
         class: 'article-editor__thin-form article-editor__tags__form'

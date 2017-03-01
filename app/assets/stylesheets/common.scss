@@ -75,21 +75,25 @@
     .searched-article__body--header {
       font-size: 15px;
     }
-    .searched-article__title {
-      display: inline-block;
-      font-size: 25px;
-    }
-    .searched-article__statement {
-      border-radius: 3px;
-      color: #fff;
-      display: inline-block;
-      font-size: 15px;
-      padding: 5px;
-      a {
-        color: #fff;
+    .searched-article__body__footer {
+      .searched-article__title {
+        display: inline-block;
+        font-size: 28px;
+        vertical-align: middle;
       }
-      a:visited {
+      .searched-article__statement {
+        border-radius: 3px;
         color: #fff;
+        display: inline-block;
+        font-size: 15px;
+        padding: 5px;
+        vertical-align: middle;
+        a {
+          color: #fff;
+        }
+        a:visited {
+          color: #fff;
+        }
       }
     }
   }

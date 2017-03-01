@@ -53,7 +53,7 @@
       </div>
       <!-- タグをそれぞれリンクにして表示 -->
       <div class='article__tags', style="display:inline-flex">
-        Tags : <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(',  ') %>
+        Tags : <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
       </div>
     </div>
 
