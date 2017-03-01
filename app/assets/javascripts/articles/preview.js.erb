@@ -1,11 +1,16 @@
 $(function(){
   // コードをハイライトするためにオリジナルのrendererを作る
+  var renderer = new marked.Renderer()
+  renderer.code = function(code, language) {
+    return '<pre'+'><code class="hljs">' + hljs.highlightAuto(code).value + '</code></pre>';
+  };
 
   // markdownの設定
   marked.setOptions({
     langPrefix: '',
     breaks: true,
-    sanitize: true
+    sanitize: true,
+    renderer: renderer
   });
 
   $("#article_body").keyup(function() {
