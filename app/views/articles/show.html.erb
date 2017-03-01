@@ -37,7 +37,8 @@
           <%= link_to "Delete",
             @article,
             method: :delete,
-            class: 'article__delete-button'
+            class: 'article__delete-button',
+            data: { confirm: 'Are you sure to delete this artivcl'}
           %>
         <% end %>
       </div>
@@ -53,7 +54,8 @@
       </div>
       <!-- タグをそれぞれリンクにして表示 -->
       <div class='article__tags', style="display:inline-flex">
-        Tags : <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') %>
+        <div class='article__tags__label'>Tags：</div>
+        <%= raw @article.tag_list.map { |t| link_to t, tag_path(t), class: 'article__tag' }.join('') %>
       </div>
     </div>
 

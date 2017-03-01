@@ -8,9 +8,9 @@ class CommentsController < ApplicationController
     set_comments
     Slack.chat_postMessage(
       text:
-      "#{@article.user.slack_name} #{current_user.username} commented on your post!```#{@comment.body}```",
+      "#{current_user.username} commented on your post!```#{@comment.body}```",
       username: 'Mr.Qiita Team',
-      channel: SLACK_SHARE_CHANNEL
+      channel: @comment.user.slack_name
     )
     respond_to do |format|
       format.js

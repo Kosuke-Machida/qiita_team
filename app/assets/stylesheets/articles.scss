@@ -92,6 +92,23 @@
         padding: 5px;
       }
     }
+    .article__tags {
+      margin-top: 30px;
+      .article__tags__label {
+        font-size: 20px;
+        font-weight: bold;
+      }
+      .article__tag {
+        background-color: #c16;
+        border-radius: 5px;
+        color: #fff;
+        font-size: 10px;
+        font-weight: bold;
+        margin-left: 10px;
+        padding: 5px 10px;
+        text-align:center;
+      }
+    }
   }
   .article-footer {
     margin-top: 20px;
@@ -141,6 +158,9 @@
       .comment__sentence {
         font-size: 20px;
       }
+    }
+    .comment-footer {
+      margin-top: 10px;
     }
   }
   .comment-form {

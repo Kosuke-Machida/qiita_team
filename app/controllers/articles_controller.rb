@@ -5,6 +5,7 @@ class ArticlesController < ApplicationController
 
   def index
     viewable_articles = Article.available_to(current_user)
+    @tag = params[:tag] if params[:tag]
     @articles = if params[:tag]
                   viewable_articles
                     .tagged_with(params[:tag])

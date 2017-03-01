@@ -1,7 +1,11 @@
 <%= render partial: 'articles/top_tabs' %>
 
 <div class='title-container'>
+  <% if @tag %>
+    <p class='tab-title'>Articles tagged to <%= @tag %></p>
+  <% else %>
     <p class='tab-title'>Timeline</p>
+  <% end %>
 </div>
 
 <div class='form-container'>
