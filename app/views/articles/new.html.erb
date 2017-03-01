@@ -38,7 +38,7 @@
     </div>
     <%= f.hidden_field :group_id, value: @group.id %>
     <div class='article-editor__submit'>
-      <% if @group.id == MASTER_GROUP_ID %>
+      <% if @group.id == Group::MASTER_GROUP_ID %>
         <%= f.submit "Post to everyone", class: 'article-editor__submit-button' %>
       <% else %>
         <%= f.submit "Post in #{@group.name}", class: 'article-editor__submit-button' %>

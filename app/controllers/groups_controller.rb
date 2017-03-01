@@ -60,7 +60,7 @@ class GroupsController < ApplicationController
 
   # masterグループにURLから処理を行おうとするのを防ぐ
   def prevent_using_master_group
-    return unless @group.id == MASTER_GROUP_ID
+    return unless @group.id == Group::MASTER_GROUP_ID
     redirect_to groups_path, notice: 'Not Found'
   end
 

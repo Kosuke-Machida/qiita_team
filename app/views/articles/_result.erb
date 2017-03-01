@@ -22,7 +22,7 @@
               <div class='searched-article__statement' style='background-color: #d94;'>
                 <%= fa_icon 'key' %> <%= link_to article.group.name, article.group %>
               </div>
-            <% elsif article.group_id == MASTER_GROUP_ID %>
+            <% elsif article.group_id == Group::MASTER_GROUP_ID %>
               <div class='searched-article__statement' style='background-color: #3b6;'>
                 Public
               </div>

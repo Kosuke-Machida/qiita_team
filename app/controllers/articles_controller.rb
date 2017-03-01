@@ -33,7 +33,7 @@ class ArticlesController < ApplicationController
     @group = if params[:group_id]
                Group.find(params[:group_id])
              else
-               Group.find(MASTER_GROUP_ID)
+               Group.find(Group::MASTER_GROUP_ID)
              end
     @article = Article.new
   end
@@ -55,7 +55,7 @@ class ArticlesController < ApplicationController
       @group = if params[:group_id]
                  Group.find(params[:group_id])
                else
-                 Group.find(MASTER_GROUP_ID)
+                 Group.find(Group::MASTER_GROUP_ID)
                end
       flash.now[:alert] = "Some errors occured"
       render 'new'

@@ -79,17 +79,23 @@ body {
 #container {
   padding-top: 60px;
   height: calc(100% - 60px);
-  #messages {
-    text-align: center;
-    height: 30px;
-    width: 100%;
-    .notice {
-      margin: 0;
-      padding: 0;
-    }
-    .alert {
-      margin: 0;
-      padding: 0;
+  .messages-container {
+      height: 30px;
+      position: relative;
+      width: 100%;
+    #messages {
+      text-align: center;
+      top: 0;
+	    bottom: 0;
+	    margin: auto;
+      .notice {
+        margin: 0;
+        padding: 0;
+      }
+      .alert {
+        margin: 0;
+        padding: 0;
+      }
     }
   }
 }

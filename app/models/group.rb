@@ -8,6 +8,8 @@ class Group < ActiveRecord::Base
   validates :body, presence: true
   validates :manager_id, presence: true
 
+  MASTER_GROUP_ID = 1
+
   def relation_with_user(user)
     group_users.find_by(user_id: user.id)
   end

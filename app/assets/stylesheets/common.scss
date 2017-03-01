@@ -58,27 +58,26 @@
 
 // indexされたarticlesのstyle
 .searched-article {
-  height: 75px;
   border-top: 2px solid #ddd;
   .searched-article__image {
     border-radius: 5px;
     background-color: purple;
-    float: left;
+    display: inline-block;
     height: 55px;
-    margin: 10px 0;
+    margin: auto;
+    vertical-align: middle;
     width: 55px;
   }
   .searched-article__body {
-    float: left;
-    height: 55px;
-    margin: 10px 0 10px 20px;
+    display: inline-block;
+    margin: 8px 20px;
+    vertical-align: middle;
     .searched-article__body--header {
       font-size: 15px;
     }
     .searched-article__title {
       display: inline-block;
       font-size: 25px;
-      vertical-align: middle;
     }
     .searched-article__statement {
       border-radius: 3px;
@@ -86,7 +85,6 @@
       display: inline-block;
       font-size: 15px;
       padding: 5px;
-      vertical-align: middle;
       a {
         color: #fff;
       }
