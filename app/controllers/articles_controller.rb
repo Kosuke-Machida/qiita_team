@@ -9,12 +9,12 @@ class ArticlesController < ApplicationController
     @articles = if params[:tag]
                   viewable_articles
                     .tagged_with(params[:tag])
-                    .order("updated_at DESC")
+                    .order('updated_at DESC')
                     .page(params[:page])
                     .per(10)
                 else
                   viewable_articles
-                    .order("updated_at DESC")
+                    .order('updated_at DESC')
                     .page(params[:page])
                     .per(10)
                 end
@@ -58,7 +58,7 @@ class ArticlesController < ApplicationController
                else
                  Group.find(Group::MASTER_GROUP_ID)
                end
-      flash.now[:alert] = "Some errors occured"
+      flash.now[:alert] = 'Some errors occured'
       render 'new'
     end
   end
@@ -67,7 +67,7 @@ class ArticlesController < ApplicationController
     if @article.update(article_params)
       redirect_to @article, notice: 'Your Article are successfuly updated'
     else
-      flash.now[:alert] = "Some errors occured"
+      flash.now[:alert] = 'Some errors occured'
       render 'edit'
     end
   end
@@ -82,10 +82,10 @@ class ArticlesController < ApplicationController
     @keyword = params[:keyword]
     viewable_articles = Article.available_to(current_user)
     @articles = viewable_articles
-                  .body_include(params[:keyword])
-                  .order("updated_at DESC")
-                  .page(params[:page])
-                  .per(10)
+                .body_include(params[:keyword])
+                .order('updated_at DESC')
+                .page(params[:page])
+                .per(10)
     respond_to do |format|
       format.js
     end
@@ -107,7 +107,7 @@ class ArticlesController < ApplicationController
   end
 
   def protect_private_article
-    if @article.group.private && @article.group.users.include?(current_user) == false
+    unless @article.group.private && @article.group.users.include?(current_user)
       redirect_to root_path, alert: "You don't have a permission to refer this group"
     end
   end

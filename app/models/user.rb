@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
     not_belonging_groups.select { |group| group.private == false }
   end
 
-  def has_already_joined_in_master_team?
+  def already_joined_in_master_team?
     GroupUser.where(user_id: id, group_id: Group::MASTER_GROUP_ID).present?
   end
 
