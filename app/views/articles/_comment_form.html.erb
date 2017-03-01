@@ -1,19 +1,18 @@
-<div class='comment-form'>
-  <div class='comment'>
-    <div class='comment-user'>
-    <%= image_tag current_user.image.to_s, class: 'comment-user__image' %>
-      <div class='comment-user__name'>
-        <%= current_user.username %>
-      </div>
+<div class='comment'>
+  <div class='comment-user'>
+  <%= image_tag current_user.image.to_s, class: 'comment-user__image' %>
+    <div class='comment-user__name'>
+      <%= current_user.username %>
     </div>
-    <div class='comment-body'>
+  </div>
+  <div class='comment-body'>
       <%= form_for [article, comment], remote: true do |f| %>
         <%= f.text_area :body,
           placeholder: 'write comment',
           rows: 5,
-          class: 'new_comment__textarea'
+          class: 'comment__textarea'
         %>
-        <%= f.submit "submit", class: 'new_comment__submit' %>
+        <%= f.submit "submit", class: 'comment__submit' %>
       <% end %>
     </div>
   </div>

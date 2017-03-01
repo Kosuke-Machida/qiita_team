@@ -12,7 +12,12 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap-tagsinput
 //= require jquery.turbolinks
 //= require bootstrap-sprockets
 //= require turbolinks
 //= require marked
+//= require highlight_js/highlight
+//= require highlight_js/languages/ruby
+
+hljs.initHighlightingOnLoad();

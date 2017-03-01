@@ -25,46 +25,69 @@
         edit_user_registration_path,
         method: :get,
         class: 'user__edit-button'
-    %>
+      %>
     <% end %>
   </div>
 </div>
 <div class='user-page__body'>
   <ul class="nav nav-tabs">
     <li class="active">
-      <a href="#tab1" class="nav-link" data-toggle="tab">
+      <a href="#article-tab" class="nav-link" data-toggle="tab">
         Articles
       </a>
     </li>
     <li>
-      <a href="#tab2" class="nav-link" data-toggle="tab">
+      <a href="#stock-tab" class="nav-link" data-toggle="tab">
         Stocks
       </a>
     </li>
     <li>
-      <a href="#tab3" class="nav-link" data-toggle="tab">
+      <a href="#comment-tab" class="nav-link" data-toggle="tab">
         Comments
       </a>
     </li>
   </ul>
   <div class="tab-content">
-    <div id="tab1" class="tab-pane active">
+    <div id="article-tab" class="tab-pane active">
       <% if @user.articles.present? %>
-          <%= render partial: 'articles/result', locals: { articles: @user.articles.page(params[:page]).per(10) } %>
+          <%= render partial: 'articles/result',
+            locals: { articles: @user
+                                  .articles
+                                  .order("updated_at DESC")
+                                  .page(params[:page])
+                                  .per(10),
+                      keyword: nil
+                    }
+          %>
       <% else %>
         <div>There are no articles stocked </div>
       <% end %>
     </div>
-    <div id="tab2" class="tab-pane">
+    <div id="stock-tab" class="tab-pane">
       <% if @stocked_articles.present? %>
-        <%= render partial: 'articles/result', locals: { articles: @stocked_articles.page(params[:page]).per(10) } %>
+        <%= render partial: 'articles/result',
+          locals: { articles: @stocked_articles
+                                .order("updated_at DESC")
+                                .page(params[:page])
+                                .per(10),
+                    keyword: nil
+                  }
+        %>
       <% else %>
         <div>There are no articles stocked </div>
       <% end %>
     </div>
-    <div id="tab3" class="tab-pane">
+    <div id="comment-tab" class="tab-pane">
       <% if Article.commented_by(current_user).present? %>
-        <%= render partial: 'articles/result', locals: { articles: Article.commented_by(current_user).page(params[:page]).per(10) } %>
+        <%= render partial: 'articles/result',
+          locals: { articles: Article
+                                .commented_by(current_user)
+                                .order("updated_at DESC")
+                                .page(params[:page])
+                                .per(10),
+                    keyword: nil
+                  }
+        %>
       <% else %>
         <div>There are no articles commented </div>
       <% end %>

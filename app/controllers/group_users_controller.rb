@@ -13,6 +13,12 @@ class GroupUsersController < ApplicationController
       message = if user == current_user
                   "You successfuly joined in #{@group.name}"
                 else
+                  Slack.chat_postMessage(
+                    text:
+                    "#{user.slack_name} #{current_user.username} invited you to the group #{@group.name}",
+                    username: 'Mr.Qiita Team',
+                    channel: user.slack_name
+                  )
                   "You successfuly invited #{user.username} to #{@group.name}"
                 end
       redirect_to group_path(@group.id), notice: message

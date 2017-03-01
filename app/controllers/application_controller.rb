@@ -11,14 +11,14 @@ class ApplicationController < ActionController::Base
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :slack_name, :image])
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:username, :slack_name, :image])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:username, :slack_name, :image])
   end
 
   def invite_user_to_master_group
     return unless user_signed_in?
     # もしマスターチームに入ってなかったら入れる
-    return if current_user.has_alredy_joined_in_this_group?
-    group_user = GroupUser.new(user_id: current_user.id, group_id: MASTER_GROUP_ID)
+    return if current_user.already_joined_in_master_team?
+    group_user = GroupUser.new(user_id: current_user.id, group_id: Group::MASTER_GROUP_ID)
     return if group_user.save
     redirect_to root_path
   end

@@ -8,19 +8,20 @@
           <%= link_to @article.user.username, @article.user %>
         </div>
         <div class='article__updated-at'>
-          <%= @article.created_at %>
+          <%= @article.updated_at.in_time_zone('Tokyo').to_s(:usual_format) %>
         </div>
       </div>
       <div class='article__header--right'>
         <% if @article.stocked?(current_user) %>
-          <%= button_to article_stock_path(@article, @article.related_stock(current_user)),
+          <%= link_to article_stock_path(@article, @article.related_stock(current_user)),
             method: :delete,
             class: 'article__stock-button' do
           %>
             <%= fa_icon "folder-open" %> | unstock
           <% end %>
         <% else %>
-          <%= button_to article_stocks_path([@article, @stock]),
+          <%= link_to article_stocks_path(@article, @stock),
+            method: :post,
             class: 'article__stock-button' do
           %>
             <%= fa_icon "folder-open-o" %> | stock
@@ -36,7 +37,8 @@
           <%= link_to "Delete",
             @article,
             method: :delete,
-            class: 'article__delete-button'
+            class: 'article__delete-button',
+            data: { confirm: 'Are you sure to delete this artivcl'}
           %>
         <% end %>
       </div>
@@ -46,16 +48,14 @@
       <div class='article__title'>
         <%= @article.title %>
       </div>
-      <% unless @article.group.id == MASTER_GROUP_ID %>
-        <%= link_to @article.group.name, @article.group, html: { class: 'article__group' } %>
-      <% end %>
 
       <div class='article__body'>
         <%= markdown(@article.body).html_safe %>
       </div>
       <!-- タグをそれぞれリンクにして表示 -->
       <div class='article__tags', style="display:inline-flex">
-        Tags:  <%= raw @article.tag_list.map { |t| link_to t, tag_path(t) }.join('') %>
+        <div class='article__tags__label'>Tags：</div>
+        <%= raw @article.tag_list.map { |t| link_to t, tag_path(t), class: 'article__tag' }.join('') %>
       </div>
     </div>
 
@@ -68,7 +68,11 @@
   </div>
 
   <div class='comments-container'>
-    <%= render partial: 'comments', locals: { article: @article, comments: @comments } %>
-    <%= render partial: 'comment_form', locals: { article: @article, comment: @comment } %>
+    <div class="comments">
+      <%= render partial: 'comments', locals: { article: @article, comments: @comments } %>
+    </div>
+    <div class='comment-form'>
+      <%= render partial: 'comment_form', locals: { article: @article, comment: @comment } %>
+    </div>
   </div>
 </div>

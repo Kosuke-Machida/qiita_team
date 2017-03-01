@@ -1,36 +1,48 @@
+<%= javascript_include_tag 'cut_string' %>
 <div class='searched-articles-container'>
-  <div class='searched-articles'>
-    <% articles.each do |article| %>
-      <div class='searched-article'>
-        <%= image_tag article.user.image.to_s, class: 'searched-article__image' %>
-        <div class='searched-article__body'>
-          <div class='searched-article__body__header'>
-            <span class='searched-article__username'>
-              by <%= link_to article.user.username, user_path(article.user) %>
-            </span>
-          </div>
-          <div class='searched-article__title'>
-            <%= link_to article.title, article_path(article) %>
-          </div>
-          <!-- groupの性質によってstyleを分ける -->
-          <% if article.group.private == true %>
-            <div class='searched-article__statement' style='background-color: #d94;'>
-              <%= link_to article.group.name, article.group %>
-            </div>
-          <% elsif article.group_id == MASTER_GROUP_ID %>
-            <div class='searched-article__statement' style='background-color: #3b6;'>
-              Public
-            </div>
-          <% else %>
-            <div class='searched-article__statement' style='background-color: #5bd;'>
-              <%= link_to article.group.name, article.group %>
-            </div>
-          <% end %>
-        </div>
-      </div>
+  <% if keyword.present? || keyword.nil? %>
+    <% if keyword.present? %>
+      <p>The result of search by keyword "<%= @keyword %>"</p>
     <% end %>
-    <div class='pagination-container'>
-      <%= paginate articles %>
+    <div class='searched-articles'>
+      <% articles.each do |article| %>
+        <%  unless article.group.private && article.group.users.include?(current_user) == false %>
+          <div class='searched-article'>
+            <%= image_tag article.user.image.to_s, class: 'searched-article__image' %>
+            <div class='searched-article__body'>
+              <div class='searched-article__body__header'>
+                <span class='searched-article__username'>
+                  by <%= link_to article.user.username, user_path(article.user) %>
+                </span>
+              </div>
+              <div class='searched-article__body__footer'>
+                <div class='searched-article__title'>
+                  <%= link_to article.title, article_path(article), class: 'cut_string' %>
+                </div>
+                <!-- groupの性質によってstyleを分ける -->
+                <% if article.group.private == true %>
+                  <div class='searched-articie__statement' style='background-color: #d94;'>
+                    <%= fa_icon 'key' %> <%= link_to article.group.name, article.group %>
+                  </div>
+                <% elsif article.group_id == Group::MASTER_GROUP_ID %>
+                  <div class='searched-article__statement' style='background-color: #3b6;'>
+                    Public
+                  </div>
+                <% else %>
+                  <div class='searched-article__statement' style='background-color: #5bd;'>
+                    <%= fa_icon 'group' %> <%= link_to article.group.name, article.group %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+      <div class='pagination-container'>
+        <%= paginate articles %>
+      </div>
     </div>
-  </div>
+  <% else %>
+    <p>type some keyword!!</p>
+  <% end %>
 </div>
