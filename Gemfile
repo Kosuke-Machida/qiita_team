@@ -34,10 +34,20 @@ group :development do
 end
 
 group :development, :test do
-  gem 'brakeman'
   gem 'byebug'
+  gem 'brakeman'
+  gem 'factory_girl_rails'
   gem 'rubocop', require: false
   gem 'rubocop-rspec'
   gem 'rubycritic'
+  gem 'rspec-rails'
   gem 'spring'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'database_cleaner'
+  gem 'faker'
+  gem 'launchy'
+  gem 'selenium-webdriver'
 end

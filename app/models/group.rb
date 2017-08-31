@@ -17,4 +17,8 @@ class Group < ActiveRecord::Base
   def joined_by_this_user?(user)
     GroupUser.exists?(user_id: user.id, group_id: id)
   end
+
+  def self.without_master_joined_by(user)
+    user.groups - [ find(MASTER_GROUP_ID) ]
+  end
 end

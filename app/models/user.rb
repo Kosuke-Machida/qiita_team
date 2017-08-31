@@ -7,10 +7,12 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true, uniqueness: true
   validates :slack_name,
-            format: { presence: true,
-                      with: /\@/,
+            presence: true,
+            uniqueness: true,
+            format: { with: /\@/,
                       message: 'should start with @' }
   validates :email,
+            uniqueness: true,
             format: { with: /\@finc\.com/,
                       message: 'should be from finc.com' }
 
@@ -20,7 +22,7 @@ class User < ActiveRecord::Base
   mount_uploader :image, ImageUploader
 
   def belonging_groups_without_master
-    groups - [Group.find(Group::MASTER_GROUP_ID)]
+   Group.without_master_joined_by(self)
   end
 
   def not_belonging_groups
@@ -32,7 +34,7 @@ class User < ActiveRecord::Base
   end
 
   def already_joined_in_master_team?
-    GroupUser.where(user_id: id, group_id: Group::MASTER_GROUP_ID).present?
+    GroupUser.find_by(user_id: id, group_id: Group::MASTER_GROUP_ID).present?
   end
 
   has_many :articles, dependent: :destroy
