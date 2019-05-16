@@ -36,6 +36,7 @@ group :development, :test do
   gem 'byebug'
   gem 'brakeman'
   gem 'factory_girl_rails'
+  gem 'faker'
   gem 'rubocop', require: false
   gem 'rubocop-rspec'
   gem 'rubycritic'
@@ -46,7 +47,6 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'faker'
   gem 'launchy'
   gem 'selenium-webdriver'
 end

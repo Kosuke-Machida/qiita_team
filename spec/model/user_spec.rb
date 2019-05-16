@@ -51,17 +51,10 @@ describe User do
       expect(user.errors[:email]).to include("can't be blank")
     end
 
-    # メールドメインがfinc.comでは無いとuserが作成できないこと
-    it "is invalid with a email not including '@finc.com'" do
-      user = build(:user, email: Faker::Internet.free_email)
-      user.valid?
-      expect(user.errors[:email]).to include("should be from finc.com")
-    end
-
     # slack_nameが重複しているとuserは作成できないこと
     it "is invalid with a duplicate email" do
-      userA = create(:user, email: 'test@finc.com')
-      userB = build(:user, email: 'test@finc.com')
+      userA = create(:user, email: 'test@machio.me')
+      userB = build(:user, email: 'test@machio.me')
       userB.valid?
       expect(userB.errors[:email]).to include("has already been taken")
     end

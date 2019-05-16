@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :user do
     username   Faker::Internet.user_name
     slack_name "@" + Faker::Internet.user_name
-    email      Faker::Internet.user_name + "test@finc.com"
+    email      Faker::Internet.user_name + "test@machio.me"
     password   Faker::Internet.password(8)
 
     # master_groupを自動でcreateして紐付ける

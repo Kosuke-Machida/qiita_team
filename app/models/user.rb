@@ -11,10 +11,6 @@ class User < ActiveRecord::Base
             uniqueness: true,
             format: { with: /\@/,
                       message: 'should start with @' }
-  validates :email,
-            uniqueness: true,
-            format: { with: /\@finc\.com/,
-                      message: 'should be from finc.com' }
 
   scope :searched_by_name, ->(keyword) { where('username LIKE(?)', "%#{keyword}%") }
   scope :group_manager, ->(group_manager_id) { find_by('id = ?', group_manager_id) }
