@@ -1,23 +1,24 @@
-== Qiita Team
+# machio team
+## Overview
+This is Rails application inspired by [Qiita team](https://teams.qiita.com/).
 
-#機能要求
-- プログラミングに関する知識をarticleとして投稿
-- user
-- Log-in/Log-out機能
-- articleに対するcomment
-- articleの検索フォーム
-- articleのtag機能
-- articleのstock機能
-- articleのいいね
-- commentのいいね
-- group機能
-- groupのofficialとprivate
-- groupへのinvite(prvateのみ)
-- Header
-- User Page
-- Userの権限管理＆導入方法
-- slack連携
-- markdown
-- 全体の検索フォーム
-- modelのテスト
-- controllerのテスト
+You can do
+- Create your own account
+- See timeline
+- Search articles
+- Post public/private article
+- Add tags to your article
+- Create and join public/private group
+
+and articles have *Realtime Markdown* and "Syntax Highlight"
+
+## How to Run
+ ```
+$ bundle install
+$ cp .env.sample .env
+// Edit .env to set your local environment variable
+$ bundle exec rake db:create
+$ bundle exec rake db:migration
+$ bundle exec rake db:seed_fu
+$ bundle exec rails s -p 3000
+ ```
